@@ -1,0 +1,136 @@
+Function 0 2
+:Loop
+Push_0
+CallNative WAIT 1 0
+Push 0xEEEB//SKEL_L_Forearm 
+Push 0x49D9//SKEL_L_Hand 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0x67F2//SKEL_L_Finger00 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0xFF9//SKEL_L_Finger01 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0xFFA//SKEL_L_Finger02 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0x67F3//SKEL_L_Finger10 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0x1049//SKEL_L_Finger11 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0x104A//SKEL_L_Finger12 
+Call @SKELETONESP_
+Push 0x49D9//SKEL_L_Hand 
+Push 0x67F4//SKEL_L_Finger20 
+Call @SKELETONESP_
+Push 0x9995//SKEL_Neck_1 
+Push 0xFCD9//SKEL_L_Clavicle 
+Call @SKELETONESP_
+Push 0xEEEB//SKEL_L_Forearm 
+Push 0xB1C5//SKEL_L_UpperArm 
+Call @SKELETONESP_
+Push 0xFCD9//SKEL_L_Clavicle 
+Push 0xB1C5//SKEL_L_UpperArm 
+Call @SKELETONESP_
+Push 0x9995//SKEL_Neck_1 
+Push 0x60F2//SKEL_Spine3 
+Call @SKELETONESP_
+Push 0xCC4D//SKEL_R_Foot 
+Push 0x9000//SKEL_R_Calf 
+Call @SKELETONESP_
+Push 0x9000//SKEL_R_Calf 
+Push 0xCA72//SKEL_R_Thigh 
+Call @SKELETONESP_
+Push 0xCA72//SKEL_R_Thigh 
+Push 0x2E28//SKEL_Pelvis 
+Call @SKELETONESP_
+Push 0x6E5C//SKEL_R_Forearm 
+Push 0xDEAD//SKEL_R_Hand 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xE5F2//SKEL_R_Finger00 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xFA10//SKEL_R_Finger01 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xFA11//SKEL_R_Finger02 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xE5F3//SKEL_R_Finger10 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xFA60//SKEL_R_Finger11 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xFA61//SKEL_R_Finger12 
+Call @SKELETONESP_
+Push 0xDEAD//SKEL_R_Hand 
+Push 0xE5F4//SKEL_R_Finger20 
+Call @SKELETONESP_
+Push 0x9995//SKEL_Neck_1 
+Push 0x29D2//SKEL_R_Clavicle 
+Call @SKELETONESP_
+Push 0x6E5C//SKEL_R_Forearm 
+Push 0x9D4D//SKEL_R_UpperArm 
+Call @SKELETONESP_
+Push 0x29D2//SKEL_R_Clavicle 
+Push 0x9D4D//SKEL_R_UpperArm 
+Call @SKELETONESP_
+Push 0x3779//SKEL_L_Foot 
+Push 0xF9BB//SKEL_L_Calf 
+Call @SKELETONESP_
+Push 0xF9BB//SKEL_L_Calf 
+Push 0xE39F//SKEL_L_Thigh 
+Call @SKELETONESP_
+Push 0xE39F//SKEL_L_Thigh 
+Push 0x2E28//SKEL_Pelvis 
+Call @SKELETONESP_
+Push 0x3779//SKEL_L_Foot 
+Push 0x83C//SKEL_L_Toe0 
+Call @SKELETONESP_
+Push 0xCC4D//SKEL_R_Foot 
+Push 0x512D//SKEL_R_Toe0 
+Call @SKELETONESP_
+Push 0xE0FD//SKEL_Spine_Root 
+Push 0x5C01//SKEL_Spine0 
+Call @SKELETONESP_
+Push 0x5C01//SKEL_Spine0 
+Push 0x60F0//SKEL_Spine1 
+Call @SKELETONESP_
+Push 0x60F0//SKEL_Spine1 
+Push 0x60F1//SKEL_Spine2 
+Call @SKELETONESP_
+Push 0x60F1//SKEL_Spine2 
+Push 0x60F2//SKEL_Spine3
+Call @SKELETONESP_
+Jump @Loop
+//UNKNOWNMODDER : https://pastebin.com/3pz17QGd  Credits for Ped Bone ID's
+
+
+:SKELETONESP_
+Function 2 4
+CallNative "PLAYER_PED_ID" 0 1
+getF1 0
+CallNative "PLAYER_PED_ID" 0 1
+getF1 0
+CallNative "GET_WORLD_POSITION_OF_ENTITY_BONE" 2 3
+CallNative "GET_PED_BONE_COORDS" 5 3
+CallNative "PLAYER_PED_ID" 0 1
+getF1 1
+CallNative "PLAYER_PED_ID" 0 1
+getF1 1
+CallNative "GET_WORLD_POSITION_OF_ENTITY_BONE" 2 3
+CallNative "GET_PED_BONE_COORDS" 5 3
+Push2 0 255
+CallNative "GET_RANDOM_INT_IN_RANGE" 2 1
+Push2 0 255
+CallNative "GET_RANDOM_INT_IN_RANGE" 2 1
+Push2 0 255
+CallNative "GET_RANDOM_INT_IN_RANGE" 2 1
+Push 255
+CallNative "DRAW_LINE" 10 0
+Return 2 0

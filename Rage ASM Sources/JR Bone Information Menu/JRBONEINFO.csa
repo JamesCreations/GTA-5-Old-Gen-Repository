@@ -1,0 +1,4683 @@
+IncludeStaticFile JRBONEINFO_Statics.c
+Function 0 2 0
+Push 5
+StaticSet skipvalue
+Push 5
+StaticSet takevalue
+Push 0
+StaticSet boneviewer
+PushString "Bone Info"
+StaticSet2 MainMenuTitleText
+PushString "v0.1 By James reborn"
+StaticSet2 VersionNumber
+PushString "commonmenu"
+Call @MaybeLoadTexture_
+push_1
+StaticSet OpenOption
+push_1
+StaticSet OpenSubmenu
+CallNative "NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME" 0 0
+Call @StartupContinue_
+Return 0 0
+:StartupContinue_
+Call @StartupStuff_
+Jump @Loop_
+:Loop_
+Call @MainLoop_
+Jump @Loop_
+:MainLoop_
+Function 0 2 0
+push_0
+CallNative "WAIT" 1 0
+Call @OtherLoops_
+CallNative "IS_WARNING_MESSAGE_ACTIVE" 0 1
+CallNative "IS_PAUSE_MENU_ACTIVE" 0 1
+Or
+Not
+JumpTrue @MainLoopContinue_
+Return 0 0
+:MainLoopContinue_
+StaticGet CurrentSubmenu
+Switch [0=@MenuClosed_][1=@CallMainMenu_][2=@CallPedBones_][3=@CallVehicleBones_][4=@CallWeaponBones_]
+:CallMainMenu_
+Call @MainMenu_
+Jump @MenuOpen_
+:CallPedBones_
+Call @PedBones_
+Jump @MenuOpen_
+:CallVehicleBones_
+Call @VehicleBones_
+Jump @MenuOpen_
+:CallWeaponBones_
+Call @WeaponBones_
+Jump @MenuOpen_
+//Region //Base_Code
+:AddStrings_
+Function 2 4 0
+getF1 0
+pStatic 53
+StrCopy 64
+getF1 1
+pStatic 53
+StrAdd 64
+pStatic 53
+Return 2 1
+:IntToString_
+Function 1 3 0
+PushString ""
+StaticSet 254
+getF1 0
+pStatic 254
+ItoS 32
+pStatic 254
+Return 1 1
+:AddInfo_
+Function 3 6
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndAddInfo_
+getF1 0
+JumpTrue @SetF16Higher_
+fPush 0.03272
+setF1 6
+Jump @AddInfoContinue_
+:SetF16Higher_
+fPush 0.035
+setF1 6
+:AddInfoContinue_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @SetInfoBoxFixedCoords_
+StaticGet SubmenuOptionCount
+Add1 1
+Jump @DrawInfoBoxCalcYCoord_
+:SetInfoBoxFixedCoords_
+Push1 14
+:DrawInfoBoxCalcYCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2395
+fAdd
+Dup
+StaticSet InfoLineCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+fPush_2.0
+fDiv
+fAdd
+fPush 0.003
+fAdd
+StaticSet InfoBoxCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+StaticSet InfoBoxLength
+StaticGet InfoLineCoord
+fPush 0.0205
+fAdd
+fPush 0.018
+fSub
+StaticSet InfoTextCoord
+StaticGet MenuXCoord3
+StaticGet InfoLineCoord
+fPush 0.2240
+fPush 0.005
+StaticGet BackgroundINFOLINER
+StaticGet BackgroundINFOLINEG
+StaticGet BackgroundINFOLINEB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet MenuXCoord3
+StaticGet InfoBoxCoord
+fPush 0.2240
+StaticGet InfoBoxLength
+StaticGet BackgroundINFOBOXR
+StaticGet BackgroundINFOBOXG
+StaticGet BackgroundINFOBOXB
+StaticGet BackgroundINFOBOXA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionFont
+StaticGet UnselectedTextINFOOPTIONR
+StaticGet UnselectedTextINFOOPTIONG
+StaticGet UnselectedTextINFOOPTIONB
+StaticGet INFOTextOutlineOptions
+Call @StringBase_
+PushString "TWOSTRINGS"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 1
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+getF1 2
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet InfoTextCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddInfo_
+Return 3
+:MenuClosed_
+JumpFalse @MenuClosedSkipBindHint_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_HELP" 1 0
+StaticGet BindHintText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+Push3 0 0 0
+push_-1
+CallNative "END_TEXT_COMMAND_DISPLAY_HELP" 4 0
+:MenuClosedSkipBindHint_
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+StaticGet OpenSubmenu
+StaticSet CurrentSubmenu
+StaticGet OpenOption
+StaticSet CurrentOption
+:EndMenuClosed_
+Return 0 0
+:MenuOpen_
+Call @DisableControls_
+Call @CheckBindsMenuOpen_
+push_0
+StaticGet CloseLoaderBind
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @GoBackSubmenu_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuUp_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsUpJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsUpJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuUp_
+:IsUpJustReleased_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @MonitorButtonDown_
+push_0
+StaticSet ScrollTimer
+:MonitorButtonDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsDownJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsDownJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuDown_
+:IsDownJustReleased_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @EndMenuOpen_
+push_0
+StaticSet ScrollTimer
+:EndMenuOpen_
+Return 0 0
+:Add1ToScrollTimer_
+Function 0 2 0
+StaticGet ScrollTimer
+Add1 1
+StaticSet ScrollTimer
+Return 0 0
+:GoBackSubmenu_
+PushString "BACK"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+JumpTrue @CloseMenu_
+StaticGet CurrentOption
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArraySet1 1
+StaticGet SubmenuLevel
+push_1
+Sub
+Dup
+StaticSet SubmenuLevel
+pStatic LastSubmenu
+ArrayGet1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastOption
+ArrayGet1 1
+StaticSet CurrentOption
+Jump @EndCloseMenu_
+:CloseMenu_
+push_0
+StaticSet CurrentSubmenu
+CallNative "GET_GAME_TIMER" 0 1
+PushS 750
+Add
+StaticSet DisableCinematicCameraTimer
+JumpFalse @EndCloseMenu_
+:EndCloseMenu_
+Return 0 0
+:MenuUp_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+JumpTrue @MenuUpMax_
+StaticGet CurrentOption
+push_1
+Sub
+StaticSet CurrentOption
+Jump @EndMenuUp_
+:MenuUpMax_
+StaticGet SubmenuOptionCount
+StaticSet CurrentOption
+:EndMenuUp_
+Return 0 0
+:WasXJustPressed_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @WasXJustPressedFalse_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+StaticGet ChangedSubmenu
+Or
+Or
+JumpTrue @WasXJustPressedFalse_
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @WasXJustPressedFalse_
+PushString "SELECT"
+Call @PlayMenuSound_
+push_1
+Return 0 1
+:WasXJustPressedFalse_
+push_0
+Return 0 1
+:CheckBindsMenuOpen_
+Function 0 2 0
+StaticGet CurrentOption
+StaticSet OpenOption
+StaticGet CurrentSubmenu
+StaticSet OpenSubmenu
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+And
+JumpFalse @DontCloseMenu_
+PushString "BACK"
+Call @PlayMenuSound_
+push_0
+StaticSet CurrentSubmenu
+:DontCloseMenu_
+Return 0 0
+:MenuDown_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+StaticGet SubmenuOptionCount
+JumpEQ @MenuDownMin_
+StaticGet CurrentOption
+Add1 1
+StaticSet CurrentOption
+Jump @EndMenuDown_
+:MenuDownMin_
+push_1
+StaticSet CurrentOption
+:EndMenuDown_
+Return 0 0
+:DisableControls_
+Function 0 2 0
+push_0
+pGlobal2 10434
+SetImmediate1 1//disable phone
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621//disable multiplayer name/rank popup
+push_0
+CallNative "SET_CINEMATIC_MODE_ACTIVE" 1 0
+CallNative "HIDE_HELP_TEXT_THIS_FRAME" 0 0
+push_6
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_7
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 8
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 9
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_2
+StaticGet Enablethings
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet CloseLoaderBind
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet EnterSUBMENUS
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindDown
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindUp
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind1
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+CallNative "PLAYER_PED_ID" 0 1
+push_0
+PushString "DEFAULT_ACTION" 
+CallNative "SET_PED_STEALTH_MOVEMENT" 3 0
+Return 0 0
+:GapFix_
+Function 1 3 0
+CallNative "IS_XBOX360_VERSION" 0 1
+JumpFalse @EndGapFix_
+getF1 0
+fPush 0.001
+fAdd
+setF1 0
+:EndGapFix_
+getF1 0
+Return 1 1
+:AddTitle_
+Function 1 3 0
+StaticGet MenuXCoord3
+fPush 0.188
+Call @GapFix_
+fPush 0.2240
+fPush 0.09
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet TitleFont
+StaticGet TitleR
+StaticGet TitleG
+StaticGet TitleB
+StaticGet TextOutlineTitle
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_CENTRE" 1 0
+fPush_0.0
+fPush 0.9
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord3
+fPush 0.163
+Call @GapFix_
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+push_0
+StaticSet OptionCount
+Call @IfSubmenuHasChangedCorrectCurrentOption_
+push_0
+StaticSet ChangedSubmenu
+Return 1 0
+:DrawBackground_
+Function 1 3 0
+getF1 0
+Dup
+StaticSet SubmenuOptionCount
+Push1 13
+JumpGT @DrawBackgroundForcedCoord_
+getF1 0
+Jump @DrawBackgroundCalculateCoord_
+:DrawBackgroundForcedCoord_
+Push1 13
+:DrawBackgroundCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush_2.0
+fDiv
+fPush 0.234
+fAdd
+StaticSet BackgroundCoord
+getF1 0
+Push1 13
+JumpGT @DrawBackgroundForcedLength_
+getF1 0
+Jump @DrawBackgroundCalculateLength_
+:DrawBackgroundForcedLength_
+Push1 13
+:DrawBackgroundCalculateLength_
+ItoF
+fPush 0.035
+fMul
+StaticSet BackgroundLength
+StaticGet MenuXCoord3
+StaticGet BackgroundCoord
+fPush 0.2240
+StaticGet BackgroundLength
+StaticGet BackgroundR
+StaticGet BackgroundG
+StaticGet BackgroundB
+StaticGet BackgroundA
+CallNative "DRAW_RECT" 8 0
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @BottombarFixedCoords_
+StaticGet SubmenuOptionCount
+Jump @DrawBottombar_
+:BottombarFixedCoords_
+Push1 13
+:DrawBottombar_
+ItoF
+fPush_1.0
+fAdd
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet BottombarCoord
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet VersionNumber
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+StaticGet OptionCountDisplay
+JumpFalse @SkipDrawOptionCount_
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "CM_ITEM_COUNT"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet CurrentOption
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+StaticGet SubmenuOptionCount
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+fPush_0.0
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:SkipDrawOptionCount_
+StaticGet ScrollArrows
+JumpFalse @DrawScrollbar_
+StaticGet ScrollArrowsAlways
+JumpTrue @SkipCheckOptionCount_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpLE @DrawScrollbar_
+:SkipCheckOptionCount_
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @DrawScrollbar_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+StaticGet ScrollArrowsR
+StaticGet ScrollArrowsG
+StaticGet ScrollArrowsB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:DrawScrollbar_
+StaticGet CurrentOption
+Push1 7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @DrawScrollbarSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @DrawScrollbarComplex_
+Push1 7
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarComplex_
+Push1 13
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+Sub
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarSimple_
+StaticGet CurrentOption
+:DrawScrollbarCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticGet SmoothScroll
+JumpFalse @SkipSmoothScroll_
+StaticGet ScrollbarCoord
+Call @SmoothScroll_
+:SkipSmoothScroll_
+StaticSet ScrollbarCoord
+StaticGet MenuXCoord3
+StaticGet ScrollbarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet ScrollbarR
+StaticGet ScrollbarG
+StaticGet ScrollbarB
+StaticGet ScrollbarA
+CallNative "DRAW_RECT" 8 0
+:SkipDrawScrollbar_
+Return 1 0
+:SmoothScroll_
+Function 2 5 0
+getF1 0
+setF1 5
+getF1 1
+JumpFalse @EndSmoothScroll_
+getF1 0
+getF1 1
+JumpLT @SubFromScrollbarCoord_
+getF1 0
+getF1 1
+JumpGT @AddToScrollbarCoord_
+Jump @EndSmoothScroll_
+:SubFromScrollbarCoord_
+getF1 1
+getF1 0
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 1
+getF1 0
+fSub
+fPush 1.7
+fDiv
+fSub
+setF1 5
+Jump @EndSmoothScroll_
+:AddToScrollbarCoord_
+getF1 0
+getF1 1
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 0
+getF1 1
+fSub
+fPush 1.7
+fDiv
+fAdd
+setF1 5
+:EndSmoothScroll_
+getF1 5
+Return 2 1
+:GetSafezoneSizeHalfed_
+Function 0 2 0
+CallNative "GET_SAFE_ZONE_SIZE" 0 1
+fPush_2.0
+fDiv
+Return 0 1
+:PlayMenuSound_
+Function 1 3 0
+push_-1
+getF1 0
+PushString "HUD_FRONTEND_DEFAULT_SOUNDSET"
+CallNative "PLAY_SOUND_FRONTEND" 3 0
+Return 1 0
+:CheckXPressed_
+Function 0 2 0
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+Return 0 1
+:CheckLeftPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @LeftPressedTrue_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsLeftJustReleased_
+getF1 0
+JumpFalse @CheckLeftPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckLeftPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsLeftJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @LeftPressedTrue_
+:IsLeftJustReleased_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @LeftPressedFalse_
+push_0
+StaticSet ScrollTimer
+:LeftPressedFalse_
+push_0
+Return 1 1
+:LeftPressedTrue_
+getF1 0
+JumpFalse @LeftPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:LeftPressedTrueContinue_
+push_1
+Return 1 1
+:CheckRightPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @RightPressedTrue_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsRightJustReleased_
+getF1 0
+JumpFalse @CheckRightPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckRightPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsRightJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @RightPressedTrue_
+:IsRightJustReleased_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @RightPressedFalse_
+push_0
+StaticSet ScrollTimer
+:RightPressedFalse_
+push_0
+Return 1 1
+:RightPressedTrue_
+getF1 0
+JumpFalse @RightPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:RightPressedTrueContinue_
+push_1
+Return 1 1
+:AddOnOffOption_
+Function 1 3 0
+StaticGet NoSprite
+JumpTrue @EndAddOnOffOption_
+StaticGet CurrentOption
+Push1 8
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 15
+CmpLE
+Or
+JumpTrue @AddOnOffOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+JumpLT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Add
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+Push1 8
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+JumpLE @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionSimple_
+StaticGet OptionCount
+Push1 15
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+:AddOnOffOptionDrawSprite_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet SpriteCoord
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddOnOffOption_
+StaticGet SpriteOutline
+JumpFalse @SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.03
+fPush 0.0494
+fPush_0.0
+StaticGet SpriteOutlineR
+StaticGet SpriteOutlineG
+StaticGet SpriteOutlineB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+getF1 0
+Call @GetSpriteColour_
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddOnOffOption_
+push_0
+StaticSet NoSprite
+Return 1 0
+:GetSpriteColour_
+Function 1 3 0
+getF1 0
+JumpFalse @SpriteColourOff_
+StaticGet SpriteOnR
+StaticGet SpriteOnG
+StaticGet SpriteOnB
+Return 1 3
+:SpriteColourOff_
+StaticGet SpriteOffR
+StaticGet SpriteOffG
+StaticGet SpriteOffB
+Return 1 3
+:MaybeLoadTexture_
+Function 1 3 0
+getF1 0
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpTrue @EndMaybeLoadTexture_
+getF1 0
+push_0
+CallNative "REQUEST_STREAMED_TEXTURE_DICT" 2 0
+:EndMaybeLoadTexture_
+Return 1 0
+:AddBoolOption_//(char text, var*, int onValue, int offValue)
+Function 4 6 0
+getF1 0
+Call @AddOption_
+getF1 1
+pGet
+getF1 2
+CmpEQ
+Call @AddOnOffOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+CmpEQ
+Call @CheckXPressed_
+And
+JumpFalse @EndAddBoolOption_
+PushString "SELECT"
+Call @PlayMenuSound_
+getF1 1
+pGet
+getF1 2
+JumpEQ @TurnBoolOff_
+getF1 2
+getF1 1
+pSet
+Jump @EndAddBoolOption_
+:TurnBoolOff_
+getF1 3
+getF1 1
+pSet
+:EndAddBoolOption_
+Return 4 0
+:GetScrollSpeed_
+Function 1 3 0
+getF1 0
+JumpTrue @ScrollSpeedFast_
+push_1
+StaticSet ScrollSpeed
+Return 1 0
+:ScrollSpeedFast_
+push_4
+StaticSet ScrollSpeed
+Return 1 0
+:AddIntOption_//(char text, startIndex*, int minValue, int maxValue, bool fastScroll)
+Function 5 7 0
+getF1 0
+Call @AddOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @AddIntOptionContinue_
+StaticGet IsToggle
+Call @AddLeftRightOption_
+getF1 4
+Call @GetScrollSpeed_
+push_1
+Call @CheckLeftPressed_
+JumpFalse @AddIntOptionCheckRight_
+getF1 1
+pGet
+push_1
+Sub
+Dup
+getF1 2
+JumpLT @AddIntOptionSetToMax_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMax_
+getF1 3
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionCheckRight_
+push_1
+Call @CheckRightPressed_
+JumpFalse @AddIntOptionContinue_
+getF1 1
+pGet
+Add1 1
+Dup
+getF1 3
+JumpGT @AddIntOptionSetToMin_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMin_
+getF1 2
+getF1 1
+pSet
+:AddIntOptionContinue_
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddIntOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddIntOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+:AddIntOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+StaticGet IsToggle
+Call @GetTextWrap_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "NUMBER"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 1
+pGet
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+fPush_0.0
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddIntOption_
+Return 5 0
+:AddLeftRightOptionGetAmmountToSub_
+Function 1 3 0
+getF1 0
+JumpTrue @AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0076
+Jump @EndAddLeftRightOptionGetAmmountToSub_
+:AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0235
+:EndAddLeftRightOptionGetAmmountToSub_
+Return 1 1
+:AddLeftRightOption_
+Function 1 3 0
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddLeftRightOption_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord2
+getF1 0
+Call @AddLeftRightOptionGetAmmountToSub_
+fSub
+StaticGet ScrollbarCoord
+fPush 0.025
+fPush 0.0444
+fPush 90
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddLeftRightOption_
+Return 1 0
+:GetTextWrap_
+Function 1 3 0
+getF1 0
+JumpTrue @GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndGetTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0165
+fSub
+CallNative "SET_TEXT_WRAP" 2 0
+:EndGetTextWrap_
+Return 1 0
+:GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0159
+fSub
+Jump @EndGetTextWrap2_
+:ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0324
+fSub
+:EndGetTextWrap2_
+CallNative "SET_TEXT_WRAP" 2 0
+Return 1 0
+:IfSubmenuHasChangedCorrectCurrentOption_
+Function 0 2 0
+StaticGet ChangedSubmenu
+JumpFalse @EndIfSubmenuHasChangedCorrectCurrentOption_
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+push_0
+CmpEQ
+Dup
+JumpFalse @GetLastOptionFromSubmenu_
+Jump @SetNewCurrentOption_
+:GetLastOptionFromSubmenu_
+Drop
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+:SetNewCurrentOption_
+StaticSet CurrentOption
+:EndIfSubmenuHasChangedCorrectCurrentOption_
+Return 0 0
+:AddSubmenuOption_
+Function 2 4 0
+getF1 0
+Call @AddOption_
+Call @WasXJustPressed_
+JumpFalse @EndAddSubmenuOption_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+getF1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+push_1
+StaticSet ChangedSubmenu
+:EndAddSubmenuOption_
+Return 2 0
+:GetSprite_
+Function 1 3 0
+getF1 0
+JumpFalse @OffSprite_
+PushString "shop_box_tick"
+Return 1 1
+:OffSprite_
+PushString "shop_box_cross"
+Return 1 1
+:ChangeSubmenu_
+Function 1 3 0
+PushString "SELECT"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+getF1 0
+StaticSet CurrentSubmenu
+push_1
+StaticSet CurrentOption
+push_1
+StaticSet ChangedSubmenu
+Return 1 0
+:AddOption_
+Function 1 3 0
+StaticGet OptionCount
+Add1 1
+StaticSet OptionCount
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddOption_
+StaticGet OptionCount
+:AddOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddOption_
+Return 1 0
+:GetOptionColour_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @TextColoured_
+StaticGet UnselectedTextR
+StaticGet UnselectedTextG
+StaticGet UnselectedTextB
+Return 0 3
+:TextColoured_
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Return 0 3
+:StringBase_
+Function 5 7 0
+getF1 0
+CallNative "SET_TEXT_FONT" 1 0
+fPush_0.0
+fPush 0.5
+CallNative "SET_TEXT_SCALE" 2 0
+getF1 1
+getF1 2
+getF1 3
+Push1 255
+CallNative "SET_TEXT_COLOUR" 4 0
+fPush_0.0
+StaticGet MenuXCoord2
+CallNative "SET_TEXT_WRAP" 2 0
+push_0
+CallNative "SET_TEXT_CENTRE" 1 0
+getF1 4
+JumpFalse @EndStringBase_
+CallNative "SET_TEXT_OUTLINE" 0 0
+:EndStringBase_
+Return 5 0
+//End
+//Region //OtherLoops_
+:OtherLoops_
+Function 0 2 0
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+StaticGet CurrentSubmenu
+push_0
+JumpNE @OtherLoopsContinue_
+StaticGet DisableCinematicCameraTimer
+CallNative "GET_GAME_TIMER" 0 1
+JumpLT @OtherLoopsContinue_
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621
+Push2 0 178
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+:OtherLoopsContinue_
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+//End
+:boneviewing_
+StaticGet boneviewer
+JumpFalse @fastman_
+Call @FAST_
+:fastman_
+StaticGet CurrentOption
+Push 1
+JumpLT @HERERER_
+StaticGet CurrentOption
+Push 449
+JumpGT @HERERER1_
+StaticGet CurrentSubmenu
+Push 3
+JumpEQ @HereRightNow_
+Jump @EndOtherLoops_
+:HereRightNow_
+push2 2 182
+callnative "IS_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @takeawaynow_
+StaticGet CurrentOption
+StaticGet skipvalue
+Add
+StaticSet CurrentOption
+Jump @EndOtherLoops_
+:takeawaynow_
+push2 2 181
+callnative "IS_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @EndOtherLoops_
+StaticGet CurrentOption
+StaticGet takevalue
+Sub
+StaticSet CurrentOption
+Jump @EndOtherLoops_
+:HERERER_
+Push 1
+StaticSet CurrentOption
+Jump @EndOtherLoops_
+:HERERER1_
+Push 449
+StaticSet CurrentOption
+:EndOtherLoops_
+Return 0 0
+//-----------------------------------------------------------
+//Region //MainMenu
+:MainMenu_
+Function 0 2 0
+StaticGet2 MainMenuTitleText
+Call @AddTitle_
+push 6
+Call @DrawBackground_
+PushString "Ped Bones"
+push_2
+Call @AddSubmenuOption_
+PushString "Vehicle Bones"
+push_3
+Call @AddSubmenuOption_
+PushString "Weapon Bones"
+push_4
+Call @AddSubmenuOption_
+PushString "Bone Viewer"
+pStatic boneviewer
+push_1
+push_0
+Call @AddBoolOption_
+PushString "Skip Value"
+pStatic skipvalue
+push_0
+Push 50
+push_0
+Call @AddIntOption_
+push_2
+PushString "When in Vehicle Bones Press R1/RB To Skip Through Faster This is the Value it skips at."
+PushString ""
+Call @AddInfo_
+PushString "Take Value"
+pStatic takevalue
+push_0
+Push 50
+push_0
+Call @AddIntOption_
+push_2
+PushString "When in Vehicle Bones Press L1/LB To Skip upwards Faster This is the Value it skips at."
+PushString ""
+Call @AddInfo_
+StaticGet CurrentOption
+Switch [4=@turnon]
+Jump @EndMainMenu_
+:turnon
+Call @CheckXPressed_
+JumpFalse @EndMainMenu_
+StaticGet boneviewer
+JumpTrue @EndMainMenu_
+:EndMainMenu_
+Return 0 0
+//End
+//Region //Ped_Bones
+:PedBones_
+Function 0 2 0
+PushString "Ped Bones"
+Call @AddTitle_
+Push 97
+Call @DrawBackground_
+PushString "SKEL_Pelvis"
+PushString "Bone Index 11816"
+Call @pedinformation
+PushString "SKEL_L_Thigh  "
+PushString "Bone Index 58271"
+Call @pedinformation       
+PushString "SKEL_L_Calf"
+PushString "Bone Index 63931"
+Call @pedinformation
+PushString "SKEL_L_Foot"
+PushString "Bone Index 14201"
+Call @pedinformation
+PushString "SKEL_L_Toe0"
+PushString "Bone Index 2108"
+Call @pedinformation
+PushString "IK_L_Foot"
+PushString "Bone Index 65245"
+Call @pedinformation  
+PushString "PH_L_Foot"
+PushString "Bone Index 57717"
+Call @pedinformation  
+PushString "MH_L_Knee"
+PushString "Bone Index 46078"
+Call @pedinformation  
+PushString "SKEL_R_Thigh "
+PushString "Bone Index 51826"
+Call @pedinformation        
+PushString "SKEL_R_Calf"
+PushString "Bone Index 36864"
+Call @pedinformation
+PushString "SKEL_R_Foot"
+PushString "Bone Index 52301"
+Call @pedinformation
+PushString "SKEL_R_Toe0"
+PushString "Bone Index 20781"
+Call @pedinformation
+PushString "IK_R_Foot"
+PushString "Bone Index 35502"
+Call @pedinformation  
+PushString "PH_R_Foot"
+PushString "Bone Index 24806"
+Call @pedinformation  
+PushString "MH_R_Knee"
+PushString "Bone Index 16335"
+Call @pedinformation  
+PushString "RB_L_ThighRoll"
+PushString "Bone Index 23639"
+Call @pedinformation      
+PushString "RB_R_ThighRoll"
+PushString "Bone Index 6442"
+Call @pedinformation
+PushString "SKEL_Spine_Root"
+PushString "Bone Index 57597"
+Call @pedinformation
+PushString "SKEL_Spine0"
+PushString "Bone Index 23553"
+Call @pedinformation
+PushString "SKEL_Spine1"
+PushString "Bone Index 24816"
+Call @pedinformation
+PushString "SKEL_Spine2"
+PushString "Bone Index 24817"
+Call @pedinformation
+PushString "SKEL_Spine3"
+PushString "Bone Index 24818"
+Call @pedinformation
+PushString "SKEL_L_Clavicle"
+PushString "Bone Index 64729"
+Call @pedinformation
+PushString "SKEL_L_UpperArm"
+PushString "Bone Index 45509"
+Call @pedinformation
+PushString "SKEL_L_Forearm"
+PushString "Bone Index 61163"
+Call @pedinformation 
+PushString "SKEL_L_Hand"
+PushString "Bone Index 18905"
+Call @pedinformation   
+PushString "SKEL_L_Finger00"
+PushString "Bone Index 26610"
+Call @pedinformation
+PushString "SKEL_L_Finger01"
+PushString "Bone Index 4089"
+Call @pedinformation
+PushString "SKEL_L_Finger02"
+PushString "Bone Index 4090"
+Call @pedinformation
+PushString "SKEL_L_Finger10"
+PushString "Bone Index 26611"
+Call @pedinformation
+PushString "SKEL_L_Finger11"
+PushString "Bone Index 4169"
+Call @pedinformation
+PushString "SKEL_L_Finger12"
+PushString "Bone Index 4170"
+Call @pedinformation
+PushString "SKEL_L_Finger20"
+PushString "Bone Index 26612"
+Call @pedinformation
+PushString "SKEL_L_Finger21"
+PushString "Bone Index 4185"
+Call @pedinformation
+PushString "SKEL_L_Finger22"
+PushString "Bone Index 4186"
+Call @pedinformation
+PushString "SKEL_L_Finger30"
+PushString "Bone Index 26613"
+Call @pedinformation
+PushString "SKEL_L_Finger31"
+PushString "Bone Index 4137"
+Call @pedinformation
+PushString "SKEL_L_Finger32"
+PushString "Bone Index 4138"
+Call @pedinformation
+PushString "SKEL_L_Finger40"
+PushString "Bone Index 26614"
+Call @pedinformation
+PushString "SKEL_L_Finger41"
+PushString "Bone Index 4153"
+Call @pedinformation
+PushString "SKEL_L_Finger42"
+PushString "Bone Index 4154"
+Call @pedinformation
+PushString "PH_L_Hand"
+PushString "Bone Index 60309"
+Call @pedinformation
+PushString "IK_L_Hand"
+PushString "Bone Index 36029"
+Call @pedinformation
+PushString "RB_L_ForeArmRoll"
+PushString "Bone Index 61007"
+Call @pedinformation
+PushString "RB_L_ArmRoll"
+PushString "Bone Index 5232"
+Call @pedinformation
+PushString "MH_L_Elbow"
+PushString "Bone Index 22711"
+Call @pedinformation
+PushString "SKEL_R_Clavicle"
+PushString "Bone Index 10706"
+Call @pedinformation
+PushString "SKEL_R_UpperArm"
+PushString "Bone Index 40269"
+Call @pedinformation
+PushString "SKEL_R_Forearm"
+PushString "Bone Index 28252"
+Call @pedinformation
+PushString "SKEL_R_Hand"
+PushString "Bone Index 57005"
+Call @pedinformation
+PushString "SKEL_R_Finger00"
+PushString "Bone Index 58866"
+Call @pedinformation
+PushString "SKEL_R_Finger01"
+PushString "Bone Index 64016"
+Call @pedinformation
+PushString "SKEL_R_Finger02"
+PushString "Bone Index 64017"
+Call @pedinformation
+PushString "SKEL_R_Finger10"
+PushString "Bone Index 58867"
+Call @pedinformation
+PushString "SKEL_R_Finger11"
+PushString "Bone Index 64096"
+Call @pedinformation
+PushString "SKEL_R_Finger12"
+PushString "Bone Index 64097"
+Call @pedinformation
+PushString "SKEL_R_Finger20"
+PushString "Bone Index 58868"
+Call @pedinformation
+PushString "SKEL_R_Finger21"
+PushString "Bone Index 64112"
+Call @pedinformation
+PushString "SKEL_R_Finger22"
+PushString "Bone Index 64113"
+Call @pedinformation
+PushString "SKEL_R_Finger30"
+PushString "Bone Index 58869"
+Call @pedinformation
+PushString "SKEL_R_Finger31"
+PushString "Bone Index 64064"
+Call @pedinformation
+PushString "SKEL_R_Finger32"
+PushString "Bone Index 64065"
+Call @pedinformation
+PushString "SKEL_R_Finger40"
+PushString "Bone Index 58870"
+Call @pedinformation
+PushString "SKEL_R_Finger41"
+PushString "Bone Index 64080"
+Call @pedinformation
+PushString "SKEL_R_Finger42"
+PushString "Bone Index 64081"
+Call @pedinformation
+PushString "PH_R_Hand"
+PushString "Bone Index 28422"
+Call @pedinformation
+PushString "IK_R_Hand"
+PushString "Bone Index 6286"
+Call @pedinformation
+PushString "RB_R_ForeArmRoll"
+PushString "Bone Index 43810"
+Call @pedinformation
+PushString "RB_R_ArmRoll"
+PushString "Bone Index 37119"
+Call @pedinformation
+PushString "MH_R_Elbow"
+PushString "Bone Index 2992"
+Call @pedinformation
+PushString "SKEL_Neck_1"
+PushString "Bone Index 39317"
+Call @pedinformation 
+PushString "SKEL_Head"
+PushString "Bone Index 31086"
+Call @pedinformation
+PushString "IK_Head"
+PushString "Bone Index 12844"
+Call @pedinformation
+PushString "FACIAL_facialRoot"
+PushString "Bone Index 65068"
+Call @pedinformation 
+PushString "FB_L_Brow_Out_000"
+PushString "Bone Index 58331"
+Call @pedinformation 
+PushString "FB_L_Lid_Upper_000"
+PushString "Bone Index 45750"
+Call @pedinformation
+PushString "FB_L_Eye_000"
+PushString "Bone Index 25260"
+Call @pedinformation
+PushString "FB_L_CheekBone_000"
+PushString "Bone Index 21550"
+Call @pedinformation
+PushString "FB_L_Lip_Corner_000"
+PushString "Bone Index 29868"
+Call @pedinformation
+PushString "FB_R_Lid_Upper_000"
+PushString "Bone Index 43536"
+Call @pedinformation
+PushString "FB_R_Eye_000"
+PushString "Bone Index 27474"
+Call @pedinformation
+PushString "FB_R_CheekBone_000"
+PushString "Bone Index 19336"
+Call @pedinformation
+PushString "FB_R_Brow_Out_000"
+PushString "Bone Index 1356"
+Call @pedinformation 
+PushString "FB_R_Lip_Corner_000"
+PushString "Bone Index 11174"
+Call @pedinformation
+PushString "FB_Brow_Centre_000"
+PushString "Bone Index 37193"
+Call @pedinformation
+PushString "FB_UpperLipRoot_000"
+PushString "Bone Index 20178"
+Call @pedinformation
+PushString "FB_UpperLip_000"
+PushString "Bone Index 61839"
+Call @pedinformation
+PushString "FB_L_Lip_Top_000"
+PushString "Bone Index 20279"
+Call @pedinformation
+PushString "FB_R_Lip_Top_000"
+PushString "Bone Index 17719"
+Call @pedinformation
+PushString "FB_Jaw_000"
+PushString "Bone Index 46240"
+Call @pedinformation
+PushString "FB_LowerLipRoot_000"
+PushString "Bone Index 17188"
+Call @pedinformation
+PushString "FB_LowerLip_000"
+PushString "Bone Index 20623"
+Call @pedinformation
+PushString "FB_L_Lip_Bot_000"
+PushString "Bone Index 47419"
+Call @pedinformation
+PushString "FB_R_Lip_Bot_000"
+PushString "Bone Index 49979"
+Call @pedinformation
+PushString "FB_Tongue_000"
+PushString "Bone Index 47495"
+Call @pedinformation
+PushString "RB_Neck_1"
+PushString "Bone Index 35731"
+Call @pedinformation
+PushString "IK_Root"
+PushString "Bone Index 56604"
+Call @pedinformation
+//PushString "Wanted Level"
+//pStatic WantedLevel
+//push_0
+//push_5
+//push_0
+//Call @AddIntOption_
+
+
+
+Return 0 0
+//End
+//Region //Vehicle_Bones
+:VehicleBones_
+Function 0 2 0
+PushString "Vehicle Bones"
+Call @AddTitle_
+Push 449
+Call @DrawBackground_
+PushString "chassis"
+Call @boneinformationbox
+PushString "chassis_lowlod"
+Call @boneinformationbox
+PushString "chassis_dummy"
+Call @boneinformationbox
+PushString "seat_dside_f"
+Call @boneinformationbox
+PushString "seat_dside_r"
+Call @boneinformationbox
+PushString "seat_dside_r1"
+Call @boneinformationbox
+PushString "seat_dside_r2"
+Call @boneinformationbox
+PushString "seat_dside_r3"
+Call @boneinformationbox
+PushString "seat_dside_r4"
+Call @boneinformationbox
+PushString "seat_dside_r5"
+Call @boneinformationbox
+PushString "seat_dside_r6"
+Call @boneinformationbox
+PushString "seat_dside_r7"
+Call @boneinformationbox
+PushString "seat_pside_f"
+Call @boneinformationbox
+PushString "seat_pside_r"
+Call @boneinformationbox
+PushString "seat_pside_r1"
+Call @boneinformationbox
+PushString "seat_pside_r2"
+Call @boneinformationbox
+PushString "seat_pside_r3"
+Call @boneinformationbox
+PushString "seat_pside_r4"
+Call @boneinformationbox
+PushString "seat_pside_r5"
+Call @boneinformationbox
+PushString "seat_pside_r6"
+Call @boneinformationbox
+PushString "seat_pside_r7"
+Call @boneinformationbox
+PushString "window_lf1"
+Call @boneinformationbox
+PushString "window_lf2"
+Call @boneinformationbox
+PushString "window_lf3"
+Call @boneinformationbox
+PushString "window_rf1"
+Call @boneinformationbox
+PushString "window_rf2"
+Call @boneinformationbox
+PushString "window_rf3"
+Call @boneinformationbox
+PushString "window_lr1"
+Call @boneinformationbox
+PushString "window_lr2"
+Call @boneinformationbox
+PushString "window_lr3"
+Call @boneinformationbox
+PushString "window_rr1"
+Call @boneinformationbox
+PushString "window_rr2"
+Call @boneinformationbox
+PushString "window_rr3"
+Call @boneinformationbox
+PushString "door_dside_f"
+Call @boneinformationbox
+PushString "door_dside_r"
+Call @boneinformationbox
+PushString "door_pside_f"
+Call @boneinformationbox
+PushString "door_pside_r"
+Call @boneinformationbox
+PushString "handle_dside_f"
+Call @boneinformationbox
+PushString "handle_dside_r"
+Call @boneinformationbox
+PushString "handle_pside_f"
+Call @boneinformationbox
+PushString "handle_pside_r"
+Call @boneinformationbox
+PushString "wheel_lf"
+Call @boneinformationbox
+PushString "wheel_rf"
+Call @boneinformationbox
+PushString "wheel_lm1"
+Call @boneinformationbox
+PushString "wheel_rm1"
+Call @boneinformationbox
+PushString "wheel_lm2"
+Call @boneinformationbox
+PushString "wheel_rm2"
+Call @boneinformationbox
+PushString "wheel_lm3"
+Call @boneinformationbox
+PushString "wheel_rm3"
+Call @boneinformationbox
+PushString "wheel_lr"
+Call @boneinformationbox
+PushString "wheel_rr"
+Call @boneinformationbox
+PushString "suspension_lf"
+Call @boneinformationbox
+PushString "suspension_rf"
+Call @boneinformationbox
+PushString "suspension_lm"
+Call @boneinformationbox
+PushString "suspension_rm"
+Call @boneinformationbox
+PushString "suspension_lr"
+Call @boneinformationbox
+PushString "suspension_rr"
+Call @boneinformationbox
+PushString "spring_rf"
+Call @boneinformationbox
+PushString "spring_lf"
+Call @boneinformationbox
+PushString "spring_rr"
+Call @boneinformationbox
+PushString "spring_lr"
+Call @boneinformationbox
+PushString "transmission_f"
+Call @boneinformationbox
+PushString "transmission_m"
+Call @boneinformationbox
+PushString "transmission_r"
+Call @boneinformationbox
+PushString "hub_lf"
+Call @boneinformationbox
+PushString "hub_rf"
+Call @boneinformationbox
+PushString "hub_lm1"
+Call @boneinformationbox
+PushString "hub_rm1"
+Call @boneinformationbox
+PushString "hub_lm2"
+Call @boneinformationbox
+PushString "hub_rm2"
+Call @boneinformationbox
+PushString "hub_lm3"
+Call @boneinformationbox
+PushString "hub_rm3"
+Call @boneinformationbox
+PushString "hub_lr"
+Call @boneinformationbox
+PushString "hub_rr"
+Call @boneinformationbox
+PushString "windscreen"
+Call @boneinformationbox
+PushString "windscreen_r"
+Call @boneinformationbox
+PushString "window_lf"
+Call @boneinformationbox
+PushString "window_rf"
+Call @boneinformationbox
+PushString "window_lr"
+Call @boneinformationbox
+PushString "window_rr"
+Call @boneinformationbox
+PushString "window_lm"
+Call @boneinformationbox
+PushString "window_rm"
+Call @boneinformationbox
+PushString "bodyshell"
+Call @boneinformationbox
+PushString "bumper_f"
+Call @boneinformationbox
+PushString "bumper_r"
+Call @boneinformationbox
+PushString "wing_rf"
+Call @boneinformationbox
+PushString "wing_lf"
+Call @boneinformationbox
+PushString "bonnet"
+Call @boneinformationbox
+PushString "boot"
+Call @boneinformationbox
+PushString "exhaust"
+Call @boneinformationbox
+PushString "exhaust_2"
+Call @boneinformationbox
+PushString "exhaust_3"
+Call @boneinformationbox
+PushString "exhaust_4"
+Call @boneinformationbox
+PushString "exhaust_5"
+Call @boneinformationbox
+PushString "exhaust_6"
+Call @boneinformationbox
+PushString "exhaust_7"
+Call @boneinformationbox
+PushString "exhaust_8"
+Call @boneinformationbox
+PushString "exhaust_9"
+Call @boneinformationbox
+PushString "exhaust_10"
+Call @boneinformationbox
+PushString "exhaust_11"
+Call @boneinformationbox
+PushString "exhaust_12"
+Call @boneinformationbox
+PushString "exhaust_13"
+Call @boneinformationbox
+PushString "exhaust_14"
+Call @boneinformationbox
+PushString "exhaust_15"
+Call @boneinformationbox
+PushString "exhaust_16"
+Call @boneinformationbox
+PushString "engine"
+Call @boneinformationbox
+PushString "overheat"
+Call @boneinformationbox
+PushString "overheat_2"
+Call @boneinformationbox
+PushString "petrolcap"
+Call @boneinformationbox
+PushString "petroltank"
+Call @boneinformationbox
+PushString "petroltank_l"
+Call @boneinformationbox
+PushString "petroltank_r"
+Call @boneinformationbox
+PushString "steering"
+Call @boneinformationbox
+PushString "hbgrip_l"
+Call @boneinformationbox
+PushString "hbgrip_r"
+Call @boneinformationbox
+PushString "headlight_l"
+Call @boneinformationbox
+PushString "headlight_r"
+Call @boneinformationbox
+PushString "taillight_l"
+Call @boneinformationbox
+PushString "taillight_r"
+Call @boneinformationbox
+PushString "indicator_lf"
+Call @boneinformationbox
+PushString "indicator_rf"
+Call @boneinformationbox
+PushString "indicator_lr"
+Call @boneinformationbox
+PushString "indicator_rr"
+Call @boneinformationbox
+PushString "brakelight_l"
+Call @boneinformationbox
+PushString "brakelight_r"
+Call @boneinformationbox
+PushString "brakelight_m"
+Call @boneinformationbox
+PushString "reversinglight_l"
+Call @boneinformationbox
+PushString "reversinglight_r"
+Call @boneinformationbox
+PushString "extralight_1"
+Call @boneinformationbox
+PushString "extralight_2"
+Call @boneinformationbox
+PushString "extralight_3"
+Call @boneinformationbox
+PushString "extralight_4"
+Call @boneinformationbox
+PushString "numberplate"
+Call @boneinformationbox
+PushString "interiorlight"
+Call @boneinformationbox
+PushString "siren1"
+Call @boneinformationbox
+PushString "siren2"
+Call @boneinformationbox
+PushString "siren3"
+Call @boneinformationbox
+PushString "siren4"
+Call @boneinformationbox
+PushString "siren5"
+Call @boneinformationbox
+PushString "siren6"
+Call @boneinformationbox
+PushString "siren7"
+Call @boneinformationbox
+PushString "siren8"
+Call @boneinformationbox
+PushString "siren9"
+Call @boneinformationbox
+PushString "siren10"
+Call @boneinformationbox
+PushString "siren11"
+Call @boneinformationbox
+PushString "siren12"
+Call @boneinformationbox
+PushString "siren13"
+Call @boneinformationbox
+PushString "siren14"
+Call @boneinformationbox
+PushString "siren15"
+Call @boneinformationbox
+PushString "siren16"
+Call @boneinformationbox
+PushString "siren17"
+Call @boneinformationbox
+PushString "siren18"
+Call @boneinformationbox
+PushString "siren19"
+Call @boneinformationbox
+PushString "siren20"
+Call @boneinformationbox
+PushString "siren_glass1"
+Call @boneinformationbox
+PushString "siren_glass2"
+Call @boneinformationbox
+PushString "siren_glass3"
+Call @boneinformationbox
+PushString "siren_glass4"
+Call @boneinformationbox
+PushString "siren_glass5"
+Call @boneinformationbox
+PushString "siren_glass6"
+Call @boneinformationbox
+PushString "siren_glass7"
+Call @boneinformationbox
+PushString "siren_glass8"
+Call @boneinformationbox
+PushString "siren_glass9"
+Call @boneinformationbox
+PushString "siren_glass10"
+Call @boneinformationbox
+PushString "siren_glass11"
+Call @boneinformationbox
+PushString "siren_glass12"
+Call @boneinformationbox
+PushString "siren_glass13"
+Call @boneinformationbox
+PushString "siren_glass14"
+Call @boneinformationbox
+PushString "siren_glass15"
+Call @boneinformationbox
+PushString "siren_glass16"
+Call @boneinformationbox
+PushString "siren_glass17"
+Call @boneinformationbox
+PushString "siren_glass18"
+Call @boneinformationbox
+PushString "siren_glass19"
+Call @boneinformationbox
+PushString "siren_glass20"
+Call @boneinformationbox
+PushString "spoiler"
+Call @boneinformationbox
+PushString "struts"
+Call @boneinformationbox
+PushString "misc_a"
+Call @boneinformationbox
+PushString "misc_b"
+Call @boneinformationbox
+PushString "misc_c"
+Call @boneinformationbox
+PushString "misc_d"
+Call @boneinformationbox
+PushString "misc_e"
+Call @boneinformationbox
+PushString "misc_f"
+Call @boneinformationbox
+PushString "misc_g"
+Call @boneinformationbox
+PushString "misc_h"
+Call @boneinformationbox
+PushString "misc_i"
+Call @boneinformationbox
+PushString "misc_j"
+Call @boneinformationbox
+PushString "misc_k"
+Call @boneinformationbox
+PushString "misc_l"
+Call @boneinformationbox
+PushString "misc_m"
+Call @boneinformationbox
+PushString "misc_n"
+Call @boneinformationbox
+PushString "misc_o"
+Call @boneinformationbox
+PushString "misc_p"
+Call @boneinformationbox
+PushString "misc_q"
+Call @boneinformationbox
+PushString "misc_r"
+Call @boneinformationbox
+PushString "misc_s"
+Call @boneinformationbox
+PushString "misc_t"
+Call @boneinformationbox
+PushString "misc_u"
+Call @boneinformationbox
+PushString "misc_v"
+Call @boneinformationbox
+PushString "misc_w"
+Call @boneinformationbox
+PushString "misc_x"
+Call @boneinformationbox
+PushString "misc_y"
+Call @boneinformationbox
+PushString "misc_z"
+Call @boneinformationbox
+PushString "misc_1"
+Call @boneinformationbox
+PushString "misc_2"
+Call @boneinformationbox
+PushString "weapon_1a"
+Call @boneinformationbox
+PushString "weapon_1b"
+Call @boneinformationbox
+PushString "weapon_1c"
+Call @boneinformationbox
+PushString "weapon_1d"
+Call @boneinformationbox
+PushString "weapon_1a_rot"
+Call @boneinformationbox
+PushString "weapon_1b_rot"
+Call @boneinformationbox
+PushString "weapon_1c_rot"
+Call @boneinformationbox
+PushString "weapon_1d_rot"
+Call @boneinformationbox
+PushString "weapon_2a"
+Call @boneinformationbox
+PushString "weapon_2b"
+Call @boneinformationbox
+PushString "weapon_2c"
+Call @boneinformationbox
+PushString "weapon_2d"
+Call @boneinformationbox
+PushString "weapon_2a_rot"
+Call @boneinformationbox
+PushString "weapon_2b_rot"
+Call @boneinformationbox
+PushString "weapon_2c_rot"
+Call @boneinformationbox
+PushString "weapon_2d_rot"
+Call @boneinformationbox
+PushString "weapon_3a"
+Call @boneinformationbox
+PushString "weapon_3b"
+Call @boneinformationbox
+PushString "weapon_3c"
+Call @boneinformationbox
+PushString "weapon_3d"
+Call @boneinformationbox
+PushString "weapon_3a_rot"
+Call @boneinformationbox
+PushString "weapon_3b_rot"
+Call @boneinformationbox
+PushString "weapon_3c_rot"
+Call @boneinformationbox
+PushString "weapon_3d_rot"
+Call @boneinformationbox
+PushString "weapon_4a"
+Call @boneinformationbox
+PushString "weapon_4b"
+Call @boneinformationbox
+PushString "weapon_4c"
+Call @boneinformationbox
+PushString "weapon_4d"
+Call @boneinformationbox
+PushString "weapon_4a_rot"
+Call @boneinformationbox
+PushString "weapon_4b_rot"
+Call @boneinformationbox
+PushString "weapon_4c_rot"
+Call @boneinformationbox
+PushString "weapon_4d_rot"
+Call @boneinformationbox
+PushString "turret_1base"
+Call @boneinformationbox
+PushString "turret_1barrel"
+Call @boneinformationbox
+PushString "turret_2base"
+Call @boneinformationbox
+PushString "turret_2barrel"
+Call @boneinformationbox
+PushString "turret_3base"
+Call @boneinformationbox
+PushString "turret_3barrel"
+Call @boneinformationbox
+PushString "ammobelt"
+Call @boneinformationbox
+PushString "searchlight_base"
+Call @boneinformationbox
+PushString "searchlight_light"
+Call @boneinformationbox
+PushString "attach_female"
+Call @boneinformationbox
+PushString "roof"
+Call @boneinformationbox
+PushString "roof2"
+Call @boneinformationbox
+PushString "soft_1"
+Call @boneinformationbox
+PushString "soft_2"
+Call @boneinformationbox
+PushString "soft_3"
+Call @boneinformationbox
+PushString "soft_4"
+Call @boneinformationbox
+PushString "soft_5"
+Call @boneinformationbox
+PushString "soft_6"
+Call @boneinformationbox
+PushString "soft_7"
+Call @boneinformationbox
+PushString "soft_8"
+Call @boneinformationbox
+PushString "soft_9"
+Call @boneinformationbox
+PushString "soft_10"
+Call @boneinformationbox
+PushString "soft_11"
+Call @boneinformationbox
+PushString "soft_12"
+Call @boneinformationbox
+PushString "soft_13"
+Call @boneinformationbox
+PushString "forks"
+Call @boneinformationbox
+PushString "mast"
+Call @boneinformationbox
+PushString "carriage"
+Call @boneinformationbox
+PushString "fork_l"
+Call @boneinformationbox
+PushString "fork_r"
+Call @boneinformationbox
+PushString "forks_attach"
+Call @boneinformationbox
+PushString "frame_1"
+Call @boneinformationbox
+PushString "frame_2"
+Call @boneinformationbox
+PushString "frame_3"
+Call @boneinformationbox
+PushString "frame_pickup_1"
+Call @boneinformationbox
+PushString "frame_pickup_2"
+Call @boneinformationbox
+PushString "frame_pickup_3"
+Call @boneinformationbox
+PushString "frame_pickup_4"
+Call @boneinformationbox
+PushString "freight_cont"
+Call @boneinformationbox
+PushString "freight_bogey"
+Call @boneinformationbox
+PushString "freightgrain_slidedoor"
+Call @boneinformationbox
+PushString "door_hatch_r"
+Call @boneinformationbox
+PushString "door_hatch_l"
+Call @boneinformationbox
+PushString "tow_arm"
+Call @boneinformationbox
+PushString "tow_mount_a"
+Call @boneinformationbox
+PushString "tow_mount_b"
+Call @boneinformationbox
+PushString "tipper"
+Call @boneinformationbox
+PushString "combine_reel"
+Call @boneinformationbox
+PushString "combine_auger"
+Call @boneinformationbox
+PushString "slipstream_l"
+Call @boneinformationbox
+PushString "slipstream_r"
+Call @boneinformationbox
+PushString "arm_1"
+Call @boneinformationbox
+PushString "arm_2"
+Call @boneinformationbox
+PushString "arm_3"
+Call @boneinformationbox
+PushString "arm_4"
+Call @boneinformationbox
+PushString "scoop"
+Call @boneinformationbox
+PushString "boom"
+Call @boneinformationbox
+PushString "stick"
+Call @boneinformationbox
+PushString "bucket"
+Call @boneinformationbox
+PushString "shovel_2"
+Call @boneinformationbox
+PushString "shovel_3"
+Call @boneinformationbox
+PushString "Lookat_UpprPiston_head"
+Call @boneinformationbox
+PushString "Lookat_LowrPiston_boom"
+Call @boneinformationbox
+PushString "Boom_Driver"
+Call @boneinformationbox
+PushString "cutter_driver"
+Call @boneinformationbox
+PushString "vehicle_blocker"
+Call @boneinformationbox
+PushString "extra_1"
+Call @boneinformationbox
+PushString "extra_2"
+Call @boneinformationbox
+PushString "extra_3"
+Call @boneinformationbox
+PushString "extra_4"
+Call @boneinformationbox
+PushString "extra_5"
+Call @boneinformationbox
+PushString "extra_6"
+Call @boneinformationbox
+PushString "extra_7"
+Call @boneinformationbox
+PushString "extra_8"
+Call @boneinformationbox
+PushString "extra_9"
+Call @boneinformationbox
+PushString "extra_ten"
+Call @boneinformationbox
+PushString "extra_11"
+Call @boneinformationbox
+PushString "extra_12"
+Call @boneinformationbox
+PushString "break_extra_1"
+Call @boneinformationbox
+PushString "break_extra_2"
+Call @boneinformationbox
+PushString "break_extra_3"
+Call @boneinformationbox
+PushString "break_extra_4"
+Call @boneinformationbox
+PushString "break_extra_5"
+Call @boneinformationbox
+PushString "break_extra_6"
+Call @boneinformationbox
+PushString "break_extra_7"
+Call @boneinformationbox
+PushString "break_extra_8"
+Call @boneinformationbox
+PushString "break_extra_9"
+Call @boneinformationbox
+PushString "break_extra_10"
+Call @boneinformationbox
+PushString "mod_col_1"
+Call @boneinformationbox
+PushString "mod_col_2"
+Call @boneinformationbox
+PushString "mod_col_3"
+Call @boneinformationbox
+PushString "mod_col_4"
+Call @boneinformationbox
+PushString "mod_col_5"
+Call @boneinformationbox
+PushString "handlebars"
+Call @boneinformationbox
+PushString "forks_u"
+Call @boneinformationbox
+PushString "forks_l"
+Call @boneinformationbox
+PushString "wheel_f"
+Call @boneinformationbox
+PushString "swingarm"
+Call @boneinformationbox
+PushString "wheel_r"
+Call @boneinformationbox
+PushString "crank"
+Call @boneinformationbox
+PushString "pedal_r"
+Call @boneinformationbox
+PushString "pedal_l"
+Call @boneinformationbox
+PushString "static_prop"
+Call @boneinformationbox
+PushString "moving_prop"
+Call @boneinformationbox
+PushString "static_prop2"
+Call @boneinformationbox
+PushString "moving_prop2"
+Call @boneinformationbox
+PushString "rudder"
+Call @boneinformationbox
+PushString "rudder2"
+Call @boneinformationbox
+PushString "wheel_rf1_dummy"
+Call @boneinformationbox
+PushString "wheel_rf2_dummy"
+Call @boneinformationbox
+PushString "wheel_rf3_dummy"
+Call @boneinformationbox
+PushString "wheel_rb1_dummy"
+Call @boneinformationbox
+PushString "wheel_rb2_dummy"
+Call @boneinformationbox
+PushString "wheel_rb3_dummy"
+Call @boneinformationbox
+PushString "wheel_lf1_dummy"
+Call @boneinformationbox
+PushString "wheel_lf2_dummy"
+Call @boneinformationbox
+PushString "wheel_lf3_dummy"
+Call @boneinformationbox
+PushString "wheel_lb1_dummy"
+Call @boneinformationbox
+PushString "wheel_lb2_dummy"
+Call @boneinformationbox
+PushString "wheel_lb3_dummy"
+Call @boneinformationbox
+PushString "bogie_front"
+Call @boneinformationbox
+PushString "bogie_rear"
+Call @boneinformationbox
+PushString "rotor_main"
+Call @boneinformationbox
+PushString "rotor_rear"
+Call @boneinformationbox
+PushString "rotor_main_2"
+Call @boneinformationbox
+PushString "rotor_rear_2"
+Call @boneinformationbox
+PushString "elevators"
+Call @boneinformationbox
+PushString "tail"
+Call @boneinformationbox
+PushString "outriggers_l"
+Call @boneinformationbox
+PushString "outriggers_r"
+Call @boneinformationbox
+PushString "rope_attach_a"
+Call @boneinformationbox
+PushString "rope_attach_b"
+Call @boneinformationbox
+PushString "prop_1"
+Call @boneinformationbox
+PushString "prop_2"
+Call @boneinformationbox
+PushString "elevator_l"
+Call @boneinformationbox
+PushString "elevator_r"
+Call @boneinformationbox
+PushString "rudder_l"
+Call @boneinformationbox
+PushString "rudder_r"
+Call @boneinformationbox
+PushString "prop_3"
+Call @boneinformationbox
+PushString "prop_4"
+Call @boneinformationbox
+PushString "prop_5"
+Call @boneinformationbox
+PushString "prop_6"
+Call @boneinformationbox
+PushString "prop_7"
+Call @boneinformationbox
+PushString "prop_8"
+Call @boneinformationbox
+PushString "rudder_2"
+Call @boneinformationbox
+PushString "aileron_l"
+Call @boneinformationbox
+PushString "aileron_r"
+Call @boneinformationbox
+PushString "airbrake_l"
+Call @boneinformationbox
+PushString "airbrake_r"
+Call @boneinformationbox
+PushString "wing_l"
+Call @boneinformationbox
+PushString "wing_r"
+Call @boneinformationbox
+PushString "wing_lr"
+Call @boneinformationbox
+PushString "wing_rr"
+Call @boneinformationbox
+PushString "engine_l"
+Call @boneinformationbox
+PushString "engine_r"
+Call @boneinformationbox
+PushString "nozzles_f"
+Call @boneinformationbox
+PushString "nozzles_r"
+Call @boneinformationbox
+PushString "afterburner"
+Call @boneinformationbox
+PushString "wingtip_1"
+Call @boneinformationbox
+PushString "wingtip_2"
+Call @boneinformationbox
+PushString "gear_door_fl"
+Call @boneinformationbox
+PushString "gear_door_fr"
+Call @boneinformationbox
+PushString "gear_door_rl1"
+Call @boneinformationbox
+PushString "gear_door_rr1"
+Call @boneinformationbox
+PushString "gear_door_rl2"
+Call @boneinformationbox
+PushString "gear_door_rr2"
+Call @boneinformationbox
+PushString "gear_door_rml"
+Call @boneinformationbox
+PushString "gear_door_rmr"
+Call @boneinformationbox
+PushString "gear_f"
+Call @boneinformationbox
+PushString "gear_rl"
+Call @boneinformationbox
+PushString "gear_lm1"
+Call @boneinformationbox
+PushString "gear_rr"
+Call @boneinformationbox
+PushString "gear_rm1"
+Call @boneinformationbox
+PushString "gear_rm"
+Call @boneinformationbox
+PushString "prop_left"
+Call @boneinformationbox
+PushString "prop_right"
+Call @boneinformationbox
+PushString "legs"
+Call @boneinformationbox
+PushString "attach_male"
+Call @boneinformationbox
+PushString "draft_animal_attach_lr"
+Call @boneinformationbox
+PushString "draft_animal_attach_rr"
+Call @boneinformationbox
+PushString "draft_animal_attach_lm"
+Call @boneinformationbox
+PushString "draft_animal_attach_rm"
+Call @boneinformationbox
+PushString "draft_animal_attach_lf"
+Call @boneinformationbox
+PushString "draft_animal_attach_rf"
+Call @boneinformationbox
+PushString "wheelcover_l"
+Call @boneinformationbox
+PushString "wheelcover_r"
+Call @boneinformationbox
+PushString "barracks"
+Call @boneinformationbox
+PushString "pontoon_l"
+Call @boneinformationbox
+PushString "pontoon_r"
+Call @boneinformationbox
+PushString "no_ped_col_step_l"
+Call @boneinformationbox
+PushString "no_ped_col_strut_1_l"
+Call @boneinformationbox
+PushString "no_ped_col_strut_2_l"
+Call @boneinformationbox
+PushString "no_ped_col_step_r"
+Call @boneinformationbox
+PushString "no_ped_col_strut_1_r"
+Call @boneinformationbox
+PushString "no_ped_col_strut_2_r"
+Call @boneinformationbox
+PushString "light_cover"
+Call @boneinformationbox
+PushString "emissives"
+Call @boneinformationbox
+PushString "neon_l"
+Call @boneinformationbox
+PushString "neon_r"
+Call @boneinformationbox
+PushString "neon_f"
+Call @boneinformationbox
+PushString "neon_b"
+Call @boneinformationbox
+PushString "dashglow"
+Call @boneinformationbox
+PushString "doorlight_lf"
+Call @boneinformationbox
+PushString "doorlight_rf"
+Call @boneinformationbox
+PushString "doorlight_lr"
+Call @boneinformationbox
+PushString "doorlight_rr"
+Call @boneinformationbox
+PushString "unknown_id"
+Call @boneinformationbox
+PushString "dials"
+Call @boneinformationbox
+PushString "engineblock"
+Call @boneinformationbox
+PushString "bobble_head"
+Call @boneinformationbox
+PushString "bobble_base"
+Call @boneinformationbox
+PushString "bobble_hand"
+Call @boneinformationbox
+PushString "chassis_Control"
+Call @boneinformationbox
+:EndVehicleBones_
+Return 0 0
+//End_
+//Region //Weapon_Bones
+:WeaponBones_
+Function 0 2 0
+PushString "Weapon Bones"
+Call @AddTitle_
+Push1 27
+Call @DrawBackground_
+PushString "gun_gripr"
+Call @boneinformationbox
+//push_1
+//PushString "All Stuff Made by James reborn."
+//PushString ""
+//Call @AddInfo_
+PushString "gun_gripl"
+Call @boneinformationbox
+PushString "gun_muzzle"
+Call @boneinformationbox
+PushString "gun_vfx_eject"
+Call @boneinformationbox
+PushString "gun_magazine"
+Call @boneinformationbox
+PushString "gun_ammo"
+Call @boneinformationbox
+PushString "gun_vfx_projtrail"
+Call @boneinformationbox
+PushString "gun_barrels"
+Call @boneinformationbox
+PushString "WAPClip"
+Call @boneinformationbox
+PushString "WAPClip_2"
+Call @boneinformationbox
+PushString "WAPScop"
+Call @boneinformationbox
+PushString "WAPScop_2"
+Call @boneinformationbox
+PushString "WAPGrip"
+Call @boneinformationbox
+PushString "WAPGrip_2"
+Call @boneinformationbox
+PushString "WAPSupp"
+Call @boneinformationbox
+PushString "WAPSupp_2"
+Call @boneinformationbox
+PushString "WAPFlsh"
+Call @boneinformationbox
+PushString "WAPFlsh_2"
+Call @boneinformationbox
+PushString "WAPStck"
+Call @boneinformationbox
+PushString "WAPSeWp"
+Call @boneinformationbox
+PushString "WAPLasr"
+Call @boneinformationbox
+PushString "WAPLasr_2"
+Call @boneinformationbox
+PushString "WAPFlshLasr"
+Call @boneinformationbox
+PushString "WAPFlshLasr_2"
+Call @boneinformationbox
+PushString "NM_Butt_Marker"
+Call @boneinformationbox
+PushString "Gun_Nuzzle"
+Call @boneinformationbox
+PushString "gun_drum"
+Call @boneinformationbox
+:EndWeaponBones_
+Return 0 0
+//End_
+
+
+:NOTIFICATION_
+Function 2 4 0
+PushString "STRING"
+CallNative "UNK_F42C43C7" 1 0
+getF1 0
+CallNative "UNK_27A244D8" 1 0
+getF1 1
+push_1
+CallNative "UNK_38F82261" 2 0
+Return 2 0
+
+
+:BONEFUNCTIONlines
+Function 2 4
+getf1 0
+Switch [1=@PedBones1_][2=@VehicleBones1_][3=@WeaponBones1_]
+Return 0
+:PedBones1_
+CallNative "PLAYER_PED_ID" 0 1
+getF1 1
+CallNative "PLAYER_PED_ID" 0 1
+getF1 1
+CallNative "GET_WORLD_POSITION_OF_ENTITY_BONE" 2 3
+CallNative "GET_PED_BONE_COORDS" 5 3
+Jump @JumpMHM_
+:VehicleBones1_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_VEHICLE_PED_IS_USING" 1 1
+Jump @Jumptorestoffunction_
+:WeaponBones1_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_CURRENT_PED_WEAPON_ENTITY_INDEX" 1 1
+:Jumptorestoffunction_
+getF1 1
+CallNative "GET_WORLD_POSITION_OF_ENTITY_BONE" 2 3
+:JumpMHM_
+getF1 2
+getF1 3
+fPush 3000.0
+push3 255 255 255
+Push 255
+CallNative "DRAW_LINE" 10 0
+Return 2
+:weaponshit_
+Function 1 11
+getf1 0
+CallNative "GET_ENTITY_BONE_INDEX_BY_NAME" 2 1
+pFrame 11
+Push -1
+getF1 11
+JumpEQ @enditmans_
+Push 3
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_CURRENT_PED_WEAPON_ENTITY_INDEX" 1 1
+getF1 0
+CallNative "GET_ENTITY_BONE_INDEX_BY_NAME" 2 1
+Call @BONEFUNCTIONlines
+:enditmans_
+Return 1 0
+:vehicleshit
+Function 1 11
+getf1 0
+CallNative "GET_ENTITY_BONE_INDEX_BY_NAME" 2 1
+pFrame 11
+Push -1
+getF1 11
+JumpEQ @ENDTHEFUNCTION_
+CallNative "PLAYER_PED_ID" 0 1
+Push 1
+CallNative "IS_PED_IN_ANY_VEHICLE" 2 1
+JumpFalse @ENDTHEFUNCTION_
+Push 2
+StaticGet BONENOW
+Call @BONEFUNCTIONlines
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_VEHICLE_PED_IS_USING" 1 1
+getf1 0
+CallNative "GET_ENTITY_BONE_INDEX_BY_NAME" 2 1
+:ENDTHEFUNCTION_
+Return 1 1
+
+:Fastv2_
+Function 2 4
+getf1 0
+StaticGet BONENOW
+Call @BONEFUNCTIONlines
+getf1 1
+Return 2
+:fastfunctionforbones
+Function 0 2 0
+StaticGet CurrentSubmenu
+Switch [2=@PedBone_][3=@VehicleBone_][4=@WeaponBone_]
+Return 0
+:FAST_
+Function 0 2
+Call @fastfunctionforbones
+Staticset BONENOW
+Return 0
+:pedinformation
+Function 2 4
+getf1 0
+Call @AddOption_
+push_1
+getf1 1
+PushString ""
+Call @AddInfo_
+Return 2 0
+:boneinformationbox
+Function 1 3
+getf1 0
+Call @AddOption_
+Push 1
+Pushstring "Bone Index "
+Pushstring ""
+StaticGet CurrentSubmenu
+Switch [3=@VehicleInformation_][4=@WeaponInformation_]
+Jump @Enditnow_
+:VehicleInformation_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_VEHICLE_PED_IS_USING" 1 1
+Jump @hmmm_
+:WeaponInformation_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_CURRENT_PED_WEAPON_ENTITY_INDEX" 1 1
+:hmmm_
+getF1 0
+CallNative "GET_ENTITY_BONE_INDEX_BY_NAME" 2 1
+Call @IntToString_
+Call @AddStrings_
+PushString ""
+Call @AddStrings_
+Call @AddInfo_
+:Enditnow_
+Return 1 0
+:VehicleBone_
+StaticGet CurrentOption
+Push 256
+JumpLT @monkas_
+Jump @monkawoah_
+:monkas_
+StaticGet CurrentOption
+Switch [1=@chassis][2=@chassis_lowlod][3=@chassis_dummy][4=@seat_dside_f][5=@seat_dside_r][6=@seat_dside_r1][7=@seat_dside_r2][8=@seat_dside_r3][9=@seat_dside_r4][10=@seat_dside_r5][11=@seat_dside_r6][12=@seat_dside_r7][13=@seat_pside_f][14=@seat_pside_r][15=@seat_pside_r1][16=@seat_pside_r2][17=@seat_pside_r3][18=@seat_pside_r4][19=@seat_pside_r5][20=@seat_pside_r6][21=@seat_pside_r7][22=@window_lf1][23=@window_lf2][24=@window_lf3][25=@window_rf1][26=@window_rf2][27=@window_rf3][28=@window_lr1][29=@window_lr2][30=@window_lr3][31=@window_rr1][32=@window_rr2][33=@window_rr3][34=@door_dside_f][35=@door_dside_r][36=@door_pside_f][37=@door_pside_r][38=@handle_dside_f][39=@handle_dside_r][40=@handle_pside_f][41=@handle_pside_r][42=@wheel_lf][43=@wheel_rf][44=@wheel_lm1][45=@wheel_rm1][46=@wheel_lm2][47=@wheel_rm2][48=@wheel_lm3][49=@wheel_rm3][50=@wheel_lr][51=@wheel_rr][52=@suspension_lf][53=@suspension_rf][54=@suspension_lm][55=@suspension_rm][56=@suspension_lr][57=@suspension_rr][58=@spring_rf][59=@spring_lf][60=@spring_rr][61=@spring_lr][62=@transmission_f][63=@transmission_m][64=@transmission_r][65=@hub_lf][66=@hub_rf][67=@hub_lm1][68=@hub_rm1][69=@hub_lm2][70=@hub_rm2][71=@hub_lm3][72=@hub_rm3][73=@hub_lr][74=@hub_rr][75=@windscreen][76=@windscreen_r][77=@window_lf][78=@window_rf][79=@window_lr][80=@window_rr][81=@window_lm][82=@window_rm][83=@bodyshell][84=@bumper_f][85=@bumper_r][86=@wing_rf][87=@wing_lf][88=@bonnet][89=@boot][90=@exhaust][91=@exhaust_2][92=@exhaust_3][93=@exhaust_4][94=@exhaust_5][95=@exhaust_6][96=@exhaust_7][97=@exhaust_8][98=@exhaust_9][99=@exhaust_10][100=@exhaust_11][101=@exhaust_12][102=@exhaust_13][103=@exhaust_14][104=@exhaust_15][105=@exhaust_16][106=@engine][107=@overheat][108=@overheat_2][109=@petrolcap][110=@petroltank][111=@petroltank_l][112=@petroltank_r][113=@steering][114=@hbgrip_l][115=@hbgrip_r][116=@headlight_l][117=@headlight_r][118=@taillight_l][119=@taillight_r][120=@indicator_lf][121=@indicator_rf][122=@indicator_lr][123=@indicator_rr][124=@brakelight_l][125=@brakelight_r][126=@brakelight_m][127=@reversinglight_l][128=@reversinglight_r][129=@extralight_1][130=@extralight_2][131=@extralight_3][132=@extralight_4][133=@numberplate][134=@interiorlight][135=@siren1][136=@siren2][137=@siren3][138=@siren4][139=@siren5][140=@siren6][141=@siren7][142=@siren8][143=@siren9][144=@siren10][145=@siren11][146=@siren12][147=@siren13][148=@siren14][149=@siren15][150=@siren16][151=@siren17][152=@siren18][153=@siren19][154=@siren20][155=@siren_glass1][156=@siren_glass2][157=@siren_glass3][158=@siren_glass4][159=@siren_glass5][160=@siren_glass6][161=@siren_glass7][162=@siren_glass8][163=@siren_glass9][164=@siren_glass10][165=@siren_glass11][166=@siren_glass12][167=@siren_glass13][168=@siren_glass14][169=@siren_glass15][170=@siren_glass16][171=@siren_glass17][172=@siren_glass18][173=@siren_glass19][174=@siren_glass20][175=@spoiler][176=@struts][177=@misc_a][178=@misc_b][179=@misc_c][180=@misc_d][181=@misc_e][182=@misc_f][183=@misc_g][184=@misc_h][185=@misc_i][186=@misc_j][187=@misc_k][188=@misc_l][189=@misc_m][190=@misc_n][191=@misc_o][192=@misc_p][193=@misc_q][194=@misc_r][195=@misc_s][196=@misc_t][197=@misc_u][198=@misc_v][199=@misc_w][200=@misc_x][201=@misc_y][202=@misc_z][203=@misc_1][204=@misc_2][205=@weapon_1a][206=@weapon_1b][207=@weapon_1c][208=@weapon_1d][209=@weapon_1a_rot][210=@weapon_1b_rot][211=@weapon_1c_rot][212=@weapon_1d_rot][213=@weapon_2a][214=@weapon_2b][215=@weapon_2c][216=@weapon_2d][217=@weapon_2a_rot][218=@weapon_2b_rot][219=@weapon_2c_rot][220=@weapon_2d_rot][221=@weapon_3a][222=@weapon_3b][223=@weapon_3c][224=@weapon_3d][225=@weapon_3a_rot][226=@weapon_3b_rot][227=@weapon_3c_rot][228=@weapon_3d_rot][229=@weapon_4a][230=@weapon_4b][231=@weapon_4c][232=@weapon_4d][233=@weapon_4a_rot][234=@weapon_4b_rot][235=@weapon_4c_rot][236=@weapon_4d_rot][237=@turret_1base][238=@turret_1barrel][239=@turret_2base][240=@turret_2barrel][241=@turret_3base][242=@turret_3barrel][243=@ammobelt][244=@searchlight_base][245=@searchlight_light][246=@attach_female][247=@roof][248=@roof2][249=@soft_1][250=@soft_2][251=@soft_3][252=@soft_4][253=@soft_5][254=@soft_6][255=@soft_7]
+Return 0
+:monkawoah_
+StaticGet CurrentOption
+Switch [256=@soft_8][257=@soft_9][258=@soft_10][259=@soft_11][260=@soft_12][261=@soft_13][262=@forks][263=@mast][264=@carriage][265=@fork_l][266=@fork_r][267=@forks_attach][268=@frame_1][269=@frame_2][270=@frame_3][271=@frame_pickup_1][272=@frame_pickup_2][273=@frame_pickup_3][274=@frame_pickup_4][275=@freight_cont][276=@freight_bogey][277=@freightgrain_slidedoor][278=@door_hatch_r][279=@door_hatch_l][280=@tow_arm][281=@tow_mount_a][282=@tow_mount_b][283=@tipper][284=@combine_reel][285=@combine_auger][286=@slipstream_l][287=@slipstream_r][288=@arm_1][289=@arm_2][290=@arm_3][291=@arm_4][292=@scoop][293=@boom][294=@stick][295=@bucket][296=@shovel_2][297=@shovel_3][298=@Lookat_UpprPiston_head][299=@Lookat_LowrPiston_boom][300=@Boom_Driver][301=@cutter_driver][302=@vehicle_blocker][303=@extra_1][304=@extra_2][305=@extra_3][306=@extra_4][307=@extra_5][308=@extra_6][309=@extra_7][310=@extra_8][311=@extra_9][312=@extra_ten][313=@extra_11][314=@extra_12][315=@break_extra_1][316=@break_extra_2][317=@break_extra_3][318=@break_extra_4][319=@break_extra_5][320=@break_extra_6][321=@break_extra_7][322=@break_extra_8][323=@break_extra_9][324=@break_extra_10][325=@mod_col_1][326=@mod_col_2][327=@mod_col_3][328=@mod_col_4][329=@mod_col_5][330=@handlebars][331=@forks_u][332=@forks_l][333=@wheel_f][334=@swingarm][335=@wheel_r][336=@crank][337=@pedal_r][338=@pedal_l][339=@static_prop][340=@moving_prop][341=@static_prop2][342=@moving_prop2][343=@rudder][344=@rudder2][345=@wheel_rf1_dummy][346=@wheel_rf2_dummy][347=@wheel_rf3_dummy][348=@wheel_rb1_dummy][349=@wheel_rb2_dummy][350=@wheel_rb3_dummy][351=@wheel_lf1_dummy][352=@wheel_lf2_dummy][353=@wheel_lf3_dummy][354=@wheel_lb1_dummy][355=@wheel_lb2_dummy][356=@wheel_lb3_dummy][357=@bogie_front][358=@bogie_rear][359=@rotor_main][360=@rotor_rear][361=@rotor_main_2][362=@rotor_rear_2][363=@elevators][364=@tail][365=@outriggers_l][366=@outriggers_r][367=@rope_attach_a][368=@rope_attach_b][369=@prop_1][370=@prop_2][371=@elevator_l][372=@elevator_r][373=@rudder_l][374=@rudder_r][375=@prop_3][376=@prop_4][377=@prop_5][378=@prop_6][379=@prop_7][380=@prop_8][381=@rudder_2][382=@aileron_l][383=@aileron_r][384=@airbrake_l][385=@airbrake_r][386=@wing_l][387=@wing_r][388=@wing_lr][389=@wing_rr][390=@engine_l][391=@engine_r][392=@nozzles_f][393=@nozzles_r][394=@afterburner][395=@wingtip_1][396=@wingtip_2][397=@gear_door_fl][398=@gear_door_fr][399=@gear_door_rl1][400=@gear_door_rr1][401=@gear_door_rl2][402=@gear_door_rr2][403=@gear_door_rml][404=@gear_door_rmr][405=@gear_f][406=@gear_rl][407=@gear_lm1][408=@gear_rr][409=@gear_rm1][410=@gear_rm][411=@prop_left][412=@prop_right][413=@legs][414=@attach_male][415=@draft_animal_attach_lr][416=@draft_animal_attach_rr][417=@draft_animal_attach_lm][418=@draft_animal_attach_rm][419=@draft_animal_attach_lf][420=@draft_animal_attach_rf][421=@wheelcover_l][422=@wheelcover_r][423=@barracks][424=@pontoon_l][425=@pontoon_r][426=@no_ped_col_step_l][427=@no_ped_col_strut_1_l][428=@no_ped_col_strut_2_l][429=@no_ped_col_step_r][430=@no_ped_col_strut_1_r][431=@no_ped_col_strut_2_r][432=@light_cover][433=@emissives][434=@neon_l][435=@neon_r][436=@neon_f][437=@neon_b][438=@dashglow][439=@doorlight_lf][440=@doorlight_rf][441=@doorlight_lr][442=@doorlight_rr][443=@unknown_id][444=@dials][445=@engineblock][446=@bobble_head][447=@bobble_base][448=@bobble_hand][449=@chassis_Control]
+Return 0
+:chassis
+PushString "chassis"
+Jump @vehicleJump_
+:chassis_lowlod
+PushString "chassis_lowlod"
+Jump @vehicleJump_
+:chassis_dummy
+PushString "chassis_dummy"
+Jump @vehicleJump_
+:seat_dside_f
+PushString "seat_dside_f"
+Jump @vehicleJump_
+:seat_dside_r
+PushString "seat_dside_r"
+Jump @vehicleJump_
+:seat_dside_r1
+PushString "seat_dside_r1"
+Jump @vehicleJump_
+:seat_dside_r2
+PushString "seat_dside_r2"
+Jump @vehicleJump_
+:seat_dside_r3
+PushString "seat_dside_r3"
+Jump @vehicleJump_
+:seat_dside_r4
+PushString "seat_dside_r4"
+Jump @vehicleJump_
+:seat_dside_r5
+PushString "seat_dside_r5"
+Jump @vehicleJump_
+:seat_dside_r6
+PushString "seat_dside_r6"
+Jump @vehicleJump_
+:seat_dside_r7
+PushString "seat_dside_r7"
+Jump @vehicleJump_
+:seat_pside_f
+PushString "seat_pside_f"
+Jump @vehicleJump_
+:seat_pside_r
+PushString "seat_pside_r"
+Jump @vehicleJump_
+:seat_pside_r1
+PushString "seat_pside_r1"
+Jump @vehicleJump_
+:seat_pside_r2
+PushString "seat_pside_r2"
+Jump @vehicleJump_
+:seat_pside_r3
+PushString "seat_pside_r3"
+Jump @vehicleJump_
+:seat_pside_r4
+PushString "seat_pside_r4"
+Jump @vehicleJump_
+:seat_pside_r5
+PushString "seat_pside_r5"
+Jump @vehicleJump_
+:seat_pside_r6
+PushString "seat_pside_r6"
+Jump @vehicleJump_
+:seat_pside_r7
+PushString "seat_pside_r7"
+Jump @vehicleJump_
+:window_lf1
+PushString "window_lf1"
+Jump @vehicleJump_
+:window_lf2
+PushString "window_lf2"
+Jump @vehicleJump_
+:window_lf3
+PushString "window_lf3"
+Jump @vehicleJump_
+:window_rf1
+PushString "window_rf1"
+Jump @vehicleJump_
+:window_rf2
+PushString "window_rf2"
+Jump @vehicleJump_
+:window_rf3
+PushString "window_rf3"
+Jump @vehicleJump_
+:window_lr1
+PushString "window_lr1"
+Jump @vehicleJump_
+:window_lr2
+PushString "window_lr2"
+Jump @vehicleJump_
+:window_lr3
+PushString "window_lr3"
+Jump @vehicleJump_
+:window_rr1
+PushString "window_rr1"
+Jump @vehicleJump_
+:window_rr2
+PushString "window_rr2"
+Jump @vehicleJump_
+:window_rr3
+PushString "window_rr3"
+Jump @vehicleJump_
+:door_dside_f
+PushString "door_dside_f"
+Jump @vehicleJump_
+:door_dside_r
+PushString "door_dside_r"
+Jump @vehicleJump_
+:door_pside_f
+PushString "door_pside_f"
+Jump @vehicleJump_
+:door_pside_r
+PushString "door_pside_r"
+Jump @vehicleJump_
+:handle_dside_f
+PushString "handle_dside_f"
+Jump @vehicleJump_
+:handle_dside_r
+PushString "handle_dside_r"
+Jump @vehicleJump_
+:handle_pside_f
+PushString "handle_pside_f"
+Jump @vehicleJump_
+:handle_pside_r
+PushString "handle_pside_r"
+Jump @vehicleJump_
+:wheel_lf
+PushString "wheel_lf"
+Jump @vehicleJump_
+:wheel_rf
+PushString "wheel_rf"
+Jump @vehicleJump_
+:wheel_lm1
+PushString "wheel_lm1"
+Jump @vehicleJump_
+:wheel_rm1
+PushString "wheel_rm1"
+Jump @vehicleJump_
+:wheel_lm2
+PushString "wheel_lm2"
+Jump @vehicleJump_
+:wheel_rm2
+PushString "wheel_rm2"
+Jump @vehicleJump_
+:wheel_lm3
+PushString "wheel_lm3"
+Jump @vehicleJump_
+:wheel_rm3
+PushString "wheel_rm3"
+Jump @vehicleJump_
+:wheel_lr
+PushString "wheel_lr"
+Jump @vehicleJump_
+:wheel_rr
+PushString "wheel_rr"
+Jump @vehicleJump_
+:suspension_lf
+PushString "suspension_lf"
+Jump @vehicleJump_
+:suspension_rf
+PushString "suspension_rf"
+Jump @vehicleJump_
+:suspension_lm
+PushString "suspension_lm"
+Jump @vehicleJump_
+:suspension_rm
+PushString "suspension_rm"
+Jump @vehicleJump_
+:suspension_lr
+PushString "suspension_lr"
+Jump @vehicleJump_
+:suspension_rr
+PushString "suspension_rr"
+Jump @vehicleJump_
+:spring_rf
+PushString "spring_rf"
+Jump @vehicleJump_
+:spring_lf
+PushString "spring_lf"
+Jump @vehicleJump_
+:spring_rr
+PushString "spring_rr"
+Jump @vehicleJump_
+:spring_lr
+PushString "spring_lr"
+Jump @vehicleJump_
+:transmission_f
+PushString "transmission_f"
+Jump @vehicleJump_
+:transmission_m
+PushString "transmission_m"
+Jump @vehicleJump_
+:transmission_r
+PushString "transmission_r"
+Jump @vehicleJump_
+:hub_lf
+PushString "hub_lf"
+Jump @vehicleJump_
+:hub_rf
+PushString "hub_rf"
+Jump @vehicleJump_
+:hub_lm1
+PushString "hub_lm1"
+Jump @vehicleJump_
+:hub_rm1
+PushString "hub_rm1"
+Jump @vehicleJump_
+:hub_lm2
+PushString "hub_lm2"
+Jump @vehicleJump_
+:hub_rm2
+PushString "hub_rm2"
+Jump @vehicleJump_
+:hub_lm3
+PushString "hub_lm3"
+Jump @vehicleJump_
+:hub_rm3
+PushString "hub_rm3"
+Jump @vehicleJump_
+:hub_lr
+PushString "hub_lr"
+Jump @vehicleJump_
+:hub_rr
+PushString "hub_rr"
+Jump @vehicleJump_
+:windscreen
+PushString "windscreen"
+Jump @vehicleJump_
+:windscreen_r
+PushString "windscreen_r"
+Jump @vehicleJump_
+:window_lf
+PushString "window_lf"
+Jump @vehicleJump_
+:window_rf
+PushString "window_rf"
+Jump @vehicleJump_
+:window_lr
+PushString "window_lr"
+Jump @vehicleJump_
+:window_rr
+PushString "window_rr"
+Jump @vehicleJump_
+:window_lm
+PushString "window_lm"
+Jump @vehicleJump_
+:window_rm
+PushString "window_rm"
+Jump @vehicleJump_
+:bodyshell
+PushString "bodyshell"
+Jump @vehicleJump_
+:bumper_f
+PushString "bumper_f"
+Jump @vehicleJump_
+:bumper_r
+PushString "bumper_r"
+Jump @vehicleJump_
+:wing_rf
+PushString "wing_rf"
+Jump @vehicleJump_
+:wing_lf
+PushString "wing_lf"
+Jump @vehicleJump_
+:bonnet
+PushString "bonnet"
+Jump @vehicleJump_
+:boot
+PushString "boot"
+Jump @vehicleJump_
+:exhaust
+PushString "exhaust"
+Jump @vehicleJump_
+:exhaust_2
+PushString "exhaust_2"
+Jump @vehicleJump_
+:exhaust_3
+PushString "exhaust_3"
+Jump @vehicleJump_
+:exhaust_4
+PushString "exhaust_4"
+Jump @vehicleJump_
+:exhaust_5
+PushString "exhaust_5"
+Jump @vehicleJump_
+:exhaust_6
+PushString "exhaust_6"
+Jump @vehicleJump_
+:exhaust_7
+PushString "exhaust_7"
+Jump @vehicleJump_
+:exhaust_8
+PushString "exhaust_8"
+Jump @vehicleJump_
+:exhaust_9
+PushString "exhaust_9"
+Jump @vehicleJump_
+:exhaust_10
+PushString "exhaust_10"
+Jump @vehicleJump_
+:exhaust_11
+PushString "exhaust_11"
+Jump @vehicleJump_
+:exhaust_12
+PushString "exhaust_12"
+Jump @vehicleJump_
+:exhaust_13
+PushString "exhaust_13"
+Jump @vehicleJump_
+:exhaust_14
+PushString "exhaust_14"
+Jump @vehicleJump_
+:exhaust_15
+PushString "exhaust_15"
+Jump @vehicleJump_
+:exhaust_16
+PushString "exhaust_16"
+Jump @vehicleJump_
+:engine
+PushString "engine"
+Jump @vehicleJump_
+:overheat
+PushString "overheat"
+Jump @vehicleJump_
+:overheat_2
+PushString "overheat_2"
+Jump @vehicleJump_
+:petrolcap
+PushString "petrolcap"
+Jump @vehicleJump_
+:petroltank
+PushString "petroltank"
+Jump @vehicleJump_
+:petroltank_l
+PushString "petroltank_l"
+Jump @vehicleJump_
+:petroltank_r
+PushString "petroltank_r"
+Jump @vehicleJump_
+:steering
+PushString "steering"
+Jump @vehicleJump_
+:hbgrip_l
+PushString "hbgrip_l"
+Jump @vehicleJump_
+:hbgrip_r
+PushString "hbgrip_r"
+Jump @vehicleJump_
+:headlight_l
+PushString "headlight_l"
+Jump @vehicleJump_
+:headlight_r
+PushString "headlight_r"
+Jump @vehicleJump_
+:taillight_l
+PushString "taillight_l"
+Jump @vehicleJump_
+:taillight_r
+PushString "taillight_r"
+Jump @vehicleJump_
+:indicator_lf
+PushString "indicator_lf"
+Jump @vehicleJump_
+:indicator_rf
+PushString "indicator_rf"
+Jump @vehicleJump_
+:indicator_lr
+PushString "indicator_lr"
+Jump @vehicleJump_
+:indicator_rr
+PushString "indicator_rr"
+Jump @vehicleJump_
+:brakelight_l
+PushString "brakelight_l"
+Jump @vehicleJump_
+:brakelight_r
+PushString "brakelight_r"
+Jump @vehicleJump_
+:brakelight_m
+PushString "brakelight_m"
+Jump @vehicleJump_
+:reversinglight_l
+PushString "reversinglight_l"
+Jump @vehicleJump_
+:reversinglight_r
+PushString "reversinglight_r"
+Jump @vehicleJump_
+:extralight_1
+PushString "extralight_1"
+Jump @vehicleJump_
+:extralight_2
+PushString "extralight_2"
+Jump @vehicleJump_
+:extralight_3
+PushString "extralight_3"
+Jump @vehicleJump_
+:extralight_4
+PushString "extralight_4"
+Jump @vehicleJump_
+:numberplate
+PushString "numberplate"
+Jump @vehicleJump_
+:interiorlight
+PushString "interiorlight"
+Jump @vehicleJump_
+:siren1
+PushString "siren1"
+Jump @vehicleJump_
+:siren2
+PushString "siren2"
+Jump @vehicleJump_
+:siren3
+PushString "siren3"
+Jump @vehicleJump_
+:siren4
+PushString "siren4"
+Jump @vehicleJump_
+:siren5
+PushString "siren5"
+Jump @vehicleJump_
+:siren6
+PushString "siren6"
+Jump @vehicleJump_
+:siren7
+PushString "siren7"
+Jump @vehicleJump_
+:siren8
+PushString "siren8"
+Jump @vehicleJump_
+:siren9
+PushString "siren9"
+Jump @vehicleJump_
+:siren10
+PushString "siren10"
+Jump @vehicleJump_
+:siren11
+PushString "siren11"
+Jump @vehicleJump_
+:siren12
+PushString "siren12"
+Jump @vehicleJump_
+:siren13
+PushString "siren13"
+Jump @vehicleJump_
+:siren14
+PushString "siren14"
+Jump @vehicleJump_
+:siren15
+PushString "siren15"
+Jump @vehicleJump_
+:siren16
+PushString "siren16"
+Jump @vehicleJump_
+:siren17
+PushString "siren17"
+Jump @vehicleJump_
+:siren18
+PushString "siren18"
+Jump @vehicleJump_
+:siren19
+PushString "siren19"
+Jump @vehicleJump_
+:siren20
+PushString "siren20"
+Jump @vehicleJump_
+:siren_glass1
+PushString "siren_glass1"
+Jump @vehicleJump_
+:siren_glass2
+PushString "siren_glass2"
+Jump @vehicleJump_
+:siren_glass3
+PushString "siren_glass3"
+Jump @vehicleJump_
+:siren_glass4
+PushString "siren_glass4"
+Jump @vehicleJump_
+:siren_glass5
+PushString "siren_glass5"
+Jump @vehicleJump_
+:siren_glass6
+PushString "siren_glass6"
+Jump @vehicleJump_
+:siren_glass7
+PushString "siren_glass7"
+Jump @vehicleJump_
+:siren_glass8
+PushString "siren_glass8"
+Jump @vehicleJump_
+:siren_glass9
+PushString "siren_glass9"
+Jump @vehicleJump_
+:siren_glass10
+PushString "siren_glass10"
+Jump @vehicleJump_
+:siren_glass11
+PushString "siren_glass11"
+Jump @vehicleJump_
+:siren_glass12
+PushString "siren_glass12"
+Jump @vehicleJump_
+:siren_glass13
+PushString "siren_glass13"
+Jump @vehicleJump_
+:siren_glass14
+PushString "siren_glass14"
+Jump @vehicleJump_
+:siren_glass15
+PushString "siren_glass15"
+Jump @vehicleJump_
+:siren_glass16
+PushString "siren_glass16"
+Jump @vehicleJump_
+:siren_glass17
+PushString "siren_glass17"
+Jump @vehicleJump_
+:siren_glass18
+PushString "siren_glass18"
+Jump @vehicleJump_
+:siren_glass19
+PushString "siren_glass19"
+Jump @vehicleJump_
+:siren_glass20
+PushString "siren_glass20"
+Jump @vehicleJump_
+:spoiler
+PushString "spoiler"
+Jump @vehicleJump_
+:struts
+PushString "struts"
+Jump @vehicleJump_
+:misc_a
+PushString "misc_a"
+Jump @vehicleJump_
+:misc_b
+PushString "misc_b"
+Jump @vehicleJump_
+:misc_c
+PushString "misc_c"
+Jump @vehicleJump_
+:misc_d
+PushString "misc_d"
+Jump @vehicleJump_
+:misc_e
+PushString "misc_e"
+Jump @vehicleJump_
+:misc_f
+PushString "misc_f"
+Jump @vehicleJump_
+:misc_g
+PushString "misc_g"
+Jump @vehicleJump_
+:misc_h
+PushString "misc_h"
+Jump @vehicleJump_
+:misc_i
+PushString "misc_i"
+Jump @vehicleJump_
+:misc_j
+PushString "misc_j"
+Jump @vehicleJump_
+:misc_k
+PushString "misc_k"
+Jump @vehicleJump_
+:misc_l
+PushString "misc_l"
+Jump @vehicleJump_
+:misc_m
+PushString "misc_m"
+Jump @vehicleJump_
+:misc_n
+PushString "misc_n"
+Jump @vehicleJump_
+:misc_o
+PushString "misc_o"
+Jump @vehicleJump_
+:misc_p
+PushString "misc_p"
+Jump @vehicleJump_
+:misc_q
+PushString "misc_q"
+Jump @vehicleJump_
+:misc_r
+PushString "misc_r"
+Jump @vehicleJump_
+:misc_s
+PushString "misc_s"
+Jump @vehicleJump_
+:misc_t
+PushString "misc_t"
+Jump @vehicleJump_
+:misc_u
+PushString "misc_u"
+Jump @vehicleJump_
+:misc_v
+PushString "misc_v"
+Jump @vehicleJump_
+:misc_w
+PushString "misc_w"
+Jump @vehicleJump_
+:misc_x
+PushString "misc_x"
+Jump @vehicleJump_
+:misc_y
+PushString "misc_y"
+Jump @vehicleJump_
+:misc_z
+PushString "misc_z"
+Jump @vehicleJump_
+:misc_1
+PushString "misc_1"
+Jump @vehicleJump_
+:misc_2
+PushString "misc_2"
+Jump @vehicleJump_
+:weapon_1a
+PushString "weapon_1a"
+Jump @vehicleJump_
+:weapon_1b
+PushString "weapon_1b"
+Jump @vehicleJump_
+:weapon_1c
+PushString "weapon_1c"
+Jump @vehicleJump_
+:weapon_1d
+PushString "weapon_1d"
+Jump @vehicleJump_
+:weapon_1a_rot
+PushString "weapon_1a_rot"
+Jump @vehicleJump_
+:weapon_1b_rot
+PushString "weapon_1b_rot"
+Jump @vehicleJump_
+:weapon_1c_rot
+PushString "weapon_1c_rot"
+Jump @vehicleJump_
+:weapon_1d_rot
+PushString "weapon_1d_rot"
+Jump @vehicleJump_
+:weapon_2a
+PushString "weapon_2a"
+Jump @vehicleJump_
+:weapon_2b
+PushString "weapon_2b"
+Jump @vehicleJump_
+:weapon_2c
+PushString "weapon_2c"
+Jump @vehicleJump_
+:weapon_2d
+PushString "weapon_2d"
+Jump @vehicleJump_
+:weapon_2a_rot
+PushString "weapon_2a_rot"
+Jump @vehicleJump_
+:weapon_2b_rot
+PushString "weapon_2b_rot"
+Jump @vehicleJump_
+:weapon_2c_rot
+PushString "weapon_2c_rot"
+Jump @vehicleJump_
+:weapon_2d_rot
+PushString "weapon_2d_rot"
+Jump @vehicleJump_
+:weapon_3a
+PushString "weapon_3a"
+Jump @vehicleJump_
+:weapon_3b
+PushString "weapon_3b"
+Jump @vehicleJump_
+:weapon_3c
+PushString "weapon_3c"
+Jump @vehicleJump_
+:weapon_3d
+PushString "weapon_3d"
+Jump @vehicleJump_
+:weapon_3a_rot
+PushString "weapon_3a_rot"
+Jump @vehicleJump_
+:weapon_3b_rot
+PushString "weapon_3b_rot"
+Jump @vehicleJump_
+:weapon_3c_rot
+PushString "weapon_3c_rot"
+Jump @vehicleJump_
+:weapon_3d_rot
+PushString "weapon_3d_rot"
+Jump @vehicleJump_
+:weapon_4a
+PushString "weapon_4a"
+Jump @vehicleJump_
+:weapon_4b
+PushString "weapon_4b"
+Jump @vehicleJump_
+:weapon_4c
+PushString "weapon_4c"
+Jump @vehicleJump_
+:weapon_4d
+PushString "weapon_4d"
+Jump @vehicleJump_
+:weapon_4a_rot
+PushString "weapon_4a_rot"
+Jump @vehicleJump_
+:weapon_4b_rot
+PushString "weapon_4b_rot"
+Jump @vehicleJump_
+:weapon_4c_rot
+PushString "weapon_4c_rot"
+Jump @vehicleJump_
+:weapon_4d_rot
+PushString "weapon_4d_rot"
+Jump @vehicleJump_
+:turret_1base
+PushString "turret_1base"
+Jump @vehicleJump_
+:turret_1barrel
+PushString "turret_1barrel"
+Jump @vehicleJump_
+:turret_2base
+PushString "turret_2base"
+Jump @vehicleJump_
+:turret_2barrel
+PushString "turret_2barrel"
+Jump @vehicleJump_
+:turret_3base
+PushString "turret_3base"
+Jump @vehicleJump_
+:turret_3barrel
+PushString "turret_3barrel"
+Jump @vehicleJump_
+:ammobelt
+PushString "ammobelt"
+Jump @vehicleJump_
+:searchlight_base
+PushString "searchlight_base"
+Jump @vehicleJump_
+:searchlight_light
+PushString "searchlight_light"
+Jump @vehicleJump_
+:attach_female
+PushString "attach_female"
+Jump @vehicleJump_
+:roof
+PushString "roof"
+Jump @vehicleJump_
+:roof2
+PushString "roof2"
+Jump @vehicleJump_
+:soft_1
+PushString "soft_1"
+Jump @vehicleJump_
+:soft_2
+PushString "soft_2"
+Jump @vehicleJump_
+:soft_3
+PushString "soft_3"
+Jump @vehicleJump_
+:soft_4
+PushString "soft_4"
+Jump @vehicleJump_
+:soft_5
+PushString "soft_5"
+Jump @vehicleJump_
+:soft_6
+PushString "soft_6"
+Jump @vehicleJump_
+:soft_7
+PushString "soft_7"
+Jump @vehicleJump_
+:soft_8
+PushString "soft_8"
+Jump @vehicleJump_
+:soft_9
+PushString "soft_9"
+Jump @vehicleJump_
+:soft_10
+PushString "soft_10"
+Jump @vehicleJump_
+:soft_11
+PushString "soft_11"
+Jump @vehicleJump_
+:soft_12
+PushString "soft_12"
+Jump @vehicleJump_
+:soft_13
+PushString "soft_13"
+Jump @vehicleJump_
+:forks
+PushString "forks"
+Jump @vehicleJump_
+:mast
+PushString "mast"
+Jump @vehicleJump_
+:carriage
+PushString "carriage"
+Jump @vehicleJump_
+:fork_l
+PushString "fork_l"
+Jump @vehicleJump_
+:fork_r
+PushString "fork_r"
+Jump @vehicleJump_
+:forks_attach
+PushString "forks_attach"
+Jump @vehicleJump_
+:frame_1
+PushString "frame_1"
+Jump @vehicleJump_
+:frame_2
+PushString "frame_2"
+Jump @vehicleJump_
+:frame_3
+PushString "frame_3"
+Jump @vehicleJump_
+:frame_pickup_1
+PushString "frame_pickup_1"
+Jump @vehicleJump_
+:frame_pickup_2
+PushString "frame_pickup_2"
+Jump @vehicleJump_
+:frame_pickup_3
+PushString "frame_pickup_3"
+Jump @vehicleJump_
+:frame_pickup_4
+PushString "frame_pickup_4"
+Jump @vehicleJump_
+:freight_cont
+PushString "freight_cont"
+Jump @vehicleJump_
+:freight_bogey
+PushString "freight_bogey"
+Jump @vehicleJump_
+:freightgrain_slidedoor
+PushString "freightgrain_slidedoor"
+Jump @vehicleJump_
+:door_hatch_r
+PushString "door_hatch_r"
+Jump @vehicleJump_
+:door_hatch_l
+PushString "door_hatch_l"
+Jump @vehicleJump_
+:tow_arm
+PushString "tow_arm"
+Jump @vehicleJump_
+:tow_mount_a
+PushString "tow_mount_a"
+Jump @vehicleJump_
+:tow_mount_b
+PushString "tow_mount_b"
+Jump @vehicleJump_
+:tipper
+PushString "tipper"
+Jump @vehicleJump_
+:combine_reel
+PushString "combine_reel"
+Jump @vehicleJump_
+:combine_auger
+PushString "combine_auger"
+Jump @vehicleJump_
+:slipstream_l
+PushString "slipstream_l"
+Jump @vehicleJump_
+:slipstream_r
+PushString "slipstream_r"
+Jump @vehicleJump_
+:arm_1
+PushString "arm_1"
+Jump @vehicleJump_
+:arm_2
+PushString "arm_2"
+Jump @vehicleJump_
+:arm_3
+PushString "arm_3"
+Jump @vehicleJump_
+:arm_4
+PushString "arm_4"
+Jump @vehicleJump_
+:scoop
+PushString "scoop"
+Jump @vehicleJump_
+:boom
+PushString "boom"
+Jump @vehicleJump_
+:stick
+PushString "stick"
+Jump @vehicleJump_
+:bucket
+PushString "bucket"
+Jump @vehicleJump_
+:shovel_2
+PushString "shovel_2"
+Jump @vehicleJump_
+:shovel_3
+PushString "shovel_3"
+Jump @vehicleJump_
+:Lookat_UpprPiston_head
+PushString "Lookat_UpprPiston_head"
+Jump @vehicleJump_
+:Lookat_LowrPiston_boom
+PushString "Lookat_LowrPiston_boom"
+Jump @vehicleJump_
+:Boom_Driver
+PushString "Boom_Driver"
+Jump @vehicleJump_
+:cutter_driver
+PushString "cutter_driver"
+Jump @vehicleJump_
+:vehicle_blocker
+PushString "vehicle_blocker"
+Jump @vehicleJump_
+:extra_1
+PushString "extra_1"
+Jump @vehicleJump_
+:extra_2
+PushString "extra_2"
+Jump @vehicleJump_
+:extra_3
+PushString "extra_3"
+Jump @vehicleJump_
+:extra_4
+PushString "extra_4"
+Jump @vehicleJump_
+:extra_5
+PushString "extra_5"
+Jump @vehicleJump_
+:extra_6
+PushString "extra_6"
+Jump @vehicleJump_
+:extra_7
+PushString "extra_7"
+Jump @vehicleJump_
+:extra_8
+PushString "extra_8"
+Jump @vehicleJump_
+:extra_9
+PushString "extra_9"
+Jump @vehicleJump_
+:extra_ten
+PushString "extra_ten"
+Jump @vehicleJump_
+:extra_11
+PushString "extra_11"
+Jump @vehicleJump_
+:extra_12
+PushString "extra_12"
+Jump @vehicleJump_
+:break_extra_1
+PushString "break_extra_1"
+Jump @vehicleJump_
+:break_extra_2
+PushString "break_extra_2"
+Jump @vehicleJump_
+:break_extra_3
+PushString "break_extra_3"
+Jump @vehicleJump_
+:break_extra_4
+PushString "break_extra_4"
+Jump @vehicleJump_
+:break_extra_5
+PushString "break_extra_5"
+Jump @vehicleJump_
+:break_extra_6
+PushString "break_extra_6"
+Jump @vehicleJump_
+:break_extra_7
+PushString "break_extra_7"
+Jump @vehicleJump_
+:break_extra_8
+PushString "break_extra_8"
+Jump @vehicleJump_
+:break_extra_9
+PushString "break_extra_9"
+Jump @vehicleJump_
+:break_extra_10
+PushString "break_extra_10"
+Jump @vehicleJump_
+:mod_col_1
+PushString "mod_col_1"
+Jump @vehicleJump_
+:mod_col_2
+PushString "mod_col_2"
+Jump @vehicleJump_
+:mod_col_3
+PushString "mod_col_3"
+Jump @vehicleJump_
+:mod_col_4
+PushString "mod_col_4"
+Jump @vehicleJump_
+:mod_col_5
+PushString "mod_col_5"
+Jump @vehicleJump_
+:handlebars
+PushString "handlebars"
+Jump @vehicleJump_
+:forks_u
+PushString "forks_u"
+Jump @vehicleJump_
+:forks_l
+PushString "forks_l"
+Jump @vehicleJump_
+:wheel_f
+PushString "wheel_f"
+Jump @vehicleJump_
+:swingarm
+PushString "swingarm"
+Jump @vehicleJump_
+:wheel_r
+PushString "wheel_r"
+Jump @vehicleJump_
+:crank
+PushString "crank"
+Jump @vehicleJump_
+:pedal_r
+PushString "pedal_r"
+Jump @vehicleJump_
+:pedal_l
+PushString "pedal_l"
+Jump @vehicleJump_
+:static_prop
+PushString "static_prop"
+Jump @vehicleJump_
+:moving_prop
+PushString "moving_prop"
+Jump @vehicleJump_
+:static_prop2
+PushString "static_prop2"
+Jump @vehicleJump_
+:moving_prop2
+PushString "moving_prop2"
+Jump @vehicleJump_
+:rudder
+PushString "rudder"
+Jump @vehicleJump_
+:rudder2
+PushString "rudder2"
+Jump @vehicleJump_
+:wheel_rf1_dummy
+PushString "wheel_rf1_dummy"
+Jump @vehicleJump_
+:wheel_rf2_dummy
+PushString "wheel_rf2_dummy"
+Jump @vehicleJump_
+:wheel_rf3_dummy
+PushString "wheel_rf3_dummy"
+Jump @vehicleJump_
+:wheel_rb1_dummy
+PushString "wheel_rb1_dummy"
+Jump @vehicleJump_
+:wheel_rb2_dummy
+PushString "wheel_rb2_dummy"
+Jump @vehicleJump_
+:wheel_rb3_dummy
+PushString "wheel_rb3_dummy"
+Jump @vehicleJump_
+:wheel_lf1_dummy
+PushString "wheel_lf1_dummy"
+Jump @vehicleJump_
+:wheel_lf2_dummy
+PushString "wheel_lf2_dummy"
+Jump @vehicleJump_
+:wheel_lf3_dummy
+PushString "wheel_lf3_dummy"
+Jump @vehicleJump_
+:wheel_lb1_dummy
+PushString "wheel_lb1_dummy"
+Jump @vehicleJump_
+:wheel_lb2_dummy
+PushString "wheel_lb2_dummy"
+Jump @vehicleJump_
+:wheel_lb3_dummy
+PushString "wheel_lb3_dummy"
+Jump @vehicleJump_
+:bogie_front
+PushString "bogie_front"
+Jump @vehicleJump_
+:bogie_rear
+PushString "bogie_rear"
+Jump @vehicleJump_
+:rotor_main
+PushString "rotor_main"
+Jump @vehicleJump_
+:rotor_rear
+PushString "rotor_rear"
+Jump @vehicleJump_
+:rotor_main_2
+PushString "rotor_main_2"
+Jump @vehicleJump_
+:rotor_rear_2
+PushString "rotor_rear_2"
+Jump @vehicleJump_
+:elevators
+PushString "elevators"
+Jump @vehicleJump_
+:tail
+PushString "tail"
+Jump @vehicleJump_
+:outriggers_l
+PushString "outriggers_l"
+Jump @vehicleJump_
+:outriggers_r
+PushString "outriggers_r"
+Jump @vehicleJump_
+:rope_attach_a
+PushString "rope_attach_a"
+Jump @vehicleJump_
+:rope_attach_b
+PushString "rope_attach_b"
+Jump @vehicleJump_
+:prop_1
+PushString "prop_1"
+Jump @vehicleJump_
+:prop_2
+PushString "prop_2"
+Jump @vehicleJump_
+:elevator_l
+PushString "elevator_l"
+Jump @vehicleJump_
+:elevator_r
+PushString "elevator_r"
+Jump @vehicleJump_
+:rudder_l
+PushString "rudder_l"
+Jump @vehicleJump_
+:rudder_r
+PushString "rudder_r"
+Jump @vehicleJump_
+:prop_3
+PushString "prop_3"
+Jump @vehicleJump_
+:prop_4
+PushString "prop_4"
+Jump @vehicleJump_
+:prop_5
+PushString "prop_5"
+Jump @vehicleJump_
+:prop_6
+PushString "prop_6"
+Jump @vehicleJump_
+:prop_7
+PushString "prop_7"
+Jump @vehicleJump_
+:prop_8
+PushString "prop_8"
+Jump @vehicleJump_
+:rudder_2
+PushString "rudder_2"
+Jump @vehicleJump_
+:aileron_l
+PushString "aileron_l"
+Jump @vehicleJump_
+:aileron_r
+PushString "aileron_r"
+Jump @vehicleJump_
+:airbrake_l
+PushString "airbrake_l"
+Jump @vehicleJump_
+:airbrake_r
+PushString "airbrake_r"
+Jump @vehicleJump_
+:wing_l
+PushString "wing_l"
+Jump @vehicleJump_
+:wing_r
+PushString "wing_r"
+Jump @vehicleJump_
+:wing_lr
+PushString "wing_lr"
+Jump @vehicleJump_
+:wing_rr
+PushString "wing_rr"
+Jump @vehicleJump_
+:engine_l
+PushString "engine_l"
+Jump @vehicleJump_
+:engine_r
+PushString "engine_r"
+Jump @vehicleJump_
+:nozzles_f
+PushString "nozzles_f"
+Jump @vehicleJump_
+:nozzles_r
+PushString "nozzles_r"
+Jump @vehicleJump_
+:afterburner
+PushString "afterburner"
+Jump @vehicleJump_
+:wingtip_1
+PushString "wingtip_1"
+Jump @vehicleJump_
+:wingtip_2
+PushString "wingtip_2"
+Jump @vehicleJump_
+:gear_door_fl
+PushString "gear_door_fl"
+Jump @vehicleJump_
+:gear_door_fr
+PushString "gear_door_fr"
+Jump @vehicleJump_
+:gear_door_rl1
+PushString "gear_door_rl1"
+Jump @vehicleJump_
+:gear_door_rr1
+PushString "gear_door_rr1"
+Jump @vehicleJump_
+:gear_door_rl2
+PushString "gear_door_rl2"
+Jump @vehicleJump_
+:gear_door_rr2
+PushString "gear_door_rr2"
+Jump @vehicleJump_
+:gear_door_rml
+PushString "gear_door_rml"
+Jump @vehicleJump_
+:gear_door_rmr
+PushString "gear_door_rmr"
+Jump @vehicleJump_
+:gear_f
+PushString "gear_f"
+Jump @vehicleJump_
+:gear_rl
+PushString "gear_rl"
+Jump @vehicleJump_
+:gear_lm1
+PushString "gear_lm1"
+Jump @vehicleJump_
+:gear_rr
+PushString "gear_rr"
+Jump @vehicleJump_
+:gear_rm1
+PushString "gear_rm1"
+Jump @vehicleJump_
+:gear_rm
+PushString "gear_rm"
+Jump @vehicleJump_
+:prop_left
+PushString "prop_left"
+Jump @vehicleJump_
+:prop_right
+PushString "prop_right"
+Jump @vehicleJump_
+:legs
+PushString "legs"
+Jump @vehicleJump_
+:attach_male
+PushString "attach_male"
+Jump @vehicleJump_
+:draft_animal_attach_lr
+PushString "draft_animal_attach_lr"
+Jump @vehicleJump_
+:draft_animal_attach_rr
+PushString "draft_animal_attach_rr"
+Jump @vehicleJump_
+:draft_animal_attach_lm
+PushString "draft_animal_attach_lm"
+Jump @vehicleJump_
+:draft_animal_attach_rm
+PushString "draft_animal_attach_rm"
+Jump @vehicleJump_
+:draft_animal_attach_lf
+PushString "draft_animal_attach_lf"
+Jump @vehicleJump_
+:draft_animal_attach_rf
+PushString "draft_animal_attach_rf"
+Jump @vehicleJump_
+:wheelcover_l
+PushString "wheelcover_l"
+Jump @vehicleJump_
+:wheelcover_r
+PushString "wheelcover_r"
+Jump @vehicleJump_
+:barracks
+PushString "barracks"
+Jump @vehicleJump_
+:pontoon_l
+PushString "pontoon_l"
+Jump @vehicleJump_
+:pontoon_r
+PushString "pontoon_r"
+Jump @vehicleJump_
+:no_ped_col_step_l
+PushString "no_ped_col_step_l"
+Jump @vehicleJump_
+:no_ped_col_strut_1_l
+PushString "no_ped_col_strut_1_l"
+Jump @vehicleJump_
+:no_ped_col_strut_2_l
+PushString "no_ped_col_strut_2_l"
+Jump @vehicleJump_
+:no_ped_col_step_r
+PushString "no_ped_col_step_r"
+Jump @vehicleJump_
+:no_ped_col_strut_1_r
+PushString "no_ped_col_strut_1_r"
+Jump @vehicleJump_
+:no_ped_col_strut_2_r
+PushString "no_ped_col_strut_2_r"
+Jump @vehicleJump_
+:light_cover
+PushString "light_cover"
+Jump @vehicleJump_
+:emissives
+PushString "emissives"
+Jump @vehicleJump_
+:neon_l
+PushString "neon_l"
+Jump @vehicleJump_
+:neon_r
+PushString "neon_r"
+Jump @vehicleJump_
+:neon_f
+PushString "neon_f"
+Jump @vehicleJump_
+:neon_b
+PushString "neon_b"
+Jump @vehicleJump_
+:dashglow
+PushString "dashglow"
+Jump @vehicleJump_
+:doorlight_lf
+PushString "doorlight_lf"
+Jump @vehicleJump_
+:doorlight_rf
+PushString "doorlight_rf"
+Jump @vehicleJump_
+:doorlight_lr
+PushString "doorlight_lr"
+Jump @vehicleJump_
+:doorlight_rr
+PushString "doorlight_rr"
+Jump @vehicleJump_
+:unknown_id
+PushString "unknown_id"
+Jump @vehicleJump_
+:dials
+PushString "dials"
+Jump @vehicleJump_
+:engineblock
+PushString "engineblock"
+Jump @vehicleJump_
+:bobble_head
+PushString "bobble_head"
+Jump @vehicleJump_
+:bobble_base
+PushString "bobble_base"
+Jump @vehicleJump_
+:bobble_hand
+PushString "bobble_hand"
+Jump @vehicleJump_
+:chassis_Control
+PushString "chassis_Control"
+Jump @vehicleJump_
+:vehicleJump_
+Call @vehicleshit
+Return 0 1
+:WeaponBone_
+StaticGet CurrentOption
+Switch [1=@gun_gripr][2=@gun_gripl][3=@gun_muzzle][4=@gun_vfx_eject][5=@gun_magazine][6=@gun_ammo][7=@gun_vfx_projtrail][8=@gun_barrels][9=@WAPClip][10=@WAPClip_2][11=@WAPScop][12=@WAPScop_2][13=@WAPGrip][14=@WAPGrip_2][15=@WAPSupp][16=@WAPSupp_2][17=@WAPFlsh][18=@WAPFlsh_2][19=@WAPStck][20=@WAPSeWp][21=@WAPLasr][22=@WAPLasr_2][23=@WAPFlshLasr][24=@WAPFlshLasr_2][25=@NM_Butt_Marker][26=@Gun_Nuzzle][27=@gun_drum]
+Return 0
+:gun_gripr
+PushString "gun_gripr"
+Jump @weaponjump_
+:gun_gripl
+PushString "gun_gripl"
+Jump @weaponjump_
+:gun_muzzle
+PushString "gun_muzzle"
+Jump @weaponjump_
+:gun_vfx_eject
+PushString "gun_vfx_eject"
+Jump @weaponjump_
+:gun_magazine
+PushString "gun_magazine"
+Jump @weaponjump_
+:gun_ammo
+PushString "gun_ammo"
+Jump @weaponjump_
+:gun_vfx_projtrail
+PushString "gun_vfx_projtrail"
+Jump @weaponjump_
+:gun_barrels
+PushString "gun_barrels"
+Jump @weaponjump_
+:WAPClip
+PushString "WAPClip"
+Jump @weaponjump_
+:WAPClip_2
+PushString "WAPClip_2"
+Jump @weaponjump_
+:WAPScop
+PushString "WAPScop"
+Jump @weaponjump_
+:WAPScop_2
+PushString "WAPScop_2"
+Jump @weaponjump_
+:WAPGrip
+PushString "WAPGrip"
+Jump @weaponjump_
+:WAPGrip_2
+PushString "WAPGrip_2"
+Jump @weaponjump_
+:WAPSupp
+PushString "WAPSupp"
+Jump @weaponjump_
+:WAPSupp_2
+PushString "WAPSupp_2"
+Jump @weaponjump_
+:WAPFlsh
+PushString "WAPFlsh"
+Jump @weaponjump_
+:WAPFlsh_2
+PushString "WAPFlsh_2"
+Jump @weaponjump_
+:WAPStck
+PushString "WAPStck"
+Jump @weaponjump_
+:WAPSeWp
+PushString "WAPSeWp"
+Jump @weaponjump_
+:WAPLasr
+PushString "WAPLasr"
+Jump @weaponjump_
+:WAPLasr_2
+PushString "WAPLasr_2"
+Jump @weaponjump_
+:WAPFlshLasr
+PushString "WAPFlshLasr"
+Jump @weaponjump_
+:WAPFlshLasr_2
+PushString "WAPFlshLasr_2"
+Jump @weaponjump_
+:NM_Butt_Marker
+PushString "NM_Butt_Marker"
+Jump @weaponjump_
+:Gun_Nuzzle
+PushString "Gun_Nuzzle"
+Jump @weaponjump_
+:gun_drum
+PushString "gun_drum"
+:weaponjump_
+Call @weaponshit_
+Return 0 1
+:PedBone_
+StaticGet CurrentOption
+Switch [1=@SKEL_Pelvis][2=@SKEL_L_Thigh][3=@SKEL_L_Calf][4=@SKEL_L_Foot][5=@SKEL_L_Toe0][6=@IK_L_Foot][7=@PH_L_Foot][8=@MH_L_Knee][9=@SKEL_R_Thigh][10=@SKEL_R_Calf][11=@SKEL_R_Foot][12=@SKEL_R_Toe0][13=@IK_R_Foot][14=@PH_R_Foot][15=@MH_R_Knee][16=@RB_L_ThighRoll][17=@RB_R_ThighRoll][18=@SKEL_Spine_Root][19=@SKEL_Spine0][20=@SKEL_Spine1][21=@SKEL_Spine2][22=@SKEL_Spine3][23=@SKEL_L_Clavicle][24=@SKEL_L_UpperArm][25=@SKEL_L_Forearm][26=@SKEL_L_Hand][27=@SKEL_L_Finger00][28=@SKEL_L_Finger01][29=@SKEL_L_Finger02][30=@SKEL_L_Finger10][31=@SKEL_L_Finger11][32=@SKEL_L_Finger12][33=@SKEL_L_Finger20][34=@SKEL_L_Finger21][35=@SKEL_L_Finger22][36=@SKEL_L_Finger30][37=@SKEL_L_Finger31][38=@SKEL_L_Finger32][39=@SKEL_L_Finger40][40=@SKEL_L_Finger41][41=@SKEL_L_Finger42][42=@PH_L_Hand][43=@IK_L_Hand][44=@RB_L_ForeArmRoll][45=@RB_L_ArmRoll][46=@MH_L_Elbow][47=@SKEL_R_Clavicle][48=@SKEL_R_UpperArm][49=@SKEL_R_Forearm][50=@SKEL_R_Hand][51=@SKEL_R_Finger00][52=@SKEL_R_Finger01][53=@SKEL_R_Finger02][54=@SKEL_R_Finger10][55=@SKEL_R_Finger11][56=@SKEL_R_Finger12][57=@SKEL_R_Finger20][58=@SKEL_R_Finger21][59=@SKEL_R_Finger22][60=@SKEL_R_Finger30][61=@SKEL_R_Finger31][62=@SKEL_R_Finger32][63=@SKEL_R_Finger40][64=@SKEL_R_Finger41][65=@SKEL_R_Finger42][66=@PH_R_Hand][67=@IK_R_Hand][68=@RB_R_ForeArmRoll][69=@RB_R_ArmRoll][70=@MH_R_Elbow][71=@SKEL_Neck_1][72=@SKEL_Head][73=@IK_Head][74=@FACIAL_facialRoot][75=@FB_L_Brow_Out_000][76=@FB_L_Lid_Upper_000][77=@FB_L_Eye_000][78=@FB_L_CheekBone_000][79=@FB_L_Lip_Corner_000][80=@FB_R_Lid_Upper_000][81=@FB_R_Eye_000][82=@FB_R_CheekBone_000][83=@FB_R_Brow_Out_000][84=@FB_R_Lip_Corner_000][85=@FB_Brow_Centre_000][86=@FB_UpperLipRoot_000][87=@FB_UpperLip_000][88=@FB_L_Lip_Top_000][89=@FB_R_Lip_Top_000][90=@FB_Jaw_000][91=@FB_LowerLipRoot_000][92=@FB_LowerLip_000][93=@FB_L_Lip_Bot_000][94=@FB_R_Lip_Bot_000][95=@FB_Tongue_000][96=@RB_Neck_1][97=@IK_Root]
+Return 0
+:SKEL_Pelvis
+Push 1
+Push 11816
+Jump @Jumptorestofit_
+:SKEL_L_Thigh
+Push 1
+Push 58271
+Jump @Jumptorestofit_
+:SKEL_L_Calf
+Push 1
+Push 63931
+Jump @Jumptorestofit_
+:SKEL_L_Foot
+Push 1
+Push 14201
+Jump @Jumptorestofit_
+:SKEL_L_Toe0
+Push 1
+Push 2108
+Jump @Jumptorestofit_
+:IK_L_Foot
+Push 1
+Push 65245
+Jump @Jumptorestofit_
+:PH_L_Foot
+Push 1
+Push 57717
+Jump @Jumptorestofit_
+:MH_L_Knee
+Push 1
+Push 46078
+Jump @Jumptorestofit_
+:SKEL_R_Thigh
+Push 1
+Push 51826
+Jump @Jumptorestofit_
+:SKEL_R_Calf
+Push 1
+Push 36864
+Jump @Jumptorestofit_
+:SKEL_R_Foot
+Push 1
+Push 52301
+Jump @Jumptorestofit_
+:SKEL_R_Toe0
+Push 1
+Push 20781
+Jump @Jumptorestofit_
+:IK_R_Foot
+Push 1
+Push 35502
+Jump @Jumptorestofit_
+:PH_R_Foot
+Push 1
+Push 24806
+Jump @Jumptorestofit_
+:MH_R_Knee
+Push 1
+Push 16335
+Jump @Jumptorestofit_
+:RB_L_ThighRoll
+Push 1
+Push 23639
+Jump @Jumptorestofit_
+:RB_R_ThighRoll
+Push 1
+Push 6442
+Jump @Jumptorestofit_
+:SKEL_Spine_Root
+Push 1
+Push 57597
+Jump @Jumptorestofit_
+:SKEL_Spine0
+Push 1
+Push 23553
+Jump @Jumptorestofit_
+:SKEL_Spine1
+Push 1
+Push 24816
+Jump @Jumptorestofit_
+:SKEL_Spine2
+Push 1
+Push 24817
+Jump @Jumptorestofit_
+:SKEL_Spine3
+Push 1
+Push 24818
+Jump @Jumptorestofit_
+:SKEL_L_Clavicle
+Push 1
+Push 64729
+Jump @Jumptorestofit_
+:SKEL_L_UpperArm
+Push 1
+Push 45509
+Jump @Jumptorestofit_
+:SKEL_L_Forearm
+Push 1
+Push 61163
+Jump @Jumptorestofit_
+:SKEL_L_Hand
+Push 1
+Push 18905
+Jump @Jumptorestofit_
+:SKEL_L_Finger00
+Push 1
+Push 26610
+Jump @Jumptorestofit_
+:SKEL_L_Finger01
+Push 1
+Push 4089
+Jump @Jumptorestofit_
+:SKEL_L_Finger02
+Push 1
+Push 4090
+Jump @Jumptorestofit_
+:SKEL_L_Finger10
+Push 1
+Push 26611
+Jump @Jumptorestofit_
+:SKEL_L_Finger11
+Push 1
+Push 4169
+Jump @Jumptorestofit_
+:SKEL_L_Finger12
+Push 1
+Push 4170
+Jump @Jumptorestofit_
+:SKEL_L_Finger20
+Push 1
+Push 26612
+Jump @Jumptorestofit_
+:SKEL_L_Finger21
+Push 1
+Push 4185
+Jump @Jumptorestofit_
+:SKEL_L_Finger22
+Push 1
+Push 4186
+Jump @Jumptorestofit_
+:SKEL_L_Finger30
+Push 1
+Push 26613
+Jump @Jumptorestofit_
+:SKEL_L_Finger31
+Push 1
+Push 4137
+Jump @Jumptorestofit_
+:SKEL_L_Finger32
+Push 1
+Push 4138
+Jump @Jumptorestofit_
+:SKEL_L_Finger40
+Push 1
+Push 26614
+Jump @Jumptorestofit_
+:SKEL_L_Finger41
+Push 1
+Push 4153
+Jump @Jumptorestofit_
+:SKEL_L_Finger42
+Push 1
+Push 4154
+Jump @Jumptorestofit_
+:PH_L_Hand
+Push 1
+Push 60309
+Jump @Jumptorestofit_
+:IK_L_Hand
+Push 1
+Push 36029
+Jump @Jumptorestofit_
+:RB_L_ForeArmRoll
+Push 1
+Push 61007
+Jump @Jumptorestofit_
+:RB_L_ArmRoll
+Push 1
+Push 5232
+Jump @Jumptorestofit_
+:MH_L_Elbow
+Push 1
+Push 22711
+Jump @Jumptorestofit_
+:SKEL_R_Clavicle
+Push 1
+Push 10706
+Jump @Jumptorestofit_
+:SKEL_R_UpperArm
+Push 1
+Push 40269
+Jump @Jumptorestofit_
+:SKEL_R_Forearm
+Push 1
+Push 28252
+Jump @Jumptorestofit_
+:SKEL_R_Hand
+Push 1
+Push 57005
+Jump @Jumptorestofit_
+:SKEL_R_Finger00
+Push 1
+Push 58866
+Jump @Jumptorestofit_
+:SKEL_R_Finger01
+Push 1
+Push 64016
+Jump @Jumptorestofit_
+:SKEL_R_Finger02
+Push 1
+Push 64017
+Jump @Jumptorestofit_
+:SKEL_R_Finger10
+Push 1
+Push 58867
+Jump @Jumptorestofit_
+:SKEL_R_Finger11
+Push 1
+Push 64096
+Jump @Jumptorestofit_
+:SKEL_R_Finger12
+Push 1
+Push 64097
+Jump @Jumptorestofit_
+:SKEL_R_Finger20
+Push 1
+Push 58868
+Jump @Jumptorestofit_
+:SKEL_R_Finger21
+Push 1
+Push 64112
+Jump @Jumptorestofit_
+:SKEL_R_Finger22
+Push 1
+Push 64113
+Jump @Jumptorestofit_
+:SKEL_R_Finger30
+Push 1
+Push 58869
+Jump @Jumptorestofit_
+:SKEL_R_Finger31
+Push 1
+Push 64064
+Jump @Jumptorestofit_
+:SKEL_R_Finger32
+Push 1
+Push 64065
+Jump @Jumptorestofit_
+:SKEL_R_Finger40
+Push 1
+Push 58870
+Jump @Jumptorestofit_
+:SKEL_R_Finger41
+Push 1
+Push 64080
+Jump @Jumptorestofit_
+:SKEL_R_Finger42
+Push 1
+Push 64081
+Jump @Jumptorestofit_
+:PH_R_Hand
+Push 1
+Push 28422
+Jump @Jumptorestofit_
+:IK_R_Hand
+Push 1
+Push 6286
+Jump @Jumptorestofit_
+:RB_R_ForeArmRoll
+Push 1
+Push 43810
+Jump @Jumptorestofit_
+:RB_R_ArmRoll
+Push 1
+Push 37119
+Jump @Jumptorestofit_
+:MH_R_Elbow
+Push 1
+Push 2992
+Jump @Jumptorestofit_
+:SKEL_Neck_1
+Push 1
+Push 39317
+Jump @Jumptorestofit_
+:SKEL_Head
+Push 1
+Push 31086
+Jump @Jumptorestofit_
+:IK_Head
+Push 1
+Push 12844
+Jump @Jumptorestofit_
+:FACIAL_facialRoot
+Push 1
+Push 65068
+Jump @Jumptorestofit_
+:FB_L_Brow_Out_000
+Push 1
+Push 58331
+Jump @Jumptorestofit_
+:FB_L_Lid_Upper_000
+Push 1
+Push 45750
+Jump @Jumptorestofit_
+:FB_L_Eye_000
+Push 1
+Push 25260
+Jump @Jumptorestofit_
+:FB_L_CheekBone_000
+Push 1
+Push 21550
+Jump @Jumptorestofit_
+:FB_L_Lip_Corner_000
+Push 1
+Push 29868
+Jump @Jumptorestofit_
+:FB_R_Lid_Upper_000
+Push 1
+Push 43536
+Jump @Jumptorestofit_
+:FB_R_Eye_000
+Push 1
+Push 27474
+Jump @Jumptorestofit_
+:FB_R_CheekBone_000
+Push 1
+Push 19336
+Jump @Jumptorestofit_
+:FB_R_Brow_Out_000
+Push 1
+Push 1356
+Jump @Jumptorestofit_
+:FB_R_Lip_Corner_000
+Push 1
+Push 11174
+Jump @Jumptorestofit_
+:FB_Brow_Centre_000
+Push 1
+Push 37193
+Jump @Jumptorestofit_
+:FB_UpperLipRoot_000
+Push 1
+Push 20178
+Jump @Jumptorestofit_
+:FB_UpperLip_000
+Push 1
+Push 61839
+Jump @Jumptorestofit_
+:FB_L_Lip_Top_000
+Push 1
+Push 20279
+Jump @Jumptorestofit_
+:FB_R_Lip_Top_000
+Push 1
+Push 17719
+Jump @Jumptorestofit_
+:FB_Jaw_000
+Push 1
+Push 46240
+Jump @Jumptorestofit_
+:FB_LowerLipRoot_000
+Push 1
+Push 17188
+Jump @Jumptorestofit_
+:FB_LowerLip_000
+Push 1
+Push 20623
+Jump @Jumptorestofit_
+:FB_L_Lip_Bot_000
+Push 1
+Push 47419
+Jump @Jumptorestofit_
+:FB_R_Lip_Bot_000
+Push 1
+Push 49979
+Jump @Jumptorestofit_
+:FB_Tongue_000
+Push 1
+Push 47495
+Jump @Jumptorestofit_
+:RB_Neck_1
+Push 1
+Push 35731
+Jump @Jumptorestofit_
+:IK_Root
+Push 1
+Push 56604
+:Jumptorestofit_
+Call @Fastv2_
+Return 0 1
+
+:StartupStuff_
+Function 0 2 0
+//StartupStuff
+Return 0 0

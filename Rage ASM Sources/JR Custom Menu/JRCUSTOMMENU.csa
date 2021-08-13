@@ -1,0 +1,2964 @@
+IncludeStaticFile JRCUSTOMMENU_Statics.c
+Function 0 2
+Push 128
+StaticSet2 stacksize
+PushString "Custom Menu"
+StaticSet2 MainMenuTitleText
+PushString "v0.1 By James reborn"
+StaticSet2 VersionNumber
+PushString "commonmenu"
+Call @MaybeLoadTexture_
+push_1
+StaticSet OpenOption
+push_1
+StaticSet OpenSubmenu
+CallNative "NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME" 0 0
+Call @StartupContinue_
+Return 0 0
+:StartupContinue_
+Call @StartupStuff_
+Jump @Loop_
+:Loop_
+Call @MainLoop_
+Jump @Loop_
+:MainLoop_
+Function 0 2
+push_0
+CallNative "WAIT" 1 0
+Call @OtherLoops_
+CallNative "IS_WARNING_MESSAGE_ACTIVE" 0 1
+CallNative "IS_PAUSE_MENU_ACTIVE" 0 1
+Or
+Not
+JumpTrue @MainLoopContinue_
+Return 0
+:MainLoopContinue_
+StaticGet CurrentSubmenu
+Switch [0=@MenuClosed_][1=@CallMainMenu_][2=@CallAnimation_][3=@CallWalkingStyle_][4=@CallFacialAnimation_][5=@CallItemPlacement_][6=@CallParticleEffect_][7=@CallStrafeAnimations_][8=@CallWeaponMovementAnimations_][9=@CallActionMode_][10=@CallDriveByAnimation_][11=@CallVehicleAnimation_][12=@CallPlaySound_][13=@CallPlaySpeech_][14=@CallPlayScenario_][15=@CallTimeCycle_][16=@CallScreenFX_][17=@CallCloud_][18=@Callweather_][19=@CallFrontend_][20=@CallObjectSpawn_][21=@CallScript_][22=@CallSS_]
+
+:CallMainMenu_
+Call @MainMenu_
+Jump @MenuOpen_
+:CallAnimation_
+Call @Animation_
+Jump @MenuOpen_
+:CallWalkingStyle_
+Call @WalkingStyle_
+Jump @MenuOpen_
+:CallFacialAnimation_
+Call @FacialAnimation_
+Jump @MenuOpen_
+:CallItemPlacement_
+Call @ItemPlacement_
+Jump @MenuOpen_
+:CallParticleEffect_
+Call @ParticleEffect_
+Jump @MenuOpen_
+:CallStrafeAnimations_
+Call @StrafeAnimations_
+Jump @MenuOpen_
+:CallWeaponMovementAnimations_
+Call @WeaponMovementAnimations_
+Jump @MenuOpen_
+:CallActionMode_
+Call @ActionMode_
+Jump @MenuOpen_
+:CallDriveByAnimation_
+Call @DriveByAnimation_
+Jump @MenuOpen_
+:CallVehicleAnimation_
+Call @VehicleAnimation_
+Jump @MenuOpen_
+:CallPlaySound_
+Call @PlaySound_
+Jump @MenuOpen_
+:CallPlaySpeech_
+Call @PlaySpeech_
+Jump @MenuOpen_
+:CallPlayScenario_
+Call @PlayScenario_
+Jump @MenuOpen_
+:CallTimeCycle_
+Call @TimeCycle_
+Jump @MenuOpen_
+:CallScreenFX_
+Call @ScreenFX_
+Jump @MenuOpen_
+:CallCloud_
+Call @Cloud_
+Jump @MenuOpen_
+:Callweather_
+Call @weather_
+Jump @MenuOpen_
+:CallFrontend_
+Call @Frontend_
+Jump @MenuOpen_
+:CallObjectSpawn_
+Call @ObjectSpawn_
+Jump @MenuOpen_
+:CallScript_
+Call @Script_
+Jump @MenuOpen_
+:CallSS_
+Call @SS_
+Jump @MenuOpen_
+//Region //Base_Code
+:AddStrings_
+Function 2 4 0
+getF1 0
+pStatic 53
+StrCopy 64
+getF1 1
+pStatic 53
+StrAdd 64
+pStatic 53
+Return 2 1
+:IntToString_
+Function 1 3 0
+PushString ""
+StaticSet 254
+getF1 0
+pStatic 254
+ItoS 32
+pStatic 254
+Return 1 1
+:AddInfo_
+Function 3 6
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndAddInfo_
+getF1 0
+JumpTrue @SetF16Higher_
+fPush 0.03272
+setF1 6
+Jump @AddInfoContinue_
+:SetF16Higher_
+fPush 0.035
+setF1 6
+:AddInfoContinue_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @SetInfoBoxFixedCoords_
+StaticGet SubmenuOptionCount
+Add1 1
+Jump @DrawInfoBoxCalcYCoord_
+:SetInfoBoxFixedCoords_
+Push1 14
+:DrawInfoBoxCalcYCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2395
+fAdd
+Dup
+StaticSet InfoLineCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+fPush_2.0
+fDiv
+fAdd
+fPush 0.003
+fAdd
+StaticSet InfoBoxCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+StaticSet InfoBoxLength
+StaticGet InfoLineCoord
+fPush 0.0205
+fAdd
+fPush 0.018
+fSub
+StaticSet InfoTextCoord
+StaticGet MenuXCoord3
+StaticGet InfoLineCoord
+fPush 0.2240
+fPush 0.005
+StaticGet BackgroundINFOLINER
+StaticGet BackgroundINFOLINEG
+StaticGet BackgroundINFOLINEB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet MenuXCoord3
+StaticGet InfoBoxCoord
+fPush 0.2240
+StaticGet InfoBoxLength
+StaticGet BackgroundINFOBOXR
+StaticGet BackgroundINFOBOXG
+StaticGet BackgroundINFOBOXB
+StaticGet BackgroundINFOBOXA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionFont
+StaticGet UnselectedTextINFOOPTIONR
+StaticGet UnselectedTextINFOOPTIONG
+StaticGet UnselectedTextINFOOPTIONB
+StaticGet INFOTextOutlineOptions
+Call @StringBase_
+PushString "TWOSTRINGS"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 1
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+getF1 2
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet InfoTextCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddInfo_
+Return 3
+:CheckAPressed_
+Function 0 2
+StaticGet ChangedSubmenu
+JumpTrue @APressedFalse_
+push_0
+StaticGet ScrollBindUp 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+Or
+JumpTrue @APressedFalse_
+Push 2
+StaticGet Enablethings
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @APressedFalse_
+PushString "SELECT"
+Call @PlayMenuSound_
+push_1
+Return 1
+:APressedFalse_
+push_0
+Return 1
+
+:CheckAPressed1_
+Function 0 2
+StaticGet ChangedSubmenu
+JumpTrue @APressedFalse1_
+push_0
+StaticGet ScrollBindUp 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+Or
+JumpTrue @APressedFalse1_
+Push 2
+StaticGet Enablethings
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @APressedFalse1_
+push_1
+Return 1
+:APressedFalse1_
+push_0
+Return 1
+:MenuClosed_
+JumpFalse @MenuClosedSkipBindHint_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_HELP" 1 0
+StaticGet BindHintText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+Push3 0 0 0
+push_-1
+CallNative "END_TEXT_COMMAND_DISPLAY_HELP" 4 0
+:MenuClosedSkipBindHint_
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+StaticGet OpenSubmenu
+StaticSet CurrentSubmenu
+StaticGet OpenOption
+StaticSet CurrentOption
+:EndMenuClosed_
+Return 0 0
+:MenuOpen_
+Call @DisableControls_
+Call @CheckBindsMenuOpen_
+push_0
+StaticGet CloseLoaderBind
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @GoBackSubmenu_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuUp_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsUpJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsUpJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuUp_
+:IsUpJustReleased_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @MonitorButtonDown_
+push_0
+StaticSet ScrollTimer
+:MonitorButtonDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsDownJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsDownJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuDown_
+:IsDownJustReleased_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @EndMenuOpen_
+push_0
+StaticSet ScrollTimer
+:EndMenuOpen_
+Return 0 0
+:Add1ToScrollTimer_
+Function 0 2 0
+StaticGet ScrollTimer
+Add1 1
+StaticSet ScrollTimer
+Return 0 0
+:GoBackSubmenu_
+PushString "BACK"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+JumpTrue @CloseMenu_
+StaticGet CurrentOption
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArraySet1 1
+StaticGet SubmenuLevel
+push_1
+Sub
+Dup
+StaticSet SubmenuLevel
+pStatic LastSubmenu
+ArrayGet1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastOption
+ArrayGet1 1
+StaticSet CurrentOption
+Jump @EndCloseMenu_
+:CloseMenu_
+push_0
+StaticSet CurrentSubmenu
+CallNative "GET_GAME_TIMER" 0 1
+PushS 750
+Add
+StaticSet DisableCinematicCameraTimer
+JumpFalse @EndCloseMenu_
+:EndCloseMenu_
+Return 0 0
+:MenuUp_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+JumpTrue @MenuUpMax_
+StaticGet CurrentOption
+push_1
+Sub
+StaticSet CurrentOption
+Jump @EndMenuUp_
+:MenuUpMax_
+StaticGet SubmenuOptionCount
+StaticSet CurrentOption
+:EndMenuUp_
+Return 0 0
+:WasXJustPressed_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @WasXJustPressedFalse_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+StaticGet ChangedSubmenu
+Or
+Or
+JumpTrue @WasXJustPressedFalse_
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @WasXJustPressedFalse_
+PushString "SELECT"
+Call @PlayMenuSound_
+push_1
+Return 0 1
+:WasXJustPressedFalse_
+push_0
+Return 0 1
+:CheckBindsMenuOpen_
+Function 0 2 0
+StaticGet CurrentOption
+StaticSet OpenOption
+StaticGet CurrentSubmenu
+StaticSet OpenSubmenu
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+And
+JumpFalse @DontCloseMenu_
+PushString "BACK"
+Call @PlayMenuSound_
+push_0
+StaticSet CurrentSubmenu
+:DontCloseMenu_
+Return 0 0
+:MenuDown_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+StaticGet SubmenuOptionCount
+JumpEQ @MenuDownMin_
+StaticGet CurrentOption
+Add1 1
+StaticSet CurrentOption
+Jump @EndMenuDown_
+:MenuDownMin_
+push_1
+StaticSet CurrentOption
+:EndMenuDown_
+Return 0 0
+:DisableControls_
+Function 0 2 0
+push_0
+pGlobal2 10434
+SetImmediate1 1//disable phone
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621//disable multiplayer name/rank popup
+push_0
+CallNative "SET_CINEMATIC_MODE_ACTIVE" 1 0
+CallNative "HIDE_HELP_TEXT_THIS_FRAME" 0 0
+push_6
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_7
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 8
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 9
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_2
+StaticGet Enablethings
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet CloseLoaderBind
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet EnterSUBMENUS
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindDown
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindUp
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind1
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+CallNative "PLAYER_PED_ID" 0 1
+push_0
+PushString "DEFAULT_ACTION" 
+CallNative "SET_PED_STEALTH_MOVEMENT" 3 0
+Return 0 0
+:GapFix_
+Function 1 3 0
+CallNative "IS_XBOX360_VERSION" 0 1
+JumpFalse @EndGapFix_
+getF1 0
+fPush 0.001
+fAdd
+setF1 0
+:EndGapFix_
+getF1 0
+Return 1 1
+:AddTitle_
+Function 1 3 0
+StaticGet MenuXCoord3
+fPush 0.188
+Call @GapFix_
+fPush 0.2240
+fPush 0.09
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet TitleFont
+StaticGet TitleR
+StaticGet TitleG
+StaticGet TitleB
+StaticGet TextOutlineTitle
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_CENTRE" 1 0
+fPush_0.0
+fPush 0.9
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord3
+fPush 0.163
+Call @GapFix_
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+push_0
+StaticSet OptionCount
+Call @IfSubmenuHasChangedCorrectCurrentOption_
+push_0
+StaticSet ChangedSubmenu
+Return 1 0
+:DrawBackground_
+Function 1 3 0
+getF1 0
+Dup
+StaticSet SubmenuOptionCount
+Push1 13
+JumpGT @DrawBackgroundForcedCoord_
+getF1 0
+Jump @DrawBackgroundCalculateCoord_
+:DrawBackgroundForcedCoord_
+Push1 13
+:DrawBackgroundCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush_2.0
+fDiv
+fPush 0.234
+fAdd
+StaticSet BackgroundCoord
+getF1 0
+Push1 13
+JumpGT @DrawBackgroundForcedLength_
+getF1 0
+Jump @DrawBackgroundCalculateLength_
+:DrawBackgroundForcedLength_
+Push1 13
+:DrawBackgroundCalculateLength_
+ItoF
+fPush 0.035
+fMul
+StaticSet BackgroundLength
+StaticGet MenuXCoord3
+StaticGet BackgroundCoord
+fPush 0.2240
+StaticGet BackgroundLength
+StaticGet BackgroundR
+StaticGet BackgroundG
+StaticGet BackgroundB
+StaticGet BackgroundA
+CallNative "DRAW_RECT" 8 0
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @BottombarFixedCoords_
+StaticGet SubmenuOptionCount
+Jump @DrawBottombar_
+:BottombarFixedCoords_
+Push1 13
+:DrawBottombar_
+ItoF
+fPush_1.0
+fAdd
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet BottombarCoord
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet VersionNumber
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+StaticGet OptionCountDisplay
+JumpFalse @SkipDrawOptionCount_
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "CM_ITEM_COUNT"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet CurrentOption
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+StaticGet SubmenuOptionCount
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+fPush_0.0
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:SkipDrawOptionCount_
+StaticGet ScrollArrows
+JumpFalse @DrawScrollbar_
+StaticGet ScrollArrowsAlways
+JumpTrue @SkipCheckOptionCount_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpLE @DrawScrollbar_
+:SkipCheckOptionCount_
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @DrawScrollbar_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+StaticGet ScrollArrowsR
+StaticGet ScrollArrowsG
+StaticGet ScrollArrowsB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:DrawScrollbar_
+StaticGet CurrentOption
+Push1 7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @DrawScrollbarSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @DrawScrollbarComplex_
+Push1 7
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarComplex_
+Push1 13
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+Sub
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarSimple_
+StaticGet CurrentOption
+:DrawScrollbarCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticGet SmoothScroll
+JumpFalse @SkipSmoothScroll_
+StaticGet ScrollbarCoord
+Call @SmoothScroll_
+:SkipSmoothScroll_
+StaticSet ScrollbarCoord
+StaticGet MenuXCoord3
+StaticGet ScrollbarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet ScrollbarR
+StaticGet ScrollbarG
+StaticGet ScrollbarB
+StaticGet ScrollbarA
+CallNative "DRAW_RECT" 8 0
+:SkipDrawScrollbar_
+Return 1 0
+:SmoothScroll_
+Function 2 5 0
+getF1 0
+setF1 5
+getF1 1
+JumpFalse @EndSmoothScroll_
+getF1 0
+getF1 1
+JumpLT @SubFromScrollbarCoord_
+getF1 0
+getF1 1
+JumpGT @AddToScrollbarCoord_
+Jump @EndSmoothScroll_
+:SubFromScrollbarCoord_
+getF1 1
+getF1 0
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 1
+getF1 0
+fSub
+fPush 1.7
+fDiv
+fSub
+setF1 5
+Jump @EndSmoothScroll_
+:AddToScrollbarCoord_
+getF1 0
+getF1 1
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 0
+getF1 1
+fSub
+fPush 1.7
+fDiv
+fAdd
+setF1 5
+:EndSmoothScroll_
+getF1 5
+Return 2 1
+:GetSafezoneSizeHalfed_
+Function 0 2 0
+CallNative "GET_SAFE_ZONE_SIZE" 0 1
+fPush_2.0
+fDiv
+Return 0 1
+:PlayMenuSound_
+Function 1 3 0
+push_-1
+getF1 0
+PushString "HUD_FRONTEND_DEFAULT_SOUNDSET"
+CallNative "PLAY_SOUND_FRONTEND" 3 0
+Return 1 0
+:CheckXPressed_
+Function 0 2 0
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+Return 0 1
+:CheckLeftPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @LeftPressedTrue_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsLeftJustReleased_
+getF1 0
+JumpFalse @CheckLeftPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckLeftPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsLeftJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @LeftPressedTrue_
+:IsLeftJustReleased_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @LeftPressedFalse_
+push_0
+StaticSet ScrollTimer
+:LeftPressedFalse_
+push_0
+Return 1 1
+:LeftPressedTrue_
+getF1 0
+JumpFalse @LeftPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:LeftPressedTrueContinue_
+push_1
+Return 1 1
+:CheckRightPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @RightPressedTrue_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsRightJustReleased_
+getF1 0
+JumpFalse @CheckRightPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckRightPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsRightJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @RightPressedTrue_
+:IsRightJustReleased_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @RightPressedFalse_
+push_0
+StaticSet ScrollTimer
+:RightPressedFalse_
+push_0
+Return 1 1
+:RightPressedTrue_
+getF1 0
+JumpFalse @RightPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:RightPressedTrueContinue_
+push_1
+Return 1 1
+:AddOnOffOption_
+Function 1 3 0
+StaticGet NoSprite
+JumpTrue @EndAddOnOffOption_
+StaticGet CurrentOption
+Push1 8
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 15
+CmpLE
+Or
+JumpTrue @AddOnOffOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+JumpLT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Add
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+Push1 8
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+JumpLE @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionSimple_
+StaticGet OptionCount
+Push1 15
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+:AddOnOffOptionDrawSprite_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet SpriteCoord
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddOnOffOption_
+StaticGet SpriteOutline
+JumpFalse @SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.03
+fPush 0.0494
+fPush_0.0
+StaticGet SpriteOutlineR
+StaticGet SpriteOutlineG
+StaticGet SpriteOutlineB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+getF1 0
+Call @GetSpriteColour_
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddOnOffOption_
+push_0
+StaticSet NoSprite
+Return 1 0
+:GetSpriteColour_
+Function 1 3 0
+getF1 0
+JumpFalse @SpriteColourOff_
+StaticGet SpriteOnR
+StaticGet SpriteOnG
+StaticGet SpriteOnB
+Return 1 3
+:SpriteColourOff_
+StaticGet SpriteOffR
+StaticGet SpriteOffG
+StaticGet SpriteOffB
+Return 1 3
+:MaybeLoadTexture_
+Function 1 3 0
+getF1 0
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpTrue @EndMaybeLoadTexture_
+getF1 0
+push_0
+CallNative "REQUEST_STREAMED_TEXTURE_DICT" 2 0
+:EndMaybeLoadTexture_
+Return 1 0
+
+
+:AddBoolOption_//(char text, var*, int onValue, int offValue)
+Function 4 6 0
+getF1 0
+Call @AddOption_
+getF1 1
+pGet
+getF1 2
+CmpEQ
+Call @AddOnOffOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+CmpEQ
+Call @CheckXPressed_
+And
+JumpFalse @EndAddBoolOption_
+PushString "SELECT"
+Call @PlayMenuSound_
+getF1 1
+pGet
+getF1 2
+JumpEQ @TurnBoolOff_
+getF1 2
+getF1 1
+pSet
+Jump @EndAddBoolOption_
+:TurnBoolOff_
+getF1 3
+getF1 1
+pSet
+:EndAddBoolOption_
+Return 4 0
+:GetScrollSpeed_
+Function 1 3 0
+getF1 0
+JumpTrue @ScrollSpeedFast_
+push_1
+StaticSet ScrollSpeed
+Return 1 0
+:ScrollSpeedFast_
+push_4
+StaticSet ScrollSpeed
+Return 1 0
+:AddIntOption_//(char text, startIndex*, int minValue, int maxValue, bool fastScroll)
+Function 5 7 0
+getF1 0
+Call @AddOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @AddIntOptionContinue_
+StaticGet IsToggle
+Call @AddLeftRightOption_
+getF1 4
+Call @GetScrollSpeed_
+push_1
+Call @CheckLeftPressed_
+JumpFalse @AddIntOptionCheckRight_
+getF1 1
+pGet
+push_1
+Sub
+Dup
+getF1 2
+JumpLT @AddIntOptionSetToMax_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMax_
+getF1 3
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionCheckRight_
+push_1
+Call @CheckRightPressed_
+JumpFalse @AddIntOptionContinue_
+getF1 1
+pGet
+Add1 1
+Dup
+getF1 3
+JumpGT @AddIntOptionSetToMin_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMin_
+getF1 2
+getF1 1
+pSet
+:AddIntOptionContinue_
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddIntOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddIntOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+:AddIntOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+StaticGet IsToggle
+Call @GetTextWrap_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "NUMBER"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 1
+pGet
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+fPush_0.0
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddIntOption_
+Return 5 0
+:AddLeftRightOptionGetAmmountToSub_
+Function 1 3 0
+getF1 0
+JumpTrue @AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0076
+Jump @EndAddLeftRightOptionGetAmmountToSub_
+:AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0235
+:EndAddLeftRightOptionGetAmmountToSub_
+Return 1 1
+:AddLeftRightOption_
+Function 1 3 0
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddLeftRightOption_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord2
+getF1 0
+Call @AddLeftRightOptionGetAmmountToSub_
+fSub
+StaticGet ScrollbarCoord
+fPush 0.025
+fPush 0.0444
+fPush 90
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddLeftRightOption_
+Return 1 0
+:GetTextWrap_
+Function 1 3 0
+getF1 0
+JumpTrue @GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndGetTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0165
+fSub
+CallNative "SET_TEXT_WRAP" 2 0
+:EndGetTextWrap_
+Return 1 0
+:GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0159
+fSub
+Jump @EndGetTextWrap2_
+:ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0324
+fSub
+:EndGetTextWrap2_
+CallNative "SET_TEXT_WRAP" 2 0
+Return 1 0
+:IfSubmenuHasChangedCorrectCurrentOption_
+Function 0 2 0
+StaticGet ChangedSubmenu
+JumpFalse @EndIfSubmenuHasChangedCorrectCurrentOption_
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+push_0
+CmpEQ
+Dup
+JumpFalse @GetLastOptionFromSubmenu_
+Jump @SetNewCurrentOption_
+:GetLastOptionFromSubmenu_
+Drop
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+:SetNewCurrentOption_
+StaticSet CurrentOption
+:EndIfSubmenuHasChangedCorrectCurrentOption_
+Return 0 0
+:AddSubmenuOption_
+Function 2 4 0
+getF1 0
+Call @AddOption_
+Call @WasXJustPressed_
+JumpFalse @EndAddSubmenuOption_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+getF1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+push_1
+StaticSet ChangedSubmenu
+:EndAddSubmenuOption_
+Return 2 0
+:GetSprite_
+Function 1 3 0
+getF1 0
+JumpFalse @OffSprite_
+PushString "shop_box_tick"
+Return 1 1
+:OffSprite_
+PushString "shop_box_cross"
+Return 1 1
+:ChangeSubmenu_
+Function 1 3 0
+PushString "SELECT"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+getF1 0
+StaticSet CurrentSubmenu
+push_1
+StaticSet CurrentOption
+push_1
+StaticSet ChangedSubmenu
+Return 1 0
+:AddOption_
+Function 1 3 0
+StaticGet OptionCount
+Add1 1
+StaticSet OptionCount
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddOption_
+StaticGet OptionCount
+:AddOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddOption_
+Return 1 0
+:GetOptionColour_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @TextColoured_
+StaticGet UnselectedTextR
+StaticGet UnselectedTextG
+StaticGet UnselectedTextB
+Return 0 3
+:TextColoured_
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Return 0 3
+:StringBase_
+Function 5 7 0
+getF1 0
+CallNative "SET_TEXT_FONT" 1 0
+fPush_0.0
+fPush 0.5
+CallNative "SET_TEXT_SCALE" 2 0
+getF1 1
+getF1 2
+getF1 3
+Push1 255
+CallNative "SET_TEXT_COLOUR" 4 0
+fPush_0.0
+StaticGet MenuXCoord2
+CallNative "SET_TEXT_WRAP" 2 0
+push_0
+CallNative "SET_TEXT_CENTRE" 1 0
+getF1 4
+JumpFalse @EndStringBase_
+CallNative "SET_TEXT_OUTLINE" 0 0
+:EndStringBase_
+Return 5 0
+//End
+//Region //OtherLoops_
+:OtherLoops_
+Function 0 2 0
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+
+StaticGet CurrentSubmenu
+push_0
+JumpNE @OtherLoopsContinue_
+StaticGet DisableCinematicCameraTimer
+CallNative "GET_GAME_TIMER" 0 1
+JumpLT @OtherLoopsContinue_
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621
+Push2 0 178
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+:OtherLoopsContinue_
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+
+pStatic2 l3
+Call @REQUEST_ANIM_DICT
+pStatic2 walkingstyle
+Call @REQUEST_CLIP_SET
+pStatic2 ptfxASSET
+Call @REQUEST_NAMED_PTFX_ASSET
+pStatic2 strafe
+Call @REQUEST_CLIP_SET
+pStatic2 weaponmovement
+Call @REQUEST_CLIP_SET
+pStatic2 actionmode
+Call @REQUEST_ACTION_MODE_ASSET
+pStatic2 driveby
+Call @REQUEST_ANIM_DICT
+pStatic2 vehicleanimationdictionary
+Call @REQUEST_ANIM_DICT
+pStatic2 ObjectSpawn_
+Call @REQUEST_MODEL
+pStatic2 pedspawning_
+Call @REQUEST_MODEL
+pStatic2 vehiclespawning_
+Call @REQUEST_MODEL
+pStatic2 scriptname_
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @mhmyeah_
+pStatic2 scriptname_
+CallNative "REQUEST_SCRIPT" 1 0
+:mhmyeah_
+
+:EndOtherLoops_
+Return 0 0
+//End
+
+
+//Region //Functions
+//Region //Request_Functions
+:REQUEST_MODEL //(char *stringrequest)
+Function 1 3
+getF1 0
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endtheloop_
+getF1 0
+GetHash
+CallNative "HAS_MODEL_LOADED" 1 1
+JumpTrue @endtheloop_
+getF1 0
+GetHash
+CallNative "REQUEST_MODEL" 1 0
+:endtheloop_
+Return 1
+
+:REQUEST_ANIM_DICT
+Function 1 3
+getF1 0
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endtheloop1_
+getF1 0
+CallNative "HAS_ANIM_DICT_LOADED" 1 1
+JumpTrue @endtheloop1_
+getF1 0
+CallNative "REQUEST_ANIM_DICT" 1 0
+:endtheloop1_
+Return 1
+
+:REQUEST_ACTION_MODE_ASSET
+Function 1 3
+getF1 0
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endtheloop2_
+getF1 0
+CallNative "HAS_ACTION_MODE_ASSET_LOADED" 1 1
+JumpTrue @endtheloop2_
+getF1 0
+CallNative "REQUEST_ACTION_MODE_ASSET" 1 0
+:endtheloop2_
+Return 1
+
+:REQUEST_CLIP_SET
+Function 1 3
+getF1 0
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endtheloop3_
+getF1 0
+CallNative "HAS_CLIP_SET_LOADED" 1 1
+JumpTrue @endtheloop3_
+getF1 0
+CallNative "REQUEST_CLIP_SET" 1 0
+:endtheloop3_
+Return 1
+
+:REQUEST_NAMED_PTFX_ASSET
+Function 1 3
+getF1 0
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endtheloop4_
+getF1 0
+CallNative "HAS_NAMED_PTFX_ASSET_LOADED" 1 1
+JumpTrue @endtheloop4_
+getF1 0
+CallNative "REQUEST_NAMED_PTFX_ASSET" 1 0
+:endtheloop4_
+Return 1
+
+//end
+
+:KeyboardResult_
+Function 1 3
+getF1 0
+Push1 255
+Call @PromptUser_
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndString
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+:EndString
+Return 1 1
+
+:PromptUser_
+Function 2 4 0
+push_0
+PushString ""
+PushString ""
+getF1 0
+PushString ""
+PushString ""
+PushString ""
+getF1 1
+push_1
+Add
+CallNative "DISPLAY_ONSCREEN_KEYBOARD" 8 0
+Call @MainLoop_
+:CheckResponse_
+CallNative "IS_SYSTEM_UI_BEING_DISPLAYED" 0 1
+JumpFalse @ReturnResponse_
+Call @MainLoop_
+Push 1
+CallNative "STOP_GAMEPLAY_HINT" 1 0
+Push 1
+CallNative "STOP_CINEMATIC_CAM_SHAKING" 1 0
+Jump @CheckResponse_
+:ReturnResponse_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+Return 2 1
+
+:functionaddinfoquick_
+Function 2 4
+getF1 0
+Call @AddOption_
+getF1 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @END
+push_1
+getF1 1
+PushString ""
+Call @AddInfo_
+:END
+Return 2 0
+
+:COPYINTOPSTATIC_
+Function 2 4
+getF1 0
+getF1 1
+StrCopy 255
+getF1 1
+Return 2
+//end
+
+//Region //MainMenu
+:MainMenu_
+Function 0 2 0
+StaticGet2 MainMenuTitleText
+Call @AddTitle_
+Push 20
+Call @DrawBackground_
+PushString "Animation"
+push_2
+Call @AddSubmenuOption_
+PushString "Facial Animation"
+push_4
+Call @AddSubmenuOption_
+PushString "Strafe Animation"
+Push 7
+Call @AddSubmenuOption_
+PushString "Gun Movement Animation"
+Push 8
+Call @AddSubmenuOption_
+PushString "Action Mode Animation"
+Push 9
+Call @AddSubmenuOption_
+PushString "Drive By Animation"
+Push 10
+Call @AddSubmenuOption_
+PushString "Vehicle Animation"
+Push 11
+Call @AddSubmenuOption_
+PushString "Walking Animation"
+push_3
+Call @AddSubmenuOption_
+PushString "Item Placement / IPL"
+Push 5
+Call @AddSubmenuOption_
+PushString "Particle Effect / PTFX"
+Push 6
+Call @AddSubmenuOption_
+PushString "Sound"
+Push 12
+Call @AddSubmenuOption_
+PushString "Frontend"
+Push 19
+Call @AddSubmenuOption_
+PushString "Voice"
+Push 13
+Call @AddSubmenuOption_
+PushString "Scenario"
+Push 14
+Call @AddSubmenuOption_
+PushString "Cloud"
+Push 17
+Call @AddSubmenuOption_
+PushString "Weather"
+Push 18
+Call @AddSubmenuOption_
+PushString "Time Cycle"
+Push 15
+Call @AddSubmenuOption_
+PushString "Screen Effect"
+Push 16
+Call @AddSubmenuOption_
+PushString "Script"
+Push 21
+Call @AddSubmenuOption_
+PushString "Spawning"
+Push 20
+Call @AddSubmenuOption_
+Return 0 0
+//End
+//Region //Animation_
+:Animation_
+Function 0 2
+PushString "Animation"
+Call @AddTitle_
+Push 5
+Call @DrawBackground_
+PushString "Animation Style"
+pStatic animationstyle
+Push -1000
+Push 1000
+push_0
+Call @AddIntOption_
+push_1
+Pushstring "50 is Upper Body Movement"
+PushString ""
+Call @AddInfo_
+PushString "Set Animation Dictionary"
+pStatic2 l3
+Call @functionaddinfoquick_
+PushString "Set Animation"
+pStatic2 animation
+Call @functionaddinfoquick_
+PushString "Play Animation"
+Call @AddOption_
+PushString "Stop Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndAnimation_
+StaticGet CurrentOption
+Switch [1=@SETINT_][2=@test1_][3=@test2_][4=@setanimationtask_][5=@cleartask_]
+Return 0
+
+:SETINT_
+StaticGet animationstyle
+Call @IntToString_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndAnimation_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+pStatic animationstyle
+CallNative "STRING_TO_INT" 2 1
+JumpFalse @here_
+Jump @EndAnimation_
+:here_
+StaticGet animationstyle
+Call @IntToString_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndAnimation_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+pStatic animationstyle
+CallNative "STRING_TO_INT" 2 1
+Return 0
+
+
+:test1_
+pStatic2 l3
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndAnimation_
+pStatic2 l3
+Call @COPYINTOPSTATIC_
+Return 0
+
+:test2_
+pStatic2 animation
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndAnimation_
+pStatic2 animation
+Call @COPYINTOPSTATIC_
+Return 0
+
+:setanimationtask_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 l3
+pStatic2 animation
+fPush 8
+fPush_1.0
+push_-1
+StaticGet animationstyle
+fPush_0.0
+push_0
+push_0
+push_0
+CallNative "TASK_PLAY_ANIM" 11 0
+pStatic2 animationdictionary
+CallNative "REMOVE_ANIM_DICT" 1 0
+Return 0
+
+:cleartask_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "CLEAR_PED_TASKS_IMMEDIATELY" 1 0
+Return 0
+
+:EndAnimation_
+Return 0
+
+//End
+//Region //WalkingStyle_
+:WalkingStyle_
+Function 0 2 0
+PushString "Walking Animation"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Walking Animation"
+pStatic2 walkingstyle
+Call @functionaddinfoquick_
+PushString "Apply Walking Animation"
+Call @AddOption_
+PushString "Reset Walking Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndWalkingStyle_
+StaticGet CurrentOption
+Switch [1=@Setwalkingstylestring_][2=@Setwalkingstyle_][3=@resetmovement_]
+Return 0
+
+:Setwalkingstylestring_
+pStatic2 walkingstyle
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndWalkingStyle_
+pStatic2 walkingstyle
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+
+
+
+:Setwalkingstyle_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 walkingstyle
+fPush_1.0
+CallNative "SET_PED_MOVEMENT_CLIPSET" 3 0
+//CallNative "PLAYER_PED_ID" 0 1
+//pStatic2 walkingstyle
+//CallNative "SET_PED_STRAFE_CLIPSET" 2 0
+Return 0
+
+
+:resetmovement_
+CallNative "PLAYER_PED_ID" 0 1
+fPush_1.0
+CallNative "RESET_PED_MOVEMENT_CLIPSET" 2 0
+Return 0
+
+:EndWalkingStyle_
+Return 0
+//End_
+//Region //FacialAnimation_
+:FacialAnimation_
+Function 0 2 0
+PushString "Facial Animation"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Facial Animation Dictionary"
+pStatic2 facialdictionary
+Call @functionaddinfoquick_
+PushString "Set Facial Animation"
+pStatic2 facialanimation
+Call @functionaddinfoquick_
+PushString "Apply Facial Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndFacialAnimation_
+StaticGet CurrentOption
+Switch [1=@setfacialdictionary_][2=@setfacialanimation_][3=@Setfacialexpression_]
+Return 0
+
+:setfacialdictionary_
+pStatic2 facialdictionary
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFacialAnimation_
+pStatic2 facialdictionary
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+:setfacialanimation_
+pStatic2 facialanimation
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFacialAnimation_
+pStatic2 facialanimation
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+:Setfacialexpression_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 facialanimation
+pStatic2 facialdictionary
+CallNative "PLAY_FACIAL_ANIM" 3 0
+Return 0
+
+:EndFacialAnimation_
+Return 0
+//End_
+//Region //ItemPlacement_
+:ItemPlacement_
+Function 0 2 0
+PushString "Item Placement / IPL"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set IPL"
+pStatic2 setipl
+Call @functionaddinfoquick_
+PushString "Load IPL"
+Call @AddOption_
+PushString "Remove IPL"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @endipl_
+StaticGet CurrentOption
+Switch [1=@setipl_][2=@loadipl_][3=@unloadipl_]
+Return 0
+:setipl_
+pStatic2 setipl
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endipl_
+pStatic2 setipl
+Call @COPYINTOPSTATIC_
+Return 0
+:loadipl_
+pStatic2 setipl
+CallNative "IS_IPL_ACTIVE" 1 1
+JumpTrue @endipl_
+pStatic2 setipl
+CallNative "REQUEST_IPL" 1 0
+Return 0 0
+:unloadipl_
+pStatic2 setipl
+CallNative "REMOVE_IPL" 1 0
+Return 0 0
+:endipl_
+Return 0 0
+//END
+//Region //ParticleEffect_
+:ParticleEffect_
+Function 0 2 0
+PushString "Particle Effect / PTFX"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Asset Dictionary"
+pStatic2 ptfxASSET
+Call @functionaddinfoquick_
+PushString "Set Asset"
+pStatic2 ptfx
+Call @functionaddinfoquick_
+PushString "Show PTFX"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @endParticleEffect_
+StaticGet CurrentOption
+Switch [1=@setAssetDictionary_][2=@setAsset_][3=@PlayAsset_]
+Return 0
+
+:setAssetDictionary_
+pStatic2 ptfxASSET
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endipl_
+pStatic2 ptfxASSET
+Call @COPYINTOPSTATIC_
+Return 0
+
+:setAsset_
+pStatic2 ptfx
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endipl_
+pStatic2 ptfx
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+:PlayAsset_
+pStatic2 ptfxASSET
+CallNative "UNK_9C720B61" 1 0//USE_PTFX
+pStatic2 ptfx
+CallNative "PLAYER_PED_ID" 0 1
+push_1
+CallNative "GET_ENTITY_COORDS" 2 3
+fPush_0.0
+fPush_0.0
+fPush_0.0
+fPush 1.0
+Push 0
+Push 0
+Push 0
+CallNative "UNK_633F8C48" 11 1
+
+Return 0 0
+
+
+
+
+
+
+
+
+
+
+:endParticleEffect_
+Return 0 0
+//END
+//Region //StrafeAnimations_
+:StrafeAnimations_
+Function 0 2 0
+PushString "Strafe Animation"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Strafe Animation"
+pStatic2 strafe
+Call @functionaddinfoquick_
+PushString "Apply Strafe Animation"
+Call @AddOption_
+PushString "Reset Strafe Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @endstrafeanimations_
+StaticGet CurrentOption
+Switch [1=@setstrafeanimation_][2=@applystrafe_][3=@resetstrafe_]
+Return 0
+
+
+:setstrafeanimation_
+pStatic2 strafe
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endstrafeanimations_
+pStatic2 strafe
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+
+:applystrafe_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 strafe
+CallNative "SET_PED_STRAFE_CLIPSET" 2 0
+Return 0
+
+:resetstrafe_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "RESET_PED_STRAFE_CLIPSET" 1 0
+Return 0
+
+:endstrafeanimations_
+Return 0
+//END
+//Region //WeaponMovementAnimations_
+:WeaponMovementAnimations_
+Function 0 2 0
+PushString "Gun Movement Animation"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Gun Movement Animation"
+pStatic2 weaponmovement
+Call @functionaddinfoquick_
+PushString "Apply Gun Movement Animation"
+Call @AddOption_
+PushString "Reset Gun Movement Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @endweaponmovement_
+StaticGet CurrentOption
+Switch [1=@setweaponmovementanimation_][2=@ApplyWeaponMovement_][3=@ResetWeaponMovement_]
+Return 0
+
+
+:setweaponmovementanimation_
+pStatic2 weaponmovement
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endweaponmovement_
+pStatic2 weaponmovement
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+
+:ApplyWeaponMovement_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 weaponmovement
+CallNative "SET_PED_WEAPON_MOVEMENT_CLIPSET" 2 0
+Return 0
+
+
+:ResetWeaponMovement_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "RESET_PED_WEAPON_MOVEMENT_CLIPSET" 1 0
+Return 0
+
+:endweaponmovement_
+Return 0
+//END
+//Region //ActionMode_
+:ActionMode_
+Function 0 2 0
+PushString "Action Mode Animation"
+Call @AddTitle_
+Push1 2
+Call @DrawBackground_
+PushString "Set Action Mode Animation"
+pStatic2 actionmode
+Call @functionaddinfoquick_
+PushString "Apply Action Mode Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @endActionMode
+StaticGet CurrentOption
+Switch [1=@setactionmode_][2=@applyactionmode_]
+Return 0
+:setactionmode_
+pStatic2 actionmode
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endstrafeanimations_
+pStatic2 actionmode
+Call @COPYINTOPSTATIC_
+Return 0
+:applyactionmode_
+CallNative "PLAYER_PED_ID" 0 1
+Push 0
+Push -1
+pStatic2 actionmode
+CallNative "SET_PED_USING_ACTION_MODE" 4 0
+Return 0
+:endActionMode
+Return 0
+//END
+//Region //DriveByAnimation_
+:DriveByAnimation_
+Function 0 2 0
+PushString "Drive By Animation"
+Call @AddTitle_
+Push1 3
+Call @DrawBackground_
+PushString "Set Drive By Animation"
+pStatic2 driveby
+Call @functionaddinfoquick_
+PushString "Apply Drive By Animation"
+Call @AddOption_
+PushString "Clear Drive By Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @enddrivebyanimation_
+StaticGet CurrentOption
+Switch [1=@setdrivebyanimation_][2=@applydrivebyanimation_][3=@resetdriveby_]
+Return 0
+
+:setdrivebyanimation_
+pStatic2 driveby
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endstrafeanimations_
+pStatic2 driveby
+Call @COPYINTOPSTATIC_
+Return 0
+
+:applydrivebyanimation_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 driveby
+CallNative "SET_PED_DRIVE_BY_CLIPSET_OVERRIDE" 2 0
+Return 0
+
+:resetdriveby_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "CLEAR_PED_DRIVE_BY_CLIPSET_OVERRIDE" 1 0
+Return 0
+
+:enddrivebyanimation_
+Return 0
+//END
+//Region //VehicleAnimation_
+:VehicleAnimation_
+Function 0 2
+PushString "Vehicle Animation"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Vehicle Animation Dictionary"
+pStatic2 vehicleanimationdictionary
+Call @functionaddinfoquick_
+PushString "Set Vehicle Animation"
+pStatic2 vehicleanimation
+Call @functionaddinfoquick_
+PushString "Play Vehicle Animation"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndVehicleAnimation_
+StaticGet CurrentOption
+Switch [1=@setvehicleanimaiondictionary_][2=@setvehicleanimaion_][3=@ApplyVehicleAnimation_]
+Return 0
+
+:setvehicleanimaiondictionary_
+pStatic2 vehicleanimationdictionary
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endstrafeanimations_
+pStatic2 vehicleanimationdictionary
+Call @COPYINTOPSTATIC_
+Return 0
+
+:setvehicleanimaion_
+pStatic2 vehicleanimation
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @endstrafeanimations_
+pStatic2 vehicleanimation
+Call @COPYINTOPSTATIC_
+Return 0
+
+:ApplyVehicleAnimation_
+CallNative "PLAYER_PED_ID" 0 1
+Push 1
+CallNative "IS_PED_IN_ANY_VEHICLE" 2 1
+JumpFalse @EndVehicleAnimation_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "GET_VEHICLE_PED_IS_USING" 1 1
+pStatic2 vehicleanimationdictionary
+pStatic2 vehicleanimation
+CallNative "TASK_VEHICLE_PLAY_ANIM" 3 0
+Return 0
+
+:EndVehicleAnimation_
+Return 0
+//END
+//Region //PlaySound_
+:PlaySound_
+Function 0 2
+PushString "Sound"
+Call @AddTitle_
+Push 4
+Call @DrawBackground_
+PushString "Sound ID"
+pStatic SoundINT
+Push -255
+Push 255
+push_0
+Call @AddIntOption_
+PushString "Set Audio Name"
+pStatic2 audioname
+Call @functionaddinfoquick_
+PushString "Set Audio Ref"
+pStatic2 audioref
+Call @functionaddinfoquick_
+PushString "Play Sound"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndPlaySound_
+StaticGet CurrentOption
+Switch [2=@SetAudioName_][3=@SetaudioRef][4=@PLAY_SOUND_FROM_ENTITY_]
+Return 0
+:SetAudioName_
+pStatic2 audioname
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySound_
+pStatic2 audioname
+Call @COPYINTOPSTATIC_
+Return 0
+:SetaudioRef
+pStatic2 audioref
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySound_
+pStatic2 audioref
+Call @COPYINTOPSTATIC_
+Return 0
+:PLAY_SOUND_FROM_ENTITY_
+StaticGet SoundINT
+pStatic2 audioname
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 audioref
+Push 1
+Push 0
+CallNative "PLAY_SOUND_FROM_ENTITY" 6 0
+Return 0
+
+:EndPlaySound_
+Return 0
+//END
+//Region //PlaySpeech_
+:PlaySpeech_
+Function 0 2
+PushString "Voice"
+Call @AddTitle_
+Push 4
+Call @DrawBackground_
+PushString "Set Speech Name"
+pStatic2 speechName
+Call @functionaddinfoquick_
+PushString "Set Voice Name"
+pStatic2 voicename
+Call @functionaddinfoquick_
+PushString "Set Speech Param"
+pStatic2 speechParam
+Call @functionaddinfoquick_
+PushString "Play Voice"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndPlaySpeech_
+StaticGet CurrentOption
+Switch [1=@setspeechName_][2=@setvoicename_][3=@setspeechParam_][4=@Playthevoice_]
+Return 0
+:setspeechName_
+pStatic2 speechName
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 speechName
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+:setvoicename_
+pStatic2 voicename
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 voicename
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+
+
+
+
+:setspeechParam_
+pStatic2 speechParam
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 speechParam
+Call @COPYINTOPSTATIC_
+Return 0
+:Playthevoice_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 speechName
+pStatic2 voicename
+pStatic2 speechParam
+Push 1
+CallNative "UNK_8386AE28" 5 0
+Return 0
+:EndPlaySpeech_
+Return 0
+//END
+//Region //PlayScenario_
+:PlayScenario_
+Function 0 2
+PushString "Scenario"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Scenario"
+pStatic2 Scenario
+Call @functionaddinfoquick_
+PushString "Play Scenario"
+Call @AddOption_
+PushString "Stop Scenario"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndPlayScenario_
+StaticGet CurrentOption
+Switch [1=@setscenario_][2=@playscenarionow_][3=@cleartask1_]
+Return 0
+:setscenario_
+pStatic2 Scenario
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 Scenario
+Call @COPYINTOPSTATIC_
+Return 0
+
+:playscenarionow_
+CallNative "PLAYER_PED_ID" 0 1
+pStatic2 Scenario
+push_0
+push_0
+CallNative "TASK_START_SCENARIO_IN_PLACE" 4 0
+Return 0
+
+
+:cleartask1_
+CallNative "PLAYER_PED_ID" 0 1
+CallNative "CLEAR_PED_TASKS_IMMEDIATELY" 1 0
+Return 0
+
+:EndPlayScenario_
+Return 0
+//END
+//Region //TimeCycle_
+:TimeCycle_
+Function 0 2
+PushString "Time Cycle"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Time Cycle"
+pStatic2 timecycle
+Call @functionaddinfoquick_
+PushString "Apply Time Cycle"
+Call @AddOption_
+PushString "Reset Time Cycle"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndTimeCycle_
+StaticGet CurrentOption
+Switch [1=@setTimeCycle_][2=@applytimecycle_][3=@resetcycle_]
+Return 0
+:setTimeCycle_
+pStatic2 timecycle
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 timecycle
+Call @COPYINTOPSTATIC_
+Return 0
+:applytimecycle_
+pStatic2 timecycle
+CallNative "SET_TIMECYCLE_MODIFIER" 1 0
+Return 0
+:resetcycle_
+CallNative "CLEAR_TIMECYCLE_MODIFIER" 0 0
+Return 0
+:EndTimeCycle_
+Return 0
+//END
+//Region //ScreenFX_
+:ScreenFX_
+Function 0 2
+PushString "Screen Effect"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Screen Effect"
+pStatic2 screenfx
+Call @functionaddinfoquick_
+PushString "Apply Screen Effect"
+Call @AddOption_
+PushString "Stop Screen Effect"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @EndScreenFX_
+StaticGet CurrentOption
+Switch [1=@setscreenfx_][2=@applyscreenfx_][3=@resetscreenfx_]
+Return 0
+
+
+
+:setscreenfx_
+pStatic2 screenfx
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 screenfx
+Call @COPYINTOPSTATIC_
+Return 0
+
+
+:applyscreenfx_
+pStatic2 screenfx
+Push 100
+Push 1
+CallNative "ANIMPOSTFX_PLAY" 3 0
+Return 0
+
+
+:resetscreenfx_
+CallNative "ANIMPOSTFX_STOP_ALL" 0 0
+Return 0
+
+:EndScreenFX_
+Return 0
+//END
+//Region //Cloud_
+:Cloud_
+Function 0 2
+PushString "Cloud"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Cloud"
+pStatic2 cloud
+Call @functionaddinfoquick_
+PushString "Apply Cloud"
+Call @AddOption_
+PushString "Clear Cloud"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @Endcloud_
+StaticGet CurrentOption
+Switch [1=@setcloud_][2=@applycloud_][3=@resetcloud_]
+Return 0
+:setcloud_
+pStatic2 cloud
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 cloud
+Call @COPYINTOPSTATIC_
+Return 0
+:applycloud_
+
+pStatic2 cloud
+CallNative "PRELOAD_CLOUD_HAT" 1 0
+pStatic2 cloud
+fPush 1.0
+CallNative "LOAD_CLOUD_HAT" 2 0
+Return 0
+:resetcloud_
+CallNative "UNK_2D7787BC" 0 0
+Return 0
+:Endcloud_
+Return 0
+//END
+//Region //weather_
+:weather_
+Function 0 2
+PushString "Weather"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+PushString "Set Weather"
+pStatic2 weather
+Call @functionaddinfoquick_
+PushString "Apply Weather"
+Call @AddOption_
+PushString "Clear Weather"
+Call @AddOption_
+Call @CheckAPressed_
+JumpFalse @Endweather_
+StaticGet CurrentOption
+Switch [1=@setWeather_][2=@applyWeather_][3=@resetWeather_]
+Return 0
+:setWeather_
+pStatic2 weather
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 weather
+Call @COPYINTOPSTATIC_
+Return 0
+:applyWeather_
+pStatic2 weather
+CallNative "SET_OVERRIDE_WEATHER" 1 0
+Return 0
+:resetWeather_
+Pushstring "CLEAR"
+CallNative "SET_OVERRIDE_WEATHER" 1 0
+Return 0
+:Endweather_
+Return 0
+//END
+//Region //Frontend_
+:Frontend_
+Function 0 2
+PushString "Frontend"
+Call @AddTitle_
+Push 4
+Call @DrawBackground_
+PushString "Sound ID"
+pStatic Fsoundid
+Push -300
+Push 300
+push_0
+Call @AddIntOption_
+PushString "Set Frontend Name"
+pStatic2 fsouundname
+Call @functionaddinfoquick_
+PushString "Set Frontend Ref"
+pStatic2 Fsoundref
+Call @functionaddinfoquick_
+PushString "Play Frontend"
+Call @AddOption_
+Call @CheckAPressed1_
+JumpFalse @EndFrontend_
+StaticGet CurrentOption
+Switch [1=@SETINT2_][2=@setFrontendname_][3=@setFrontendref_][4=@applyFrontend_]
+Return 0
+
+
+:SETINT2_
+StaticGet Fsoundid
+Call @IntToString_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFrontend_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+pStatic Fsoundid
+CallNative "STRING_TO_INT" 2 1
+JumpFalse @here1_
+Jump @EndFrontend_
+:here1_
+StaticGet Fsoundid
+Call @IntToString_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFrontend_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+pStatic Fsoundid
+CallNative "STRING_TO_INT" 2 1
+Return 0
+
+
+
+
+
+:setFrontendname_
+pStatic2 fsouundname
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 fsouundname
+Call @COPYINTOPSTATIC_
+Return 0
+
+:setFrontendref_
+pStatic2 Fsoundref
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndPlaySpeech_
+pStatic2 Fsoundref
+Call @COPYINTOPSTATIC_
+Return 0
+
+:applyFrontend_
+StaticGet Fsoundid
+pStatic2 fsouundname
+pStatic2 Fsoundref
+Push 0
+CallNative "PLAY_SOUND_FRONTEND" 4 0
+Return 0
+
+:EndFrontend_
+Return 0
+//END
+//Region //Spawning
+:ObjectSpawn_
+Function 0 2
+PushString "Spawning"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+//Pushstring "Hash Only"
+//pStatic HashonlyObject
+//Push2 1 0
+//Call @AddBoolOption_
+PushString "Spawn Object (String Only)"
+pStatic2 Objectspawning_
+Call @functionaddinfoquick_
+PushString "Spawn Ped (String Only)"
+pStatic2 pedspawning_
+Call @functionaddinfoquick_
+PushString "Spawn Vehicle (String Only)"
+pStatic2 vehiclespawning_
+Call @functionaddinfoquick_
+Call @CheckAPressed1_
+JumpFalse @EndFrontend_
+StaticGet CurrentOption
+Switch [1=@SpawnObjectString_][2=@SpawnPed_][3=@SpawnVehicle_]
+Return 0
+
+:SpawnObjectString_
+pStatic Objectspawning_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFrontend_
+pStatic Objectspawning_
+Call @COPYINTOPSTATIC_
+pStatic Objectspawning_
+GetHash
+CallNative "PLAYER_PED_ID" 0 1
+Push 1
+CallNative "GET_ENTITY_COORDS" 2 3
+push_1
+push_1
+push_0
+CallNative "CREATE_OBJECT" 7 1
+StaticSet ReturnHandle
+StaticGet ReturnHandle
+push_1
+CallNative "FREEZE_ENTITY_POSITION" 2 0
+Return 0
+
+:SpawnPed_
+pStatic pedspawning_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFrontend_
+pStatic pedspawning_
+Call @COPYINTOPSTATIC_
+
+push_1
+CallNative "RESERVE_NETWORK_MISSION_PEDS" 1 0
+Push1 25
+pStatic pedspawning_
+GetHash
+CallNative "PLAYER_PED_ID" 0 1
+Push 1
+CallNative "GET_ENTITY_COORDS" 2 3
+fPush_0.0
+push_1
+push_1
+CallNative "CREATE_PED" 8 1
+StaticSet ReturnHandle
+StaticGet ReturnHandle
+CallNative "SET_PED_DEFAULT_COMPONENT_VARIATION" 1 0
+StaticGet ReturnHandle
+Push 1
+CallNative "SET_PED_RANDOM_COMPONENT_VARIATION" 2 0
+StaticGet ReturnHandle
+CallNative "SET_PED_RANDOM_PROPS" 1 0
+Return 0
+:SpawnVehicle_
+pStatic vehiclespawning_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndFrontend_
+pStatic vehiclespawning_
+Call @COPYINTOPSTATIC_
+push_1
+CallNative "RESERVE_NETWORK_MISSION_VEHICLES" 1 0
+pStatic vehiclespawning_
+GetHash
+CallNative "PLAYER_PED_ID" 0 1
+Push 1
+CallNative "GET_ENTITY_COORDS" 2 3
+push_1
+push_1
+push_0
+CallNative "CREATE_VEHICLE" 7 1
+StaticSet ReturnHandle
+StaticGet ReturnHandle
+push_1
+CallNative "SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES" 2 0
+Return 0
+//End
+//Region //Script_
+:Script_
+Function 0 2
+PushString "Script"
+Call @AddTitle_
+Push 3
+Call @DrawBackground_
+//Pushstring "Hash Only"
+//pStatic HashonlyObject
+//Push2 1 0
+//Call @AddBoolOption_
+PushString "Set Script Name"
+pStatic2 scriptname_
+Call @functionaddinfoquick_
+Pushstring "Set Stacksize"
+Push 22
+Call @AddSubmenuOption_
+push_1
+Pushstring "Stacksize Set To"
+StaticGet stacksize
+Call @IntToString_
+Call @AddInfo_
+
+pStatic2 scriptname_
+CallNative "DOES_SCRIPT_EXIST" 1 1
+JumpFalse @notexist_
+pStatic2 scriptname_
+GetHash
+CallNative "UNK_029D3841" 1 1
+JumpTrue @alreadyloaded_
+PushString "Load Script"
+Call @AddOption_
+Jump @nfkdon
+:alreadyloaded_
+PushString "UnLoad Script"
+Call @AddOption_
+Jump @nfkdon
+:notexist_
+PushString "Doesn't Exist"
+Call @AddOption_
+:nfkdon
+Call @CheckAPressed1_
+JumpFalse @EndFrontend_
+StaticGet CurrentOption
+Switch [1=@setscriptname_][3=@loadscript_]
+Return 0
+
+:setscriptname_
+pStatic2 scriptname_
+Call @KeyboardResult_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+CallNative "IS_STRING_NULL_OR_EMPTY" 1 1
+JumpTrue @EndAnimation_
+pStatic2 scriptname_
+Call @COPYINTOPSTATIC_
+Return 0
+
+:loadscript_
+pStatic2 scriptname_
+CallNative "DOES_SCRIPT_EXIST" 1 1
+JumpFalse @nope
+pStatic2 scriptname_
+GetHash
+CallNative "UNK_029D3841" 1 1
+JumpTrue @unloadit_
+pStatic2 scriptname_
+StaticGet stacksize
+CallNative "START_NEW_SCRIPT" 2 1
+:nope
+Return 0
+
+:unloadit_
+pStatic2 scriptname_
+CallNative "TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME" 1 0
+pStatic2 scriptname_
+CallNative "SET_SCRIPT_AS_NO_LONGER_NEEDED" 1 0
+Return 0
+
+
+
+
+
+
+:SS_
+Function 0 2
+PushString "Set Stacksize"
+Call @AddTitle_
+Push 20
+Call @DrawBackground_
+//Pushstring "Hash Only"
+//pStatic HashonlyObject
+//Push2 1 0
+//Call @AddBoolOption_
+PushString "128"
+Call @AddOption_
+PushString "512"
+Call @AddOption_
+PushString "1024"
+Call @AddOption_
+PushString "1820"
+Call @AddOption_
+PushString "1828"
+Call @AddOption_
+PushString "2024"
+Call @AddOption_
+PushString "2552"
+Call @AddOption_
+PushString "2556"
+Call @AddOption_
+PushString "2800"
+Call @AddOption_
+PushString "3076"
+Call @AddOption_
+PushString "3150"
+Call @AddOption_
+PushString "3584"
+Call @AddOption_
+PushString "4592"
+Call @AddOption_
+PushString "4600"
+Call @AddOption_
+PushString "5000"
+Call @AddOption_
+PushString "6304"
+Call @AddOption_
+PushString "8032"
+Call @AddOption_
+PushString "9300"
+Call @AddOption_
+PushString "15000"
+Call @AddOption_
+PushString "21000"
+Call @AddOption_
+Call @CheckAPressed1_
+JumpFalse @EndFrontend_
+StaticGet CurrentOption
+Switch [1=@1ss_][2=@2ss_][3=@3ss_][4=@4ss_][5=@5ss_][6=@6ss_][7=@7ss_][8=@8ss_][9=@9ss_][10=@10ss_][11=@11ss_][12=@12ss_][13=@13ss_][14=@14ss_][15=@15ss_][16=@16ss_][17=@17ss_][18=@18ss_][19=@19ss_][20=@20ss_]
+Return 0
+:1ss_
+Push 128
+Jump @jumptostack
+:2ss_
+Push 512
+Jump @jumptostack
+:3ss_
+Push 1024
+Jump @jumptostack
+:4ss_
+Push 1820
+Jump @jumptostack
+:5ss_
+Push 1828
+Jump @jumptostack
+:6ss_
+Push 2024
+Jump @jumptostack
+:7ss_
+Push 2552
+Jump @jumptostack
+:8ss_
+Push 2556
+Jump @jumptostack
+:9ss_
+Push 2800
+Jump @jumptostack
+:10ss_
+Push 3076
+Jump @jumptostack
+:11ss_
+Push 3150
+Jump @jumptostack
+:12ss_
+Push 3584
+Jump @jumptostack
+:13ss_
+Push 4592
+Jump @jumptostack
+:14ss_
+Push 4600
+Jump @jumptostack
+:15ss_
+Push 5000
+Jump @jumptostack
+:16ss_
+Push 6304
+Jump @jumptostack
+:17ss_
+Push 8032
+Jump @jumptostack
+:18ss_
+Push 9300
+Jump @jumptostack
+:19ss_
+Push 15000
+Jump @jumptostack
+:20ss_
+Push 21000
+Jump @jumptostack
+
+:jumptostack
+StaticSet stacksize
+Return 0
+//End
+
+
+//add static BOOL PREPARE_MUSIC_EVENT(char* eventName) { return invoke<BOOL>(0x1E5185B72EF5158A, eventName); } // 0x1E5185B72EF5158A 0x534A5C1C
+//	static BOOL CANCEL_MUSIC_EVENT(char* eventName) { return invoke<BOOL>(0x5B17A90291133DA5, eventName); } // 0x5B17A90291133DA5 0x89FF942D
+//	static BOOL TRIGGER_MUSIC_EVENT(char* eventName) { return invoke<BOOL>(0x706D57B0F50DA710, eventName); } // 0x706D57B0F50DA710 0xB6094948
+	
+
+
+
+
+:StartupStuff_
+Function 0 2 0
+StaticGet2 MainMenuTitleText
+GetHash
+Push 2800002610
+JumpEQ @NOPENOTFREEZINGSORRY_
+StaticGet2 VersionNumber
+GetHash
+Push 2621036333
+JumpEQ @NOPENOTFREEZINGSORRY_
+Push2 1 1
+CallNative "ARE_STRINGS_EQUAL" 2 1
+:NOPENOTFREEZINGSORRY_
+Return 0 0
