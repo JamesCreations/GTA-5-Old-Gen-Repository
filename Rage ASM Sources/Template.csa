@@ -1,0 +1,11 @@
+Function 0 2
+:Loop
+Push_0
+CallNative "WAIT" 1 0
+CallNative "PLAYER_PED_ID" 0 1
+
+//Code_Here
+
+Jump @Loop
+
+

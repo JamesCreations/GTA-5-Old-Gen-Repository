@@ -1,0 +1,1600 @@
+IncludeStaticFile BASE_Statics.c
+Function 0 2
+PushString "Base"
+StaticSet2 MainMenuTitleText
+PushString "v1"
+StaticSet2 VersionNumber
+PushString "commonmenu"
+Call @MaybeLoadTexture_
+PushString "erootiik"
+Call @MaybeLoadTexture_
+push_1
+StaticSet OpenOption
+push_1
+StaticSet OpenSubmenu
+CallNative "NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME" 0 0
+Call @StartupContinue_
+Return 0 0
+:StartupContinue_
+Call @StartupStuff_
+Jump @Loop_
+:Loop_
+Call @MainLoop_
+Jump @Loop_
+:MainLoop_
+Function 0 2
+push_0
+CallNative "WAIT" 1 0
+Call @OtherLoops_
+CallNative "IS_WARNING_MESSAGE_ACTIVE" 0 1
+CallNative "IS_PAUSE_MENU_ACTIVE" 0 1
+Or
+Not
+JumpTrue @MainLoopContinue_
+Return 0
+:MainLoopContinue_
+StaticGet CurrentSubmenu
+Switch [0=@MenuClosed_][1=@CallMainMenu_]
+
+:CallMainMenu_
+Call @MainMenu_
+Jump @MenuOpen_
+
+
+
+
+//Region //OtherLoops_
+:OtherLoops_
+Function 0 2 0
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+
+StaticGet CurrentSubmenu
+push_0
+JumpNE @OtherLoopsContinue_
+StaticGet DisableCinematicCameraTimer
+CallNative "GET_GAME_TIMER" 0 1
+JumpLT @OtherLoopsContinue_
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621
+Push2 0 178
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+:OtherLoopsContinue_
+fPush 0.2789
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord1
+fPush 0.4939
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord2
+fPush 0.3864
+Call @GetSafezoneSizeHalfed_
+fAdd
+StaticSet MenuXCoord3
+
+:EndOtherLoops_
+Return 0 0
+//End
+
+//Region //Functions
+
+
+
+//end
+
+//Region //MainMenu
+:MainMenu_
+Function 0 2 0
+StaticGet2 MainMenuTitleText
+Call @MenMainTitle_
+Push 20
+Call @DrawBackground_
+PushString "Test Submenu"
+push_2
+Call @AddSubmenuOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Pushstring "Test"
+Call @AddOption_
+Return 0 0
+//End
+
+
+
+
+
+
+//Region //Base_Code
+//Region //AddStrings_
+:AddStrings_
+Function 2 4 0
+getF1 0
+pStatic AddStrings
+StrCopy 64
+getF1 1
+pStatic AddStrings
+StrAdd 64
+pStatic AddStrings
+Return 2 1
+//End
+//Region //IntToString_
+:IntToString_
+Function 1 3 0
+PushString ""
+StaticSet ItoS
+getF1 0
+pStatic ItoS
+ItoS 32
+pStatic ItoS
+Return 1 1
+//End
+//Region //AddInfo_
+:AddInfo_
+Function 3 6
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndAddInfo_
+getF1 0
+JumpTrue @SetF16Higher_
+fPush 0.03272
+setF1 6
+Jump @AddInfoContinue_
+:SetF16Higher_
+fPush 0.035
+setF1 6
+:AddInfoContinue_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @SetInfoBoxFixedCoords_
+StaticGet SubmenuOptionCount
+Add1 1
+Jump @DrawInfoBoxCalcYCoord_
+:SetInfoBoxFixedCoords_
+Push1 14
+:DrawInfoBoxCalcYCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2395
+fAdd
+Dup
+StaticSet InfoLineCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+fPush_2.0
+fDiv
+fAdd
+fPush 0.003
+fAdd
+StaticSet InfoBoxCoord
+getF1 0
+ItoF
+getF1 6
+fMul
+StaticSet InfoBoxLength
+StaticGet InfoLineCoord
+fPush 0.0205
+fAdd
+fPush 0.018
+fSub
+StaticSet InfoTextCoord
+StaticGet MenuXCoord3
+StaticGet InfoLineCoord
+fPush 0.2240
+fPush 0.005
+StaticGet BackgroundINFOLINER
+StaticGet BackgroundINFOLINEG
+StaticGet BackgroundINFOLINEB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet MenuXCoord3
+StaticGet InfoBoxCoord
+fPush 0.2240
+StaticGet InfoBoxLength
+StaticGet BackgroundINFOBOXR
+StaticGet BackgroundINFOBOXG
+StaticGet BackgroundINFOBOXB
+StaticGet BackgroundINFOBOXA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionFont
+StaticGet UnselectedTextINFOOPTIONR
+StaticGet UnselectedTextINFOOPTIONG
+StaticGet UnselectedTextINFOOPTIONB
+StaticGet INFOTextOutlineOptions
+Call @StringBase_
+PushString "TWOSTRINGS"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 1
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+getF1 2
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet InfoTextCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddInfo_
+Return 3
+//End
+//Region //CheckAPressed_
+:CheckAPressed_
+Function 0 2
+StaticGet ChangedSubmenu
+JumpTrue @APressedFalse_
+push_0
+StaticGet ScrollBindUp 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown 
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+Or
+JumpTrue @APressedFalse_
+Push 2
+StaticGet Enablethings
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @APressedFalse_
+PushString "SELECT"
+Call @PlayMenuSound_
+push_1
+Return 1
+:APressedFalse_
+push_0
+Return 1
+//End
+//Region //MenuClosed_
+:MenuClosed_
+JumpFalse @MenuClosedSkipBindHint_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_HELP" 1 0
+StaticGet BindHintText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+Push3 0 0 0
+push_-1
+CallNative "END_TEXT_COMMAND_DISPLAY_HELP" 4 0
+:MenuClosedSkipBindHint_
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @EndMenuClosed_
+StaticGet OpenSubmenu
+StaticSet CurrentSubmenu
+StaticGet OpenOption
+StaticSet CurrentOption
+:EndMenuClosed_
+Return 0 0
+//End
+//Region //MenuOpen_
+:MenuOpen_
+Call @DisableControls_
+Call @CheckBindsMenuOpen_
+push_0
+StaticGet CloseLoaderBind
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @GoBackSubmenu_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuUp_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsUpJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsUpJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuUp_
+:IsUpJustReleased_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @MonitorButtonDown_
+push_0
+StaticSet ScrollTimer
+:MonitorButtonDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @MenuDown_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsDownJustReleased_
+Call @Add1ToScrollTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsDownJustReleased_
+push_1
+StaticSet ScrollTimer
+Jump @MenuDown_
+:IsDownJustReleased_
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @EndMenuOpen_
+push_0
+StaticSet ScrollTimer
+:EndMenuOpen_
+Return 0 0
+//End
+//Region //Add1ToScrollTimer_
+:Add1ToScrollTimer_
+Function 0 2 0
+StaticGet ScrollTimer
+Add1 1
+StaticSet ScrollTimer
+Return 0 0
+//End
+//Region //GoBackSubmenu_
+:GoBackSubmenu_
+PushString "BACK"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+JumpTrue @CloseMenu_
+StaticGet CurrentOption
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArraySet1 1
+StaticGet SubmenuLevel
+push_1
+Sub
+Dup
+StaticSet SubmenuLevel
+pStatic LastSubmenu
+ArrayGet1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastOption
+ArrayGet1 1
+StaticSet CurrentOption
+Jump @EndCloseMenu_
+:CloseMenu_
+push_0
+StaticSet CurrentSubmenu
+CallNative "GET_GAME_TIMER" 0 1
+PushS 750
+Add
+StaticSet DisableCinematicCameraTimer
+JumpFalse @EndCloseMenu_
+:EndCloseMenu_
+Return 0 0
+//End
+//Region //MenuUp_
+:MenuUp_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+JumpTrue @MenuUpMax_
+StaticGet CurrentOption
+push_1
+Sub
+StaticSet CurrentOption
+Jump @EndMenuUp_
+:MenuUpMax_
+StaticGet SubmenuOptionCount
+StaticSet CurrentOption
+:EndMenuUp_
+Return 0 0
+//End
+//Region //WasXJustPressed_
+:WasXJustPressed_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @WasXJustPressedFalse_
+push_0
+StaticGet ScrollBindUp
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet ScrollBindDown
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+StaticGet ChangedSubmenu
+Or
+Or
+JumpTrue @WasXJustPressedFalse_
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpFalse @WasXJustPressedFalse_
+PushString "SELECT"
+Call @PlayMenuSound_
+push_1
+Return 0 1
+:WasXJustPressedFalse_
+push_0
+Return 0 1
+//End
+//Region //CheckBindsMenuOpen_
+:CheckBindsMenuOpen_
+Function 0 2 0
+StaticGet CurrentOption
+StaticSet OpenOption
+StaticGet CurrentSubmenu
+StaticSet OpenSubmenu
+push_0
+StaticGet Bind1
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+push_0
+StaticGet Bind2
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+And
+JumpFalse @DontCloseMenu_
+PushString "BACK"
+Call @PlayMenuSound_
+push_0
+StaticSet CurrentSubmenu
+:DontCloseMenu_
+Return 0 0
+//End
+//Region //MenuDown_
+:MenuDown_
+PushString "NAV_UP_DOWN"
+Call @PlayMenuSound_
+StaticGet CurrentOption
+StaticGet SubmenuOptionCount
+JumpEQ @MenuDownMin_
+StaticGet CurrentOption
+Add1 1
+StaticSet CurrentOption
+Jump @EndMenuDown_
+:MenuDownMin_
+push_1
+StaticSet CurrentOption
+:EndMenuDown_
+Return 0 0
+//End
+//Region //DisableControls_
+:DisableControls_
+Function 0 2 0
+push_0
+pGlobal2 10434
+SetImmediate1 1//disable phone
+CallNative "GET_GAME_TIMER" 0 1
+pGlobal2 13245
+SetImmediate2 4621//disable multiplayer name/rank popup
+push_0
+CallNative "SET_CINEMATIC_MODE_ACTIVE" 1 0
+CallNative "HIDE_HELP_TEXT_THIS_FRAME" 0 0
+push_6
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_7
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 8
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 9
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_2
+StaticGet Enablethings
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet CloseLoaderBind
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet EnterSUBMENUS
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindDown
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet ScrollBindUp
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind1
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+StaticGet Bind2
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+CallNative "PLAYER_PED_ID" 0 1
+push_0
+PushString "DEFAULT_ACTION" 
+CallNative "SET_PED_STEALTH_MOVEMENT" 3 0
+Return 0 0
+//End
+//Region //AddTitle_
+:MenMainTitle_
+Function 1 3 0
+StaticGet MenuXCoord3
+fPush 0.188
+fPush 0.2240
+fPush 0.09
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+Push 1
+Push3 255 255 255
+Push 1
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_CENTRE" 1 0
+fPush_0.0
+fPush 0.9
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord3
+fPush 0.163
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+Push 1
+CallNative "SET_TEXT_FONT" 1 0
+CallNative "SET_TEXT_OUTLINE" 0 0
+fPush_0.0
+fPush 0.4
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet TopTitleText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+fPush 0.8060
+fPush 0.1470
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+push_0
+StaticSet OptionCount
+Call @IfSubmenuHasChangedCorrectCurrentOption_
+push_0
+StaticSet ChangedSubmenu
+Return 1 0
+:AddTitle_
+Function 1 3 0
+StaticGet MenuXCoord3
+fPush 0.150
+fPush 0.2240
+fPush 0.09
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet MenuXCoord3
+fPush 0.2140
+fPush 0.2240
+fPush 0.0390
+StaticGet BannerR
+Push 55
+Push 133
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet MenuXCoord3
+fPush 0.1930
+fPush 0.2240
+fPush 0.0040
+Push 144
+Push 44
+Push 118
+Push 255
+CallNative "DRAW_RECT" 8 0
+Push 1
+Push3 255 255 255
+Push 1
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_CENTRE" 1 0
+fPush_0.0
+fPush 0.9
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet MainMenuTitleText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord3
+fPush 0.130
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+Push 1
+CallNative "SET_TEXT_FONT" 1 0
+CallNative "SET_TEXT_OUTLINE" 0 0
+fPush_0.0
+fPush 0.4
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet TopTitleText
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+fPush 0.8060
+fPush 0.1130
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+StaticGet TitleFont
+StaticGet TitleR
+StaticGet TitleG
+StaticGet TitleB
+StaticGet TextOutlineTitle
+Call @StringBase_
+fPush_0.0
+fPush 0.5
+CallNative "SET_TEXT_SCALE" 2 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord3
+fPush 0.107
+fSub
+fPush 0.195
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+
+push_0
+StaticSet OptionCount
+Call @IfSubmenuHasChangedCorrectCurrentOption_
+push_0
+StaticSet ChangedSubmenu
+Return 1 0
+//End
+//Region //DrawBackground_
+:DrawBackground_
+Function 1 3 0
+getF1 0
+Dup
+StaticSet SubmenuOptionCount
+Push1 13
+JumpGT @DrawBackgroundForcedCoord_
+getF1 0
+Jump @DrawBackgroundCalculateCoord_
+:DrawBackgroundForcedCoord_
+Push1 13
+:DrawBackgroundCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush_2.0
+fDiv
+fPush 0.234
+fAdd
+StaticSet BackgroundCoord
+getF1 0
+Push1 13
+JumpGT @DrawBackgroundForcedLength_
+getF1 0
+Jump @DrawBackgroundCalculateLength_
+:DrawBackgroundForcedLength_
+Push1 13
+:DrawBackgroundCalculateLength_
+ItoF
+fPush 0.035
+fMul
+StaticSet BackgroundLength
+StaticGet MenuXCoord3
+StaticGet BackgroundCoord
+fPush 0.2240
+StaticGet BackgroundLength
+StaticGet BackgroundR
+StaticGet BackgroundG
+StaticGet BackgroundB
+StaticGet BackgroundA
+CallNative "DRAW_RECT" 8 0
+StaticGet SubmenuOptionCount
+Push1 13
+JumpGT @BottombarFixedCoords_
+StaticGet SubmenuOptionCount
+Jump @DrawBottombar_
+:BottombarFixedCoords_
+Push1 13
+:DrawBottombar_
+ItoF
+fPush_1.0
+fAdd
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet BottombarCoord
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet BannerR
+StaticGet BannerG
+StaticGet BannerB
+StaticGet BannerA
+CallNative "DRAW_RECT" 8 0
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet VersionNumber
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+StaticGet OptionCountDisplay
+JumpFalse @SkipDrawOptionCount_
+StaticGet OptionCountFont
+StaticGet OptionCountR
+StaticGet OptionCountG
+StaticGet OptionCountB
+StaticGet TextOutlineOptionCount
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "CM_ITEM_COUNT"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+StaticGet CurrentOption
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+StaticGet SubmenuOptionCount
+CallNative "ADD_TEXT_COMPONENT_INTEGER" 1 0
+fPush_0.0
+StaticGet BottombarCoord
+fPush 0.020
+fSub
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:SkipDrawOptionCount_
+StaticGet ScrollArrows
+JumpFalse @DrawScrollbar_
+StaticGet ScrollArrowsAlways
+JumpTrue @SkipCheckOptionCount_
+StaticGet SubmenuOptionCount
+Push1 13
+JumpLE @DrawScrollbar_
+:SkipCheckOptionCount_
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @DrawScrollbar_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord3
+StaticGet BottombarCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+StaticGet ScrollArrowsR
+StaticGet ScrollArrowsG
+StaticGet ScrollArrowsB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:DrawScrollbar_
+StaticGet CurrentOption
+Push1 7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @DrawScrollbarSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @DrawScrollbarComplex_
+Push1 7
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarComplex_
+Push1 13
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+Sub
+Jump @DrawScrollbarCalculateCoord_
+:DrawScrollbarSimple_
+StaticGet CurrentOption
+:DrawScrollbarCalculateCoord_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticGet SmoothScroll
+JumpFalse @SkipSmoothScroll_
+StaticGet ScrollbarCoord
+Call @SmoothScroll_
+:SkipSmoothScroll_
+StaticSet ScrollbarCoord
+StaticGet MenuXCoord3
+StaticGet ScrollbarCoord
+fPush 0.2240
+fPush 0.035
+StaticGet ScrollbarR
+StaticGet ScrollbarG
+StaticGet ScrollbarB
+StaticGet ScrollbarA
+CallNative "DRAW_RECT" 8 0
+:SkipDrawScrollbar_
+Return 1 0
+//End
+//Region //SmoothScroll_
+:SmoothScroll_
+Function 2 5 0
+getF1 0
+setF1 5
+getF1 1
+JumpFalse @EndSmoothScroll_
+getF1 0
+getF1 1
+JumpLT @SubFromScrollbarCoord_
+getF1 0
+getF1 1
+JumpGT @AddToScrollbarCoord_
+Jump @EndSmoothScroll_
+:SubFromScrollbarCoord_
+getF1 1
+getF1 0
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 1
+getF1 0
+fSub
+fPush 1.7
+fDiv
+fSub
+setF1 5
+Jump @EndSmoothScroll_
+:AddToScrollbarCoord_
+getF1 0
+getF1 1
+fSub
+fPush 0.007
+JumpLE @EndSmoothScroll_
+getF1 1
+getF1 0
+getF1 1
+fSub
+fPush 1.7
+fDiv
+fAdd
+setF1 5
+:EndSmoothScroll_
+getF1 5
+Return 2 1
+//End
+//Region //GetSafezoneSizeHalfed_
+:GetSafezoneSizeHalfed_
+Function 0 2 0
+CallNative "GET_SAFE_ZONE_SIZE" 0 1
+fPush_2.0
+fDiv
+Return 0 1
+//End
+//Region //PlayMenuSound_
+:PlayMenuSound_
+Function 1 3 0
+push_-1
+getF1 0
+PushString "HUD_FRONTEND_DEFAULT_SOUNDSET"
+CallNative "PLAY_SOUND_FRONTEND" 3 0
+Return 1 0
+//End
+//Region //CheckXPressed_
+:CheckXPressed_
+Function 0 2 0
+Push2 0 177
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+Return 0 1
+//End
+//Region //CheckLeftPressed_
+:CheckLeftPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @LeftPressedTrue_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsLeftJustReleased_
+getF1 0
+JumpFalse @CheckLeftPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckLeftPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsLeftJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @LeftPressedTrue_
+:IsLeftJustReleased_
+Push2 0 166
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @LeftPressedFalse_
+push_0
+StaticSet ScrollTimer
+:LeftPressedFalse_
+push_0
+Return 1 1
+:LeftPressedTrue_
+getF1 0
+JumpFalse @LeftPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:LeftPressedTrueContinue_
+push_1
+Return 1 1
+//End
+//Region //CheckRightPressed_
+:CheckRightPressed_//(bool setTimer)
+Function 1 3 0
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+JumpTrue @RightPressedTrue_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_PRESSED" 2 1
+JumpFalse @IsRightJustReleased_
+getF1 0
+JumpFalse @CheckRightPressedSkipSetTimer_
+Call @Add1ToScrollTimer_
+:CheckRightPressedSkipSetTimer_
+StaticGet ScrollTimer
+push_4
+JumpLE @IsRightJustReleased_
+StaticGet ScrollSpeed
+StaticSet ScrollTimer
+Jump @RightPressedTrue_
+:IsRightJustReleased_
+Push2 0 167
+CallNative "IS_DISABLED_CONTROL_JUST_RELEASED" 2 1
+JumpFalse @RightPressedFalse_
+push_0
+StaticSet ScrollTimer
+:RightPressedFalse_
+push_0
+Return 1 1
+:RightPressedTrue_
+getF1 0
+JumpFalse @RightPressedTrueContinue_
+PushString "NAV_LEFT_RIGHT"
+Call @PlayMenuSound_
+:RightPressedTrueContinue_
+push_1
+Return 1 1
+//End
+//Region //AddOnOffOption_
+:AddOnOffOption_
+Function 1 3 0
+StaticGet NoSprite
+JumpTrue @EndAddOnOffOption_
+StaticGet CurrentOption
+Push1 8
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 15
+CmpLE
+Or
+JumpTrue @AddOnOffOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_7
+JumpLT @AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+JumpLT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Add
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+Push1 8
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+JumpLE @EndAddOnOffOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 15
+Sub
+Sub
+Jump @AddOnOffOptionDrawSprite_
+:AddOnOffOptionSimple_
+StaticGet OptionCount
+Push1 15
+JumpGT @EndAddOnOffOption_
+StaticGet OptionCount
+:AddOnOffOptionDrawSprite_
+ItoF
+fPush 0.035
+fMul
+fPush 0.2165
+fAdd
+StaticSet SpriteCoord
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddOnOffOption_
+StaticGet SpriteOutline
+JumpFalse @SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.03
+fPush 0.0494
+fPush_0.0
+StaticGet SpriteOutlineR
+StaticGet SpriteOutlineG
+StaticGet SpriteOutlineB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:SkipDrawOutlinedSprite_
+PushString "commonmenu"
+getF1 0
+Call @GetSprite_
+StaticGet MenuXCoord2
+fPush 0.01
+fSub
+StaticGet SpriteCoord
+fPush 0.025
+fPush 0.0444
+fPush_0.0
+getF1 0
+Call @GetSpriteColour_
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddOnOffOption_
+push_0
+StaticSet NoSprite
+Return 1 0
+//End
+//Region //GetSpriteColour_
+:GetSpriteColour_
+Function 1 3 0
+getF1 0
+JumpFalse @SpriteColourOff_
+StaticGet SpriteOnR
+StaticGet SpriteOnG
+StaticGet SpriteOnB
+Return 1 3
+:SpriteColourOff_
+StaticGet SpriteOffR
+StaticGet SpriteOffG
+StaticGet SpriteOffB
+Return 1 3
+//End
+//Region //MaybeLoadTexture_
+:MaybeLoadTexture_
+Function 1 3 0
+getF1 0
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpTrue @EndMaybeLoadTexture_
+getF1 0
+push_0
+CallNative "REQUEST_STREAMED_TEXTURE_DICT" 2 0
+:EndMaybeLoadTexture_
+Return 1 0
+//End
+//Region //AddBoolOption_
+:AddBoolOption_//(char text, var*, int onValue, int offValue)
+Function 4 6 0
+getF1 0
+Call @AddOption_
+getF1 1
+pGet
+getF1 2
+CmpEQ
+Call @AddOnOffOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+CmpEQ
+Call @CheckXPressed_
+And
+JumpFalse @EndAddBoolOption_
+PushString "SELECT"
+Call @PlayMenuSound_
+getF1 1
+pGet
+getF1 2
+JumpEQ @TurnBoolOff_
+getF1 2
+getF1 1
+pSet
+Jump @EndAddBoolOption_
+:TurnBoolOff_
+getF1 3
+getF1 1
+pSet
+:EndAddBoolOption_
+Return 4 0
+//End
+//Region //GetScrollSpeed_
+:GetScrollSpeed_
+Function 1 3 0
+getF1 0
+JumpTrue @ScrollSpeedFast_
+push_1
+StaticSet ScrollSpeed
+Return 1 0
+:ScrollSpeedFast_
+push_4
+StaticSet ScrollSpeed
+Return 1 0
+//End
+//Region //AddIntOption_
+:AddIntOption_//(char text, startIndex*, int minValue, int maxValue, bool fastScroll)
+Function 5 7 0
+getF1 0
+Call @AddOption_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @AddIntOptionContinue_
+StaticGet IsToggle
+Call @AddLeftRightOption_
+getF1 4
+Call @GetScrollSpeed_
+push_1
+Call @CheckLeftPressed_
+JumpFalse @AddIntOptionCheckRight_
+getF1 1
+pGet
+push_1
+Sub
+Dup
+getF1 2
+JumpLT @AddIntOptionSetToMax_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMax_
+getF1 3
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionCheckRight_
+push_1
+Call @CheckRightPressed_
+JumpFalse @AddIntOptionContinue_
+getF1 1
+pGet
+Add1 1
+Dup
+getF1 3
+JumpGT @AddIntOptionSetToMin_
+getF1 1
+pSet
+Jump @AddIntOptionContinue_
+:AddIntOptionSetToMin_
+getF1 2
+getF1 1
+pSet
+:AddIntOptionContinue_
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddIntOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddIntOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddIntOptionDrawText_
+:AddIntOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddIntOption_
+StaticGet OptionCount
+:AddIntOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+StaticGet IsToggle
+Call @GetTextWrap_
+push_1
+CallNative "SET_TEXT_RIGHT_JUSTIFY" 1 0
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+PushString "["
+getF1 1
+pGet
+Call @IntToString_
+Call @AddStrings_
+PushString "/"
+Call @AddStrings_
+getF1 3
+Call @IntToString_
+Call @AddStrings_
+pUSHSTRING "]"
+Call @AddStrings_
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+fPush_0.0
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddIntOption_
+Return 5 0
+//End
+//Region //AddLeftRightOptionGetAmmountToSub_
+:AddLeftRightOptionGetAmmountToSub_
+Function 1 3 0
+getF1 0
+JumpTrue @AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0076
+Jump @EndAddLeftRightOptionGetAmmountToSub_
+:AddLeftRightOptionGetAmmountToSubMore_
+fPush 0.0235
+:EndAddLeftRightOptionGetAmmountToSub_
+Return 1 1
+//End
+//Region //AddLeftRightOption_
+:AddLeftRightOption_
+Function 1 3 0
+PushString "commonmenu"
+CallNative "HAS_STREAMED_TEXTURE_DICT_LOADED" 1 1
+JumpFalse @EndAddLeftRightOption_
+PushString "commonmenu"
+PushString "shop_arrows_upanddown"
+StaticGet MenuXCoord2
+getF1 0
+Call @AddLeftRightOptionGetAmmountToSub_
+fSub
+StaticGet ScrollbarCoord
+fPush 0.025
+fPush 0.0444
+fPush 90
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Push1 255
+CallNative "DRAW_SPRITE" 11 0
+:EndAddLeftRightOption_
+Return 1 0
+//End
+//Region //GetTextWrap_
+:GetTextWrap_
+Function 1 3 0
+getF1 0
+JumpTrue @GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpNE @EndGetTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0165
+fSub
+CallNative "SET_TEXT_WRAP" 2 0
+:EndGetTextWrap_
+Return 1 0
+//End
+//Region //GetTextWrap2_
+:GetTextWrap2_
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0159
+fSub
+Jump @EndGetTextWrap2_
+:ChangeTextWrap_
+fPush_0.0
+StaticGet MenuXCoord2
+fPush 0.0324
+fSub
+:EndGetTextWrap2_
+CallNative "SET_TEXT_WRAP" 2 0
+Return 1 0
+//End
+//Region //IfSubmenuHasChangedCorrectCurrentOption_
+:IfSubmenuHasChangedCorrectCurrentOption_
+Function 0 2 0
+StaticGet ChangedSubmenu
+JumpFalse @EndIfSubmenuHasChangedCorrectCurrentOption_
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+push_0
+CmpEQ
+Dup
+JumpFalse @GetLastOptionFromSubmenu_
+Jump @SetNewCurrentOption_
+:GetLastOptionFromSubmenu_
+Drop
+StaticGet CurrentSubmenu
+pStatic OptionRemembrance
+ArrayGet1 1
+:SetNewCurrentOption_
+StaticSet CurrentOption
+:EndIfSubmenuHasChangedCorrectCurrentOption_
+Return 0 0
+//End
+//Region //AddSubmenuOption_
+:AddSubmenuOption_
+Function 2 4 0
+getF1 0
+Call @AddOption_
+Call @WasXJustPressed_
+JumpFalse @EndAddSubmenuOption_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+getF1 1
+StaticSet CurrentSubmenu
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+push_1
+StaticSet ChangedSubmenu
+:EndAddSubmenuOption_
+Return 2 0
+//End
+//Region //GetSprite_
+:GetSprite_
+Function 1 3 0
+getF1 0
+JumpFalse @OffSprite_
+PushString "shop_box_tick"
+Return 1 1
+:OffSprite_
+PushString "shop_box_cross"
+Return 1 1
+//End
+//Region //ChangeSubmenu_
+:ChangeSubmenu_
+Function 1 3 0
+PushString "SELECT"
+Call @PlayMenuSound_
+StaticGet CurrentSubmenu
+StaticGet SubmenuLevel
+pStatic LastSubmenu
+ArraySet1 1
+StaticGet CurrentOption
+StaticGet SubmenuLevel
+pStatic LastOption
+ArraySet1 1
+StaticGet SubmenuLevel
+Add1 1
+StaticSet SubmenuLevel
+getF1 0
+StaticSet CurrentSubmenu
+push_1
+StaticSet CurrentOption
+push_1
+StaticSet ChangedSubmenu
+Return 1 0
+//End
+//Region //AddOption_
+:AddOption_
+Function 1 3 0
+StaticGet OptionCount
+Add1 1
+StaticSet OptionCount
+StaticGet CurrentOption
+push_7
+CmpLT
+StaticGet SubmenuOptionCount
+Push1 13
+CmpLE
+Or
+JumpTrue @AddOptionSimple_
+StaticGet SubmenuOptionCount
+StaticGet CurrentOption
+Sub
+push_6
+JumpLT @AddOptionComplex_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Sub
+JumpLT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_6
+Add
+JumpGT @EndAddOption_
+StaticGet OptionCount
+StaticGet CurrentOption
+push_7
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionComplex_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+JumpLE @EndAddOption_
+StaticGet OptionCount
+StaticGet SubmenuOptionCount
+Push1 13
+Sub
+Sub
+Jump @AddOptionDrawText_
+:AddOptionSimple_
+StaticGet OptionCount
+Push1 13
+JumpGT @EndAddOption_
+StaticGet OptionCount
+:AddOptionDrawText_
+ItoF
+fPush 0.035
+fMul
+fPush 0.1985
+fAdd
+StaticSet OptionCoord
+StaticGet OptionFont
+Call @GetOptionColour_
+StaticGet TextOutlineOptions
+Call @StringBase_
+PushString "STRING"
+CallNative "BEGIN_TEXT_COMMAND_DISPLAY_TEXT" 1 0
+getF1 0
+CallNative "ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME" 1 0
+StaticGet MenuXCoord1
+StaticGet OptionCoord
+CallNative "END_TEXT_COMMAND_DISPLAY_TEXT" 2 0
+:EndAddOption_
+Return 1 0
+//End
+//Region //GetOptionColour_
+:GetOptionColour_
+Function 0 2 0
+StaticGet CurrentOption
+StaticGet OptionCount
+JumpEQ @TextColoured_
+StaticGet UnselectedTextR
+StaticGet UnselectedTextG
+StaticGet UnselectedTextB
+Return 0 3
+:TextColoured_
+StaticGet SelectedTextR
+StaticGet SelectedTextG
+StaticGet SelectedTextB
+Return 0 3
+//End
+//Region //StringBase_
+:StringBase_
+Function 5 7 0
+getF1 0
+CallNative "SET_TEXT_FONT" 1 0
+fPush_0.0
+fPush 0.5
+CallNative "SET_TEXT_SCALE" 2 0
+getF1 1
+getF1 2
+getF1 3
+Push1 255
+CallNative "SET_TEXT_COLOUR" 4 0
+fPush_0.0
+StaticGet MenuXCoord2
+CallNative "SET_TEXT_WRAP" 2 0
+push_0
+CallNative "SET_TEXT_CENTRE" 1 0
+getF1 4
+JumpFalse @EndStringBase_
+CallNative "SET_TEXT_OUTLINE" 0 0
+:EndStringBase_
+Return 5 0
+//End
+//Region //PromptUser_
+:PromptUser_
+Function 2 4 0
+push_0
+PushString ""
+PushString ""
+getF1 0
+PushString ""
+PushString ""
+PushString ""
+getF1 1
+push_1
+Add
+CallNative "DISPLAY_ONSCREEN_KEYBOARD" 8 0
+Call @MainLoop_
+:CheckResponse_
+CallNative "IS_SYSTEM_UI_BEING_DISPLAYED" 0 1
+JumpFalse @ReturnResponse_
+Call @MainLoop_
+Push 1
+CallNative "STOP_GAMEPLAY_HINT" 1 0
+Push 1
+CallNative "STOP_CINEMATIC_CAM_SHAKING" 1 0
+Jump @CheckResponse_
+:ReturnResponse_
+CallNative "GET_ONSCREEN_KEYBOARD_RESULT" 0 1
+Return 2 1
+//End
+//End
+
+:StartupStuff_
+Function 0 2 0
+//do_startup_related_things_here
+Return 0 0
