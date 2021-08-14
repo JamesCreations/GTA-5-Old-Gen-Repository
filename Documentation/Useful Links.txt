@@ -1,0 +1,26 @@
+Native Database
+http://www.dev-c.com/nativedb/
+
+Ped Models
+https://wiki.gtanet.work/index.php?title=Peds
+
+Animation List
+https://alexguirre.github.io/animations-list/
+
+Button Binds
+https://pastebin.com/nTb2nPzh
+
+Sprites
+https://github.com/jorjic/fivem-docs/wiki/Sprite-List
+
+Weapon Component Hashes
+https://github.com/Konijima/WikiFive/wiki/Weapon-Component-Hash
+
+Notification pictures
+https://wiki.gtanet.work/index.php?title=Notification_Pictures
+
+PTFX Dump
+https://gist.github.com/alexguirre/af70f0122957f005a5c12bef2618a786
+
+Model List
+https://pastebin.com/5tfyqx7R
