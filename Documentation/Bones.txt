@@ -1,0 +1,82 @@
+838//center (default)
+843//center (default)
+1805//center (default)
+2108//left foot
+4089//left thumb
+4090//left thumb 2
+4137//left ring finger
+4138//left ring finger 2
+4153//left pinkie finger
+4154//left pinkie finger 2
+4169//left pointer finger
+4170//left pointer finger 2
+4185//left middle finger
+4186//left middle finger 2
+5232//left shoulder
+5956//center (default)
+6286//right hand
+6442//right side of pelvis
+6468//center (default)
+6986//center (default)
+6988//center (default)
+7531//center (default)
+10706//right clavicle
+11816//center (default)
+13201//center (default)
+14201//end left foreleg
+16351//center (default)
+17916//center (default)
+18905//end left forearm
+20781//right foot
+23553//center (default)
+23639//left side of pelvis
+24532//center (default)
+24806//bottom of right foot
+24816//spine
+24817//spine 2
+24818//spine 3
+25260//left eye
+26610//left wrist
+26614//left pinkie finger
+27474//right eye
+28252//right elbow
+28422//right hand
+31086//brain stem/head
+35502//bottom of right foot
+35731//center (default)
+36029//left wrist
+36864//right knee
+37119//right shoulder
+39126//center (default)
+39317//top of spine
+39638//center (default)
+39905//center (default)
+40269//right shoulder
+43810//right forearm
+45509//left shoulder
+45631//center (default)
+51826//right side of pelvis
+52301//right ankle
+53251//center (default)
+57005//right wrist
+57597//center (default)
+57717//bottom of left foot
+58271//left side of pelvis
+58866//right wrist
+58870//right pinkie finger
+60309//left hand
+61007//left forearm
+61163//left elbow
+63931//left knee
+64016//right thumb
+64017//right thumb 2
+64064//right ring finger
+64065//right ring finger 2
+64080//right pinkie finger
+64081//right pinkie finger
+64096//right pointer finger
+64097//right pointer finger 2
+64112//right middle finger
+64113//right middle finger 2
+64729//left clavicle
+65245//bottom of left foot

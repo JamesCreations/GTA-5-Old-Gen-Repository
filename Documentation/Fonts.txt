@@ -1,0 +1,17 @@
+0 = $Font2 - Chalet-LondonNineteenSixty
+1 = $Font5 - SignPainter-HouseScript
+2 = $RockstarTAG - RockstarTAG
+3 = $GTAVLeaderboard - GTAV LeaderBoard
+4 = $Font2_cond - ChaletComprime-CologneSixty
+5 = $FixedWidthNumbers - ChaletLondonNineteenSixtyNumb
+6 = $gtaCash - PricedownGTAVInt
+7 = $HandstyleHeist - Handstyle Heist
+8 = $SOCIAL_CLUB_COND_REG - HelveticaNeue LT 47 LightCn
+9 = $SOCIAL_CLUB_COND_BOLD - HelveticaNeue LT 67 MdCn
+10 = $WebFont1_Hbold - HelveticaNeueLT W1G 55 Roman
+11 = $WebFont2_Hitalic - HelveticaNeueLT W1G 55 Roman
+12 = $WebFont3_Times - Times New Roman CE
+13 = $WebFont4_Courier - Courier Twelve MT Std
+14 = $Taxi_font - GTAVTaxiDigital
+15 = $Courier - GTAV Courier
+16 = $Font2_cond_NOT_GAMERNAME - ChaletComprime-CologneSixty

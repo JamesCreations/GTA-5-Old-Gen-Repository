@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="325.6px" width="664.2px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, -307.85, -152.95)">
+    <path d="M923.5 216.05 L971.9 216.05 971.9 415.4 923.5 415.4 923.5 416.05 923.35 416.05 923.35 216.05 923.5 216.05 M307.85 216.05 L356.4 216.05 356.4 415.4 307.85 415.4 307.85 260.95 307.85 216.05" fill="#669900" fill-opacity="0.49803922" fill-rule="evenodd" stroke="none"/>
+    <path d="M356.4 415.4 L356.4 478.55 307.85 478.55 307.85 429.8 307.85 416.05 307.85 415.4 356.4 415.4" fill="#ffcc00" fill-opacity="0.14117648" fill-rule="evenodd" stroke="none"/>
+    <path d="M971.9 415.4 L972.05 415.4 972.05 478.55 923.5 478.55 923.5 429.8 923.5 416.05 923.5 415.4 971.9 415.4 M307.85 216.05 L307.85 166.45 307.85 152.95 356.4 152.95 356.4 216.05 307.85 216.05" fill="#ffcc00" fill-opacity="0.13725491" fill-rule="evenodd" stroke="none"/>
+    <path d="M923.5 216.05 L923.5 166.45 923.5 152.95 972.05 152.95 972.05 216.05 971.9 216.05 923.5 216.05" fill="#ffcc00" fill-opacity="0.13333334" fill-rule="evenodd" stroke="none"/>
+  </g>
+</svg>
