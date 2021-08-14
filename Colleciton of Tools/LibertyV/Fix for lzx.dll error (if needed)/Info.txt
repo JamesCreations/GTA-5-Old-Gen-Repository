@@ -1,0 +1,5 @@
+Use this lzx.dll if you are experiencing errors in LibertyV while extracting or viewing content in hexadecimal or plain text via the context options or are attempting to do anything else in LibertyV and an lxz.dll error displays.
+
+To use this fix, all you need to do is replace the lxz.dll inside the LibertyV folder with the one inside of this folder (the one in this folder goes to the LibertyV folder with all the other DLLs). Be sure to back up the lzx.dll in your LibertyV folder before using the one provided in this folder.
+
+Again, this is only needed if you are experiencing errors. Always try running the program as administrator and see if the problem still persists. If the problem is still occurring, then use this fix and you should be fine.

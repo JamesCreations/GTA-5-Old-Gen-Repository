@@ -1,0 +1,64 @@
+0.4.7
+=====
+- Added support for adding hashes also as Int32 (negative decimal values) when format set on "dec"
+- Added checkbox "Update ListBox" to "Found matches" tab - unchecking will pause adding new findings into list, which saves CPU time to update UI and you can also look into list without constant jumps of content
+- Added option "Try also without separator" into "Resolver settings" form to try connect words with and without separator also (which is needed if you are not sure if separator is present, or it might not be present between every word, for example "VehicleSpeed_Default" which is not "VehicleSpeedDefault" nor "Vehicle_Speed_Default")
+- Added possibility to add multiple word separators into "Resolver settings" which allows you to search all combinations (if you add "_,-" you will search "a_b_c", "a_b-c", "a-b_c" and also "a-b-c")
+- Added note into "Resolver settings" which tells you how many hashes needs to be tested for 1-2 word and 1-3 word combination, which might help you to guess how extensive searching it will be
+- Added separate code for resolving single hash, which leads to approx. 5% speed boost
+- Improved searching thread synchronization which results in less lags and freezes and better CPU utilization, especially during UI update when match found
+- Fixed irregular bug with division by zero error
+- Updated memory manager
+
+0.4.6
+=====
+- Added icons into main menu, popup menu and hash list, including icon informing user which hashes are currently in search
+- Added field "Must ends with" to specify phrase with which found name must ends in resolver settings
+- Added option "Add checked names to custom dictionary" to popup menu in "Found matches" list
+- Unlocked menu item File > New project (Ctrl+N) to clear everything with one click and start over
+- Added menu Help with some usefull links and information
+- Added warning when resuming search after changing hash list to inform user that changes will not affect resumed search
+- Added options "Don't search where dictionary match/random collision/resolved string already exists" in resolver settings
+- Fixed bug where "Copy selected resolved string(s), dictionary match(es) or collision(s)" did not actually copied resolved string
+
+0.4.5
+=====
+- Optimized resolving performance by approx. 22%
+- Optimized adding found matches to list to prevent infinite freezing with big batches of hashes
+- Added progress bar for resolving hashes to show in what part of n-word combination search is
+- Other minor fixes, improvements and performance optimizations
+
+0.4.4
+=====
+- Added possibility to Pause / Resume working job
+- Fixed bug with "Copy selected hash(es)" which copied wrong binary data instead of selected hash
+- Fixed crash on closing app during running job
+
+0.4.3
+=====
+- Implemented multi-threading support, which allows you to boost resolving speed by number of your CPU cores (for now working only for dictionary brute-force resolving, not for random collision search)
+- Added scrollbars to textareas
+- Fixed bug, where long lines in textareas were wrapped and added as individual lines
+- Replaced memory manager (improves performance a little)
+- Fixed few memory leaks
+- Small cleanup of dictionary
+
+0.4.2.1
+=======
+- Fixed serious bug when resolving with prefixes found collisions only for first prefix in list
+- Fixed bug where decimal hashes were not accepted above signed int max (2147483648 and up)
+
+0.4.2
+=====
+- Added option to add hashes in decimal format
+- Added "Select all" option to context menus
+- Added separate text box for adding hashes computed from strings
+- Added separate column "Resolved string" for strings resolved by dictionary brute-forcing
+- Branched popup menu items "Delete selected" and "Delete all" in "Hash list" to allow deleting content of any column
+- Branched popup menu items "Copy selected name(s)" in "Found matches" to allow copying names only or grouped names
+- Fixed drawing and component positioning issues when form is resized
+- Fixed progress bar stretching and animating issue
+- Fixed bug which allowed to rename item in list views, which actually had no effect
+- Fixed bug where checking name in "Found matches" did not transfer it to "Hash list" table in some cases
+- Fixed bug where certain event was fired too often during hash resolving, which could lead to performance degradation on long lists
+- Updated US dictionary, now containing also inflected variants and plurals
