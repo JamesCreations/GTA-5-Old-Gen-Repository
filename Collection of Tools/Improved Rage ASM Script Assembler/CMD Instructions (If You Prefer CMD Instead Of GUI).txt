@@ -1,0 +1,37 @@
+By The Way, The GUI Is Cooler But CMD Is Hacker Style.
+
+Basic Batch File Should Look Like This.
+
+@echo off
+cd %~dp0
+:start
+echo Script Assembler Console Edition
+echo Press Enter To Compile
+pause > nul
+cls
+"../CompilerJR/CompilerJR.exe" "../CompilerJR/Source Here/BASE.csa" "../CompilerJR/Compiled/BASE.csc" RSC7Header=False UseStaticNames=True CheckNatives=False Protection=True FixedScriptSize=False 0 4 ShowProtectionDetailsCMD=True WriteDetailsOfProtectionToFile=False CompileAndInject=False -i-t CompileErrorChecking=False
+goto start
+
+
+Now I Will Explain What Each Things Does.
+
+First String Is Path Of CMD Compiler. ("../CompilerJR/CompilerJR.exe")
+Second Path Is Your Source Location. ("../CompilerJR/Source Here/BASE.csa")
+Third Path Is Output. ("../CompilerJR/Compiled/BASE.csc")
+
+To Change Bools Change False To True, Turning Off Make Sure To Spell False Exactly Like That. Now I will explain each bool.
+
+RSC7 Header Is header file for script. (RSC7Header=False)
+Use Static Names Makes it so your statics can have letters. (UseStaticNames=True)
+Check Natives Makes Sure Every Native You Use Exsist. (CheckNatives=False)
+Protection Applies Script Protection, In This Compiler It Is Improved Alot From The Base Erootiiks Compiler. (Protection=True)
+Fixed Script Size Makes It Show Your File Is Pumped. (FixedScriptSize=False)
+The 0 Is For Fixed Script Size If 0 Pumps File 1MB If 1 Pumps File To 2MB. (0)
+4 Is Number Of Times Protection Code Is Applied, Change This At Your Free Will. (4)
+Show Protection Details CMD, Does Exactly What Its Labeled. (ShowProtectionDetailsCMD=True)
+Write Details Of Protection To File, Does Exactly What Its Labeled. (Outputs File To Compiler Directory) (WriteDetailsOfProtectionToFile=False)
+Compile And Inject Uses (CompileAndInject=False -i-t), Make Sure You Actually Have The Injector.exe Before Using This. (CompileAndInject=False -i-t)
+Compile Error Checking, Basically Removes Error Checks And Makes It So You Can Compile Invalid Code. (CompileErrorChecking=False)
+
+
+Compiler Logs Each Compile It Output To (Compiled Logs.tmp)
