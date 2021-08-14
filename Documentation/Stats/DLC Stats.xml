@@ -1,0 +1,834 @@
+<StatsSetup version="1">
+    <stats>
+	<!-- WEAPONS -->
+    <stat Name="BOTTLE_KILLS"           		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="BOTTLE_DEATHS"          		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="BOTTLE_SHOTS"           		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="BOTTLE_HITS"            		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="BOTTLE_HEADSHOTS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="BOTTLE_HELDTIME"        		Type="u32"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="BOTTLE_DB_HELDTIME"     		Type="u32"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="BOTTLE_FM_AMMO_BOUGHT"  		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+    <stat Name="BOTTLE_FM_AMMO_CURRENT" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+	<stat Name="BOTTLE_ENEMY_KILLS"     		Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="BOTTLE_IN_POSSESSION"   		Type="bool" SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" /> 
+	<stat Name="BOTTLE_AQUIRED_AS_GIFT"   		Type="bool" SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" /> 	
+
+    <stat Name="SNSPISTOL_KILLS"                Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="SNSPISTOL_DEATHS"               Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="SNSPISTOL_SHOTS"                Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="SNSPISTOL_HITS"                 Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="SNSPISTOL_HEADSHOTS"            Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="SNSPISTOL_HELDTIME"             Type="u32"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="SNSPISTOL_DB_HELDTIME"          Type="u32"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="SNSPISTOL_FM_AMMO_BOUGHT"       Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+    <stat Name="SNSPISTOL_FM_AMMO_CURRENT"      Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+	<stat Name="SNSPISTOL_ENEMY_KILLS"          Type="int"  SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="SNSPISTOL_IN_POSSESSION"        Type="bool" SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                    
+	<stat Name="SNSPISTOL_AQUIRED_AS_GIFT"      Type="bool" SaveCategory="1" Default="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                    
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="HVYPISTOL_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="HVYPISTOL_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="HVYPISTOL_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="HVYPISTOL_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="HVYPISTOL_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="HVYPISTOL_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="HVYPISTOL_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="HVYPISTOL_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                     
+    <stat Name="HVYPISTOL_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                     
+	<stat Name="HVYPISTOL_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="HVYPISTOL_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                     
+	<stat Name="HVYPISTOL_AQUIRED_AS_GIFT"  Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                     
+	
+    <stat Name="SPCARBINE_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="SPCARBINE_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="SPCARBINE_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="SPCARBINE_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="SPCARBINE_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="SPCARBINE_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="SPCARBINE_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="SPCARBINE_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                   
+    <stat Name="SPCARBINE_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                   
+	<stat Name="SPCARBINE_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="SPCARBINE_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                   
+	<stat Name="SPCARBINE_AQUIRED_AS_GIFT"  Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                   
+	
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="BULLRIFLE_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="BULLRIFLE_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="BULLRIFLE_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="BULLRIFLE_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="BULLRIFLE_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="BULLRIFLE_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="BULLRIFLE_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="BULLRIFLE_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="BULLRIFLE_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="BULLRIFLE_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="BULLRIFLE_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="BULLRIFLE_AQUIRED_AS_GIFT"  Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+  <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="PRXMINE_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="PRXMINE_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="PRXMINE_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="PRXMINE_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="PRXMINE_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="PRXMINE_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="PRXMINE_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="PRXMINE_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="PRXMINE_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="PRXMINE_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+
+    <stat Name="HOMLNCH_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="HOMLNCH_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="HOMLNCH_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="HOMLNCH_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="HOMLNCH_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="HOMLNCH_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="HOMLNCH_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="HOMLNCH_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="HOMLNCH_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="HOMLNCH_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+	
+  </stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- Heist Planning Stats -->
+    <stat Name="HEIST_PLANNING_STAGE"          	Type="int"  SaveCategory="0" online="true" profile="true" FlushPriority="15" ServerAuthoritative="true" community="false" Owner="script" characterStat="true" Comment="MP Char 0 - Heist planning stages" />
+	
+	<stat Name="HEIST_PLANNING_DONE_PRINT"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Accepted, printed and pinned the heist start email to the board" />
+	<stat Name="HEIST_PLANNING_DONE_HELP_0"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Already done a heist board as LEADER. Used for help text." />
+	<stat Name="HEIST_PLANNING_DONE_HELP_1"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Already done a heist board as MEMBER. Used for help text." />
+	<stat Name="HEIST_PRE_PLAN_DONE_HELP_0"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Already done a heist pre-planning board. Used for help text." />
+	<stat Name="HEIST_CUTS_DONE_FINALE"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for the currently active strand." />
+	<stat Name="HEIST_IS_TUTORIAL"				Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Is the active heist strand a tutorial type." />
+	
+	<stat Name="HEIST_CUTS_DONE_ORNATE"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for ornate strand." />
+	<stat Name="HEIST_CUTS_DONE_BIOLAB"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for biolab strand." />
+	<stat Name="HEIST_CUTS_DONE_PRISON"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for prison strand." />
+	<stat Name="HEIST_CUTS_DONE_NARCOTIC"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for narcotics strand." />
+	<stat Name="HEIST_CUTS_DONE_TUTORIAL"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done the finale cutscene for tutorial strand." />
+	
+	<stat Name="HEIST_AWARD_DONE_PREP"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have done a heist prep mission." />
+	<stat Name="HEIST_AWARD_BOUGHT_IN"			Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Have paid for a heist setup." />
+
+	
+	<stat Name="HEIST_MISSION_RCONT_ID_0"		Type="int"  SaveCategory="1" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true" community="false" Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 0 (finale)" />
+	<stat Name="HEIST_MISSION_RCONT_ID_1"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 1" />
+	<stat Name="HEIST_MISSION_RCONT_ID_2"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 2" />
+	<stat Name="HEIST_MISSION_RCONT_ID_3"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 3" />
+	<stat Name="HEIST_MISSION_RCONT_ID_4"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 4" />
+	<stat Name="HEIST_MISSION_RCONT_ID_5"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 5" />
+	<stat Name="HEIST_MISSION_RCONT_ID_6"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 6" />
+	<stat Name="HEIST_MISSION_RCONT_ID_7"		Type="string"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission root content ID 7" />
+	
+	<stat Name="HEIST_MISSION_DEPTH_LV_0"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 0" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_1"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 1" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_2"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 2" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_3"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 3" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_4"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 4" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_5"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 5" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_6"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 6" />
+	<stat Name="HEIST_MISSION_DEPTH_LV_7"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Mission board depth level for ID 7" />
+	
+	<stat Name="HEIST_MISSION_PLAYER_0_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 0 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_0_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 0 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_0_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 0 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_0_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 0 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_1_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 1 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_1_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 1 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_1_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 1 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_1_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 1 player name for sub-slot 3" />
+                                                      
+	<stat Name="HEIST_MISSION_PLAYER_2_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 2 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_2_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 2 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_2_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 2 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_2_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 2 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_3_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 3 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_3_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 3 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_3_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 3 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_3_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 3 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_4_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 4 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_4_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 4 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_4_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 4 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_4_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 4 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_5_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 5 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_5_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 5 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_5_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 5 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_5_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 5 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_6_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 6 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_6_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 6 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_6_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 6 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_6_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 6 player name for sub-slot 3" />
+	                                                  
+	<stat Name="HEIST_MISSION_PLAYER_7_0"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 7 player name for sub-slot 0" />
+	<stat Name="HEIST_MISSION_PLAYER_7_1"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 7 player name for sub-slot 1" />
+	<stat Name="HEIST_MISSION_PLAYER_7_2"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 7 player name for sub-slot 2" />
+	<stat Name="HEIST_MISSION_PLAYER_7_3"		Type="userid"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Set-up mission 7 player name for sub-slot 3" />
+
+	<!-- WEAPONS -->
+    <stat Name="FLAREGUN_KILLS"           		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="FLAREGUN_DEATHS"          		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="FLAREGUN_SHOTS"           		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="FLAREGUN_HITS"            		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="FLAREGUN_HEADSHOTS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="FLAREGUN_HELDTIME"        		Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="FLAREGUN_DB_HELDTIME"     		Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="FLAREGUN_FM_AMMO_BOUGHT"  		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                     
+    <stat Name="FLAREGUN_FM_AMMO_CURRENT" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                     
+	<stat Name="FLAREGUN_ENEMY_KILLS"     		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="FLAREGUN_IN_POSSESSION"   		Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                     
+	<stat Name="FLAREGUN_AQUIRED_AS_GIFT"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                     
+
+	<!-- VEHICLE WEAPONS -->
+	<stat Name="HYDRA_ROCKET_KILLS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="HYDRA_ROCKET_DEATHS"      		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="HYDRA_ROCKET_SHOTS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="HYDRA_ROCKET_HITS"        		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="HYDRA_ROCKET_HELDTIME"    		Type="u32"  SaveCategory="1" Default="0" online="true" profile="true" 	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="HYDRA_ROCKET_ENEMY_KILLS" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+                
+	<stat Name="HYDRA_BULLET_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="HYDRA_BULLET_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="HYDRA_BULLET_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="HYDRA_BULLET_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="HYDRA_BULLET_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="HYDRA_BULLET_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="HYDRA_BULLET_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+
+	<stat Name="INSURGENT_TURR_KILLS"         	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="INSURGENT_TURR_DEATHS"        	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="INSURGENT_TURR_SHOTS"         	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="INSURGENT_TURR_HITS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="INSURGENT_TURR_HEADSHOTS"       Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="INSURGENT_TURR_HELDTIME"      	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="INSURGENT_TURR_ENEMY_KILLS"   	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />	
+	
+	<stat Name="SAVAGE_ROCKET_KILLS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="SAVAGE_ROCKET_DEATHS"      		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="SAVAGE_ROCKET_SHOTS"       		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="SAVAGE_ROCKET_HITS"        		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="SAVAGE_ROCKET_HELDTIME"    		Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="SAVAGE_ROCKET_ENEMY_KILLS" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	
+	<stat Name="SAVAGE_BULLET_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="SAVAGE_BULLET_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="SAVAGE_BULLET_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="SAVAGE_BULLET_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="SAVAGE_BULLET_HEADSHOTS"		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="SAVAGE_BULLET_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="SAVAGE_BULLET_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+
+	<stat Name="TECHNICAL_TURR_KILLS"         	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="TECHNICAL_TURR_DEATHS"        	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="TECHNICAL_TURR_SHOTS"         	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="TECHNICAL_TURR_HITS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="TECHNICAL_TURR_HEADSHOTS"       Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="TECHNICAL_TURR_HELDTIME"      	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="TECHNICAL_TURR_ENEMY_KILLS"   	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	
+	<stat Name="VALKYRIE_CANNON_KILLS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="VALKYRIE_CANNON_DEATHS"      	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="VALKYRIE_CANNON_SHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="VALKYRIE_CANNON_HITS"        	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="VALKYRIE_CANNON_HEADSHOTS"		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="VALKYRIE_CANNON_HELDTIME"    	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="VALKYRIE_CANNON_ENEMY_KILLS" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+                      
+	<stat Name="VALKYRIE_TURR_KILLS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="VALKYRIE_TURR_DEATHS"         	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="VALKYRIE_TURR_SHOTS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="VALKYRIE_TURR_HITS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="VALKYRIE_TURR_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="VALKYRIE_TURR_HELDTIME"       	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  	FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="VALKYRIE_TURR_ENEMY_KILLS"    	Type="int"  SaveCategory="1" Default="0" online="true" profile="false"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	
+	<!-- Heist progress tracking (generic) -->
+	<stat Name="HEIST_SAVED_STRAND_0"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 0." />
+	<stat Name="HEIST_SAVED_STRAND_0_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 0 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_0_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 0 has been completed as member." />
+
+	<stat Name="HEIST_SAVED_STRAND_1"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 1." />
+	<stat Name="HEIST_SAVED_STRAND_1_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 1 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_1_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 1 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_2"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 2." />
+	<stat Name="HEIST_SAVED_STRAND_2_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 2 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_2_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 2 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_3"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 3." />
+	<stat Name="HEIST_SAVED_STRAND_3_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 3 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_3_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 3 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_4"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 4." />
+	<stat Name="HEIST_SAVED_STRAND_4_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 4 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_4_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 4 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_5"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 5." />
+	<stat Name="HEIST_SAVED_STRAND_5_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 5 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_5_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 5 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_6"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 6." />
+	<stat Name="HEIST_SAVED_STRAND_6_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 6 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_6_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 6 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_7"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 7." />
+	<stat Name="HEIST_SAVED_STRAND_7_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 7 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_7_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 7 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_8"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 8." />
+	<stat Name="HEIST_SAVED_STRAND_8_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 8 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_8_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 8 has been completed as member." />
+	
+	<stat Name="HEIST_SAVED_STRAND_9"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Root contentID for saved heist strand 9." />
+	<stat Name="HEIST_SAVED_STRAND_9_L"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 9 has been completed as leader." />
+	<stat Name="HEIST_SAVED_STRAND_9_M"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - How many times saved strand 9 has been completed as member." />
+
+	<stat Name="MPPLY_UNIQUE_HEIST_PLANNING_V"   	Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists Planning a player has available (Verified)" />
+	<stat Name="MPPLY_UNIQUE_HEIST_PLANNING"   		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists Planning a player has available (Verified)" />
+	<stat Name="MPPLY_UNIQUE_HEIST_FINALE_V"   		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+	<stat Name="MPPLY_UNIQUE_HEIST_FINALE"   		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+	<stat Name="MPPLY_AVAILABLE_HEIST_PLANV"  		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+	<stat Name="MPPLY_AVAILABLE_HEIST_PLAN"   		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+	<stat Name="MPPLY_AVAILABLE_HEIST_FINALE_V"   	Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+	<stat Name="MPPLY_AVAILABLE_HEIST_FINALE"  		Type="int"    SaveCategory="0"  online="true"  profile="false"   Owner="script" Comment="Number of Heists a player has available (Verified)" />
+
+	<stat Name="AWD_SPLIT_HEIST_TAKE_EVENLY"     			Type="bool"   SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Split the Heist take evenly" />
+	<stat Name="AWD_FINISH_HEISTS"     						Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Complete Heists" />
+	<stat Name="AWD_FINISH_HEIST_SETUP_JOB"     			Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Complete Heist set up jobs" />
+	<stat Name="AWD_DO_HEIST_AS_MEMBER"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Participate in a Heist as a member" />
+	<stat Name="AWD_DO_HEIST_AS_THE_LEADER"   				Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Participate in a Heist as the leader" />
+	<stat Name="AWD_COMPLETE_HEIST_NOT_DIE"     			Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Complete a Heist without dying" />
+	<stat Name="AWD_FINISH_HEIST_NO_DAMAGE"     			Type="bool"   SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Complete a Heist without taking any damage" />
+	<stat Name="AWD_WIN_GOLD_MEDAL_HEISTS"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Win Gold medals for Heists" />
+	<stat Name="AWD_MATCHING_OUTFIT_HEIST"     				Type="bool"   SaveCategory="1"   online="true"  profile="true"  ServerAuthoritative="false" FlushPriority="10"   Owner="script" characterStat="true"  Comment="Complete a Heist without taking any damage" />
+	<stat Name="AWD_ALL_ROLES_HEIST"     					Type="bool"   SaveCategory="1"   online="true"  profile="true"    Owner="script" characterStat="true"  Comment="Complete a Heist without taking any damage" />
+	
+	<stat Name="HEIST_STRAND_INTRO_DONE"		Type="bool"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Watched the strand intro cutscene." />
+
+	<stat Name="MPPLY_HEIST_CHEAT_START"         Type="int"    SaveCategory="0"    online="true"  profile="false"   Owner="script"   Comment="CHEAT TRACKING No of missions started" />
+	<stat Name="MPPLY_HEIST_CHEAT_END"           Type="int"    SaveCategory="0"    online="true"  profile="false"   Owner="script"   Comment="CHEAT TRACKING  no of missions ended" />
+	<stat Name="MPPLY_HEIST_CHEAT_QUIT"       	 Type="int"    SaveCategory="0"    online="true"  profile="true"    Owner="script"   Comment="CHEAT TRACKING  no of missions quit" />
+	<stat Name="MPPLY_HEIST_CHEAT_TALLY"         Type="int"    SaveCategory="0"    online="true"  profile="false"   Owner="script"   Comment="Number of times cheated" />
+	<stat Name="HEIST_START"        		 	 Type="int"    SaveCategory="1"    online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment=" No of races started" />
+	<stat Name="HEIST_END"        		     	 Type="int"    SaveCategory="1"    online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment=" No of races ended" />
+
+	<stat Name="HEIST_ROLE_1"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_2"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_3"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_4"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_5"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_6"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_7"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_8"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_9"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_10"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_11"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_12"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_13"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_14"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_15"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_16"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_17"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_18"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_19"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_20"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_21"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_22"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_23"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_24"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_25"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_26"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_27"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_28"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_29"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_30"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_31"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_32"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_33"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_34"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_35"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_36"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_37"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_38"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_39"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_40"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_41"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_42"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_43"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_44"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_45"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_46"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_47"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_48"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_49"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="HEIST_ROLE_50"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist roles player has performed" />
+	<stat Name="DISPLAY_KEYCODE_HELP" Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="NUMBER OF TIMES DISPLAY KEYCODE HELP" />
+	<stat Name="DISPLAY_QUICK_RESET"  Type="int" SaveCategory="0"  online="true"  profile="false"   Owner="script" characterStat="true" Comment="help text telling players about quick restart for players who fail heist missions" />
+
+	<stat Name="CUTSCENE_MID_PRISON"	Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="for the mid strand cutscenes indicator." />
+	<stat Name="CUTSCENE_MID_HUMANE"	Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="for the mid strand cutscenes indicator." />
+	<stat Name="CUTSCENE_MID_NARC"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="for the mid strand cutscenes indicator." />
+	<stat Name="CUTSCENE_MID_ORNATE"	Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="for the mid strand cutscenes indicator." />
+	<stat Name="CUTSCENE_MID_TUT"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="for the mid strand cutscenes indicator." />
+	
+	<stat Name="HEIST_TOTAL_REWARD_COSMETIC"	Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Cosmetic display for total heist strand reward (used for when displaying the fake finale board in the apt)." />
+	<stat Name="MPPLY_JOBFLOW_HEIST_TEXT"		Type="bool"  SaveCategory="0" online="true" profile="false"  Owner="script" characterStat="false" Comment="To tell if player has recieved heist job flow message" />
+	<stat Name="HESIT_LAUNCH_TIME"        		Type="u64"    SaveCategory="0"   online="true"  profile="false"  Owner="script"  characterStat="true"  Comment="Heist Launch Time" /> 	
+
+	<stat Name="MPPLY_AWD_FLEECA_FIN"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed The Fleeca Job finale." />
+	<stat Name="MPPLY_AWD_PRISON_FIN"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed The Prison Break finale." />
+	<stat Name="MPPLY_AWD_HUMANE_FIN"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed The Humane Labs Raid finale." />
+	<stat Name="MPPLY_AWD_SERIESA_FIN"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed Series A Funding finale." />
+	<stat Name="MPPLY_AWD_PACIFIC_FIN"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed The Pacific Standard Job finale." />
+	<stat Name="MPPLY_AWD_HST_ORDER"     		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed the Heist Order Bonus." />
+	<stat Name="MPPLY_AWD_HST_SAME_TEAM"   		Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Completed the Heist Same Team Bonus." />
+	<stat Name="MPPLY_AWD_HST_ULT_CHAL"     	Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Has player completed the heists award " />                    
+
+ 	<stat Name="MPPLY_HEIST_ACH_TRACKER"		Type="int"  SaveCategory="0"   online="true"  profile="true"  FlushPriority="10"      Owner="script"  Comment="MPPLAYER - Tracker used to tell us which mp heists the player has done"	/>
+ 	<stat Name="MPPLY_MONEY_SPENT_ON_HEISTVEH"	Type="int"  SaveCategory="0"   online="true"  profile="true"  FlushPriority="10"      Owner="script"  Comment="MPPLAYER - How much total cash player has spent on heist vehicles"	/>	
+
+	<stat Name="HELP_ROCKET_HEIST_TEXT"			Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Help text display" />
+	
+	<stat Name="MPPLY_HEISTFLOWORDERPROGRESS"	Type="int"  SaveCategory="0" online="true" profile="true"  Owner="script"  Comment="for tracking heist bonus points." />
+    <stat Name="MPPLY_HEISTTEAMPROGRESSBITSET"	Type="int"  SaveCategory="0" online="true" profile="true"  Owner="script"  Comment="for tracking heist bonus points." />
+	<stat Name="MPPLY_HEISTNODEATHPROGREITSET"	Type="int"  SaveCategory="0" online="true" profile="true"   Owner="script"  Comment="for tracking heist bonus points." />
+	<stat Name="BITSET_HEIST_VS_MISSIONS"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="bitfield to control the Heist Reward Versus Missions that get unlocked as Heist Strands get completed." />
+	<stat Name="CURRENT_HEIST_STRAND"		    Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="keep track of the most recent Heist Strand the player has been given." />
+	<stat Name="MPPLY_HEISTTEAMPROGRESSCOUNTER"	Type="int"  SaveCategory="0" online="true" profile="false"  Owner="script"  Comment="Progress counter." />
+	
+	<stat Name="HEIST_OUTFIT_T_0"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist outfit for team 0" />
+	<stat Name="HEIST_OUTFIT_T_1"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist outfit for team 1" />
+	<stat Name="HEIST_OUTFIT_T_2"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist outfit for team 2" />
+	<stat Name="HEIST_OUTFIT_T_3"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist outfit for team 3" />
+			
+	<stat Name="HEIST_MASK_T_0"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist mask for team 0" />
+	<stat Name="HEIST_MASK_T_1"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist mask for team 1" />
+	<stat Name="HEIST_MASK_T_2"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist mask for team 2" />
+	<stat Name="HEIST_MASK_T_3"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist Planning - Saved heist mask for team 3" />
+	<stat Name="MPPLY_HEIST_PROGRESS_HASH" 		Type="int"  SaveCategory="0"   online="true"  profile="false"  ServerAuthoritative="false" FlushPriority="0" Owner="script" characterStat="false" Comment="Help text display" />
+	
+	<stat Name="FM_NON_MS_HELP_TEXT7"			Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist help text" />
+
+	<stat Name="HEIST_SESSION_ID_MACADDR"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist help text" />
+	<stat Name="HEIST_SESSION_ID_POSTIME"		Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist help text" />
+	<stat Name="HEIST_LAST_CUSTOM_CAR"			Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Heist help text" />
+
+	<stat Name="CR_FLEECA_PREP_1"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_FLEECA_PREP_2"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_FLEECA_FINALE"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PRISON_PLANE"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PRISON_BUS"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PRISON_STATION"              Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PRISON_UNFINISHED_BIZ"       Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PRISON_FINALE"               Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_KEY_CODES"			Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_ARMORDILLOS"          Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_EMP"                  Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_VALKYRIE"             Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_DELIVER_EMP"			Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_HUMANE_FINALE"               Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_COKE"                   Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_TRASH_TRUCK"            Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_BIKERS"					Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_WEED"                   Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_STEAL_METH"             Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_NARC_FINALE"                 Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_TRUCKS"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_WITSEC"              Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_HACK"                Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_BIKES"               Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_CONVOY"				Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="CR_PACIFIC_FINALE"              Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track each time a player has done an individual Heist Mission (Planning and Finale)" />
+	<stat Name="HEIST_LEADER_APART_ID"       	Type="int"  SaveCategory="1" online="true" profile="false"  Owner="script" characterStat="true" Comment="Track id of last apartment player has launched as heist leader from" />
+         	 
+	<stat Name="MPPLY_HEIST_1STPERSON_PROG"     Type="int"  SaveCategory="0" online="true" profile="false"  Owner="script" characterStat="false" Comment="Track heist 1st person progress" />
+	<stat Name="MPPLY_HEIST_RESET_PROFILE"     	Type="int"  SaveCategory="0" online="true" profile="false"  Owner="script" characterStat="false" Comment="Reset the profile settings we used for the background script" />								
+	
+	
+<!--- NEW awards -->
+	<stat Name="AWD_WIN_CAPTURES"     						Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Win Captures" />
+	<stat Name="AWD_DROPOFF_CAP_PACKAGES"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Drop-off Capture Packages" />
+	<stat Name="AWD_PICKUP_CAP_PACKAGES"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Pick up Capture Packages" />
+	<stat Name="AWD_KILL_CARRIER_CAPTURE"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Kill a package carrier in Capture" />
+	<stat Name="AWD_WIN_CAPTURE_DONT_DYING"     			Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Win a Capture without dying" />
+	<stat Name="AWD_NIGHTVISION_KILLS"   					Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Get kills while wearing Night Vision" />
+	<stat Name="AWD_ACTIVATE_2_PERSON_KEY"    				Type="bool"   SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Activate 2 person key switches" />
+	<stat Name="AWD_CONTROL_CROWDS"     					Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Successfully control crowds" />
+	<stat Name="AWD_KILL_PSYCHOPATHS"     					Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Kill psychopaths" />							
+	<stat Name="AWD_MENTALSTATE_TO_NORMAL"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Return your Mental State to Normal" />			
+	<stat Name="AWD_WIN_LAST_TEAM_STANDINGS"     			Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Win Last Team Standings" />						
+	<stat Name="AWD_ONLY_PLAYER_ALIVE_LTS"     				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Be the only player alive at the end of LTS" />	
+	<stat Name="AWD_KILL_TEAM_YOURSELF_LTS"   				Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Kill the entire team yourself in LTS" />		
+	<stat Name="AWD_STORE_20_CAR_IN_GARAGES"     			Type="bool"   SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Store 20 vehicles in your Garages" />			
+	<stat Name="AWD_TRADE_IN_YOUR_PROPERTY"     			Type="int"    SaveCategory="1"   online="true"  profile="true"  Owner="script" characterStat="true"  Comment="Trade in your property" />						
+	<stat Name="MPPLY_AWD_COMPLET_HEIST_1STPER"    			Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Complete all heist setups "/>	
+	<stat Name="MPPLY_AWD_COMPLET_HEIST_MEM"     			Type="bool"   SaveCategory="0"   online="true"  profile="true"     FlushPriority="15" ServerAuthoritative="true" Owner="script"  Comment="Complete all heist setups "/>							
+	<stat Name="HAS_DEACTIVATE_NIGHTVISION"			     	Type="bool"   SaveCategory="0"   online="true"  profile="false" Owner="script" characterStat="true" Comment="Deactive night vision." />
+	<stat Name="MPPLY_HEISTMEMBERPROGRESSBITSET"     		Type="int"    SaveCategory="0"   online="true"  profile="false" Owner="script" characterStat="false"  Comment="track completing all heists as a member"/>							
+	<stat Name="MPPLY_WIN_GOLD_MEDAL_HEISTS"     			Type="int"    SaveCategory="0"   online="true"  profile="false" Owner="script" characterStat="false"  Comment="track completing gold medal heists. Player stat"/>							
+	
+	
+	
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="DAGGER_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="DAGGER_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="DAGGER_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="DAGGER_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="DAGGER_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="DAGGER_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="DAGGER_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="DAGGER_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="DAGGER_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="DAGGER_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="DAGGER_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="DAGGER_AQUIRED_AS_GIFT"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+
+    <stat Name="VPISTOL_KILLS"      		Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="VPISTOL_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="VPISTOL_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="VPISTOL_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="VPISTOL_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="VPISTOL_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="VPISTOL_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="VPISTOL_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+    <stat Name="VPISTOL_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                    
+	<stat Name="VPISTOL_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="VPISTOL_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                    
+	<stat Name="VPISTOL_AQUIRED_AS_GIFT" 	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                    
+	
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="FIREWRK_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="FIREWRK_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="FIREWRK_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="FIREWRK_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="FIREWRK_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="FIREWRK_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="FIREWRK_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="FIREWRK_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="FIREWRK_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="FIREWRK_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="FIREWRK_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="FIREWRK_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+
+    <stat Name="MUSKET_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="MUSKET_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="MUSKET_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="MUSKET_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="MUSKET_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="MUSKET_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="MUSKET_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="MUSKET_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="MUSKET_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="MUSKET_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="MUSKET_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="MUSKET_AQUIRED_AS_GIFT"		Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+	
+	<stat Name="FIREWORK_TYPE_1_WHITE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />                                  
+	<stat Name="FIREWORK_TYPE_1_RED" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+	<stat Name="FIREWORK_TYPE_1_BLUE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+
+	<stat Name="FIREWORK_TYPE_2_WHITE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />                                  
+	<stat Name="FIREWORK_TYPE_2_RED" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+	<stat Name="FIREWORK_TYPE_2_BLUE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+
+	<stat Name="FIREWORK_TYPE_3_WHITE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />                                  
+	<stat Name="FIREWORK_TYPE_3_RED" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+	<stat Name="FIREWORK_TYPE_3_BLUE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+
+	<stat Name="FIREWORK_TYPE_4_WHITE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />                                  
+	<stat Name="FIREWORK_TYPE_4_RED" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+	<stat Name="FIREWORK_TYPE_4_BLUE" 		Type="int"  SaveCategory="1" Default="0" online="true" profile="false"     Owner="script"  characterStat="true"  Comment="Fire Work Colours" />   
+
+	
+	</stats>
+</StatsSetup>
+
+<StatsSetup version="1">
+  <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="HVYSHGN_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="HVYSHGN_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="HVYSHGN_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="HVYSHGN_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="HVYSHGN_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="HVYSHGN_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="HVYSHGN_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="HVYSHGN_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="HVYSHGN_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="HVYSHGN_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="HVYSHGN_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="HVYSHGN_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+
+    <stat Name="MKRIFLE_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="MKRIFLE_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="MKRIFLE_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="MKRIFLE_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="MKRIFLE_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="MKRIFLE_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="MKRIFLE_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="MKRIFLE_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="MKRIFLE_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="MKRIFLE_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="MKRIFLE_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="MKRIFLE_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+	
+	
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_0"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_1"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_2"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_3"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_4"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_5"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_6"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_7"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_8"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+	<stat Name="MPPLY_PILOT_SCHOOL_MEDAL_9"        Type="int"    SaveCategory="0"   online="true"  profile="false"   Owner="script"  characterStat="false"  Comment=" Pilot School Award" />
+
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+  <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="COMBATPDW_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="COMBATPDW_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="COMBATPDW_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="COMBATPDW_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="COMBATPDW_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="COMBATPDW_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="COMBATPDW_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="COMBATPDW_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="COMBATPDW_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="COMBATPDW_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="COMBATPDW_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="COMBATPDW_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+	
+  </stats>
+</StatsSetup>
+
+<StatsSetup version="1">
+  <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="KNUCKLE_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="KNUCKLE_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="KNUCKLE_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="KNUCKLE_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+	<stat Name="KNUCKLE_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="KNUCKLE_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="KNUCKLE_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="KNUCKLE_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="KNUCKLE_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+
+    <stat Name="MKPISTOL_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="MKPISTOL_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="MKPISTOL_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="MKPISTOL_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="MKPISTOL_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="MKPISTOL_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="MKPISTOL_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="MKPISTOL_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="MKPISTOL_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="MKPISTOL_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="MKPISTOL_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="MKPISTOL_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+
+	
+  </stats>
+</StatsSetup>
+
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- Pilot School Stats -->
+	<stat Name="PILOT_ELAPSEDTIME_0"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_0"         Type ="float" SaveCategory="1"   Default="-1.0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_0"        Type ="float" SaveCategory="1"   Default="-1.0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_0"         Type ="float" SaveCategory="1"   Default="-1.0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_0"              Type ="float" SaveCategory="1"   Default="1.0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_0"         Type ="int"   SaveCategory="1"   Default="-1"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_0"          Type ="float" SaveCategory="1"   Default="-1.0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_0"          Type ="bool"  SaveCategory="1"   Default="false"   online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_0"            Type ="int"   SaveCategory="1"   Default="-0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_0"        Type ="int"   SaveCategory="1"   Default="0"   	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	
+	<stat Name="PILOT_ELAPSEDTIME_1"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_1"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_1"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_1"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_1"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_1"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_1"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_1"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_1"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_1"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	
+	<stat Name="PILOT_ELAPSEDTIME_2"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_2"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_2"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_2"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_2"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_2"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_2"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_2"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_2"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_2"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+		
+	<stat Name="PILOT_ELAPSEDTIME_3"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_3"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_3"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_3"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_3"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_3"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_3"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_3"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_3"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_3"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	
+	<stat Name="PILOT_ELAPSEDTIME_4"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_4"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_4"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_4"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_4"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_4"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_4"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_4"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_4"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_4"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+		
+	<stat Name="PILOT_ELAPSEDTIME_5"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_5"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_5"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_5"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_5"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_5"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_5"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_5"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_5"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_5"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	
+	<stat Name="PILOT_ELAPSEDTIME_6"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_6"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_6"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_6"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_6"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_6"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_6"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_6"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_6"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_6"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+		
+	<stat Name="PILOT_ELAPSEDTIME_7"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_7"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_7"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_7"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_7"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_7"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_7"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_7"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_7"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_7"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+		
+	<stat Name="PILOT_ELAPSEDTIME_8"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_8"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_8"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_8"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_8"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_8"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_8"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_8"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_8"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_8"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	
+	<stat Name="PILOT_ELAPSEDTIME_9"			 Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTELAPSEDTIME_9"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LASTLANDDISTANCE_9"        Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_LANDINGDISTANCE_9"         Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_MULTIPLIER_9"              Type ="float" SaveCategory="1"   Default="1.0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_CHECKPOINTCOUNT_9"         Type ="int"   SaveCategory="1"   Default="-1"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_FORMATIONTIMER_9"          Type ="float" SaveCategory="1"   Default="-1.0"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_ASPASSEDLESSON_9"          Type ="bool"  SaveCategory="1"   Default="false"	online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_MEDAL_9"            Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<stat Name="PILOT_SCHOOL_LASTMEDAL_9"        Type ="int"   SaveCategory="1"   Default="0"		online="true"  profile="false"   Owner="script" 	characterStat="true"  Comment="Pilot School Stats" />
+	<!-- New vehicle stat to uniquely identify veh -->
+	<stat Name="MPSV_OBTAINED_TIME_0"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_0 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_1"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_1 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_2"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_2 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_3"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_3 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_4"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_4 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_5"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_5 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_6"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_6 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_7"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_7 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_8"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_8 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_9"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_9 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_10"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_10 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_11"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_11 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_12"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_12 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_13"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_13 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_14"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_14 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_15"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_15 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_16"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_16 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_17"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_17 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_18"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_18 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_19"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_19 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_20"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_20 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_21"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_21 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_22"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_22 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_23"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_23 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_24"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_24 time vehicle was obtained" />
+	<stat Name="MPSV_OBTAINED_TIME_25"    Type="int"    SaveCategory="0"  online="true"  profile="true"  ServerAuthoritative="true" FlushPriority="15" Owner="script"  characterStat="true"  IsVehicle="true"  Comment="Vehicle_25 time vehicle was obtained" />
+	</stats>
+</StatsSetup>
+<StatsSetup version="1">
+    <stats>
+	
+	<!-- WEAPONS -->
+    <stat Name="GUSNBRG_KILLS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed with weapon" />
+    <stat Name="GUSNBRG_DEATHS"          	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by weapon" />
+    <stat Name="GUSNBRG_SHOTS"           	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 fired weapon" />
+    <stat Name="GUSNBRG_HITS"            	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 hit with weapon" />
+    <stat Name="GUSNBRG_HEADSHOTS"       	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of times mp char 0 killed by headshot with weapon" />
+    <stat Name="GUSNBRG_HELDTIME"        	Type="u32"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time mp char 0 held weapon (MS)" />
+    <stat Name="GUSNBRG_DB_HELDTIME"     	Type="u32"  SaveCategory="1" Default="0" online="true" profile="false" FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Time char0 held driveby weapon (MS)" />
+	<stat Name="GUSNBRG_FM_AMMO_BOUGHT"  	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+    <stat Name="GUSNBRG_FM_AMMO_CURRENT" 	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Ammo bought for weapon" />                                  
+	<stat Name="GUSNBRG_ENEMY_KILLS"     	Type="int"  SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="0"  ServerAuthoritative="false" community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="coder"   characterStat="true"  Comment="Number of enemies killed with weapon (S)" />
+	<stat Name="GUSNBRG_IN_POSSESSION"   	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                  
+	<stat Name="GUSNBRG_AQUIRED_AS_GIFT"	Type="bool" SaveCategory="1" Default="0" online="true" profile="true"  FlushPriority="15" ServerAuthoritative="true"  community="false" UserData="STAT_FLAG_NEVER_SHOW" Owner="script"  characterStat="true"  Comment="Is weapon in inventory" />                                                    
+	
+	</stats>
+</StatsSetup>

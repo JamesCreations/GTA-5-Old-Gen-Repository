@@ -1,0 +1,1796 @@
+//No notes this time because I'm lazy.
+//< Internals
+Function 0 2 0
+CallNative "NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME" 0 0
+Call @Main_
+Return 0 0
+
+:Main_
+Function 0 2 0
+//< Statics
+//< Table 1
+//Static: Current sub-menu (Integer)
+push_0
+StaticSet1 1
+//Static: Current option (Integer)
+fPush_1.0
+StaticSet1 2
+//Static: Number of options in sub-menu (Float)
+fPush_1.0
+StaticSet1 3
+//Static: Y coordinate of option highlight (Float)
+fPush 0.179
+StaticSet1 4
+//Static: Y coordinate of background (Float)
+fPush 0
+StaticSet1 5
+//Static: Length of background (Float)
+fPush 0
+StaticSet1 6
+//Static: Y coordinate of options (Float)
+fPush 0
+StaticSet1 7
+//Static: Last sub-menu (Integer)
+push_1
+StaticSet1 8
+//Static 9: Lowest option allowed to display (Float)
+//Static: Misc boolean holder (Bitset)
+push_0
+StaticSet1 10
+//Static: Temporary Storage (integer)
+push_0
+StaticSet1 12
+//>
+//< Table 2
+//Static 432: Y coordinate of credits box (Float)
+//Static 433: Y coordinate of credits text (Float)
+//Static: Red level for secondary background color (RBG)
+push_0
+StaticSet2 434
+//Static: Green level for secondary background color (RGB)
+push_0
+StaticSet2 435
+//Static: Blue level for secondary background color (RGB)
+Push1 255
+StaticSet2 436
+//Static: Secondary text centered status (Boolean)
+push_1
+StaticSet2 437
+//Static: X coordinate of secondary text (Float)
+fPush 0.145
+StaticSet2 438
+// Opacity for banner rectangles
+Push1 155
+StaticSet2 440
+// Opacity for bar
+Push1 255
+StaticSet2 441
+// Opacity for draw background
+Push1 255
+StaticSet2 442
+//Static 443: Last highlighted option (Float)
+//Static 444: Last Y coordinate of option highlight (Float)
+// RGB for bar
+Push1 255
+StaticSet2 457
+push_0
+StaticSet2 458
+push_0
+StaticSet2 459
+// Opacity for highlight
+Push1 100
+StaticSet2 460
+//>
+//>
+//< Bit Stuff
+//Banner rainbow status
+pStatic1 10
+Push1 9
+CallNative "CLEAR_BIT" 2 0
+//Bar rainbow status
+pStatic1 10
+Push1 10
+CallNative "CLEAR_BIT" 2 0
+//>
+//< Main Loop
+:MainLoop_
+push_0
+CallNative "WAIT" 1 0
+Call @OtherLoops_
+StaticGet1 1
+Switch [0=@CallClosedMenuStuff_][1=@CallMainMenu_][2=@CallCredits_][3=@CallSettings_][4=@CallSettingsColorStuff_][5=@CallSettingsBaseColors_][6=@CallSettingsVividBaseColors_][7=@CallSettingsDarkBaseColors_][8=@CallSettingsBarColors_][9=@CallSettingsVividBarColors_][10=@CallSettingsDarkBarColors_]
+:CallClosedMenuStuff_
+Call @ClosedMenuStuff_
+Jump @MainLoop_
+:CallMainMenu_
+Call @MainMenu_
+Jump @NormalMenuActions_
+:CallCredits_
+Call @Credits_
+Jump @ConsoleActions_
+:CallSettings_
+Call @Settings_
+Jump @NormalMenuActions_
+:CallSettingsColorStuff_
+Call @SettingsColorStuff_
+Jump @NormalMenuActions_
+:CallSettingsBaseColors_
+Call @SettingsBaseColors_
+Jump @NormalMenuActions_
+:CallSettingsVividBaseColors_
+Call @SettingsVividBaseColors_
+Jump @NormalMenuActions_
+:CallSettingsDarkBaseColors_
+Call @SettingsDarkBaseColors_
+Jump @NormalMenuActions_
+:CallSettingsBarColors_
+Call @SettingsBarColors_
+Jump @NormalMenuActions_
+:CallSettingsVividBarColors_
+Call @SettingsVividBarColors_
+Jump @NormalMenuActions_
+:CallSettingsDarkBarColors_
+Call @SettingsDarkBarColors_
+Jump @NormalMenuActions_
+:NormalMenuActions_
+Call @OpenMenuStuff_
+Jump @MainLoop_
+:ConsoleActions_
+Call @ConsoleStuff_
+Jump @MainLoop_
+Return 0 0
+//>
+
+//< Other Loops
+:OtherLoops_
+Function 0 2 0
+StaticGet1 10
+Push1 9
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @OtherLoopsRainbowBar_
+Call @GetRandomRGB_
+StaticSet2 434
+Call @GetRandomRGB_
+StaticSet2 435
+Call @GetRandomRGB_
+StaticSet2 436
+:OtherLoopsRainbowBar_
+StaticGet1 10
+Push1 10
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @EndOtherLoops_
+Call @GetRandomRGB_
+StaticSet2 457
+Call @GetRandomRGB_
+StaticSet2 458
+Call @GetRandomRGB_
+StaticSet2 459
+Push1 255
+StaticSet2 441
+:EndOtherLoops_
+Return 0 0
+//>
+
+//< Open Menu Stuff
+:OpenMenuStuff_
+Function 0 2 0
+Call @GenerateOptionHighlighYCoord_
+Call @DisableControls_
+//Button: Up
+push_2
+Push1 202
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+push_1
+JumpEQ @MenuUp_
+//Button: Down
+push_2
+Push1 203
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+push_1
+JumpEQ @MenuDown_
+//Button: B
+push_2
+Push1 178
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+push_1
+JumpEQ @GoBackSubmenu_
+Jump @EndOpenMenuStuff_
+:GoBackSubmenu_
+PushString "BACK"
+Call @PlayFrontendSound_
+StaticGet1 1
+push_1
+JumpEQ @CloseDownMenu_
+StaticGet1 8
+StaticSet1 1
+fPush_1.0
+StaticSet1 2
+Jump @EndOpenMenuStuff_
+:MenuUp_
+StaticGet1 2
+fPush_1.0
+JumpEQ @SwapToBottom_
+StaticGet1 2
+fPush_1.0
+fSub
+StaticSet1 2
+PushString "NAV_UP_DOWN"
+Call @PlayFrontendSound_
+Jump @EndOpenMenuStuff_
+:SwapToBottom_
+StaticGet1 3
+StaticSet1 2
+PushString "NAV_UP_DOWN"
+Call @PlayFrontendSound_
+Jump @EndOpenMenuStuff_
+:MenuDown_
+StaticGet1 2
+StaticGet1 3
+JumpEQ @SwapToTop_
+StaticGet1 2
+fPush_1.0
+fAdd
+StaticSet1 2
+PushString "NAV_UP_DOWN"
+Call @PlayFrontendSound_
+Jump @EndOpenMenuStuff_
+:SwapToTop_
+fPush_1.0
+StaticSet1 2
+PushString "NAV_UP_DOWN"
+Call @PlayFrontendSound_
+Jump @EndOpenMenuStuff_
+:CloseDownMenu_
+push_2
+CallNative "ENABLE_ALL_CONTROL_ACTIONS" 1 0
+PushString "BACK"
+Call @PlayFrontendSound_
+push_0
+StaticSet1 1
+:EndOpenMenuStuff_
+Return 0 0
+//>
+
+//< Close Menu Stuff
+:ClosedMenuStuff_
+Function 0 2 0
+//Button: LB
+push_2
+Push1 181
+CallNative "IS_CONTROL_PRESSED" 2 1
+push_1
+JumpEQ @MonitorButtonX_
+Jump @EndCloseMenuStuff_
+:MonitorButtonX_
+//Button: B
+push_2
+Push1 178
+CallNative "IS_CONTROL_PRESSED" 2 1
+push_1
+JumpEQ @OpenUpMenu_
+Jump @EndCloseMenuStuff_
+:OpenUpMenu_
+PushString "SELECT"
+Call @PlayFrontendSound_
+push_1
+StaticSet1 1
+push_1
+StaticSet1 8
+fPush_1.0
+StaticSet1 2
+:EndCloseMenuStuff_
+Return 0 0
+
+:ChangeSubmenu_
+Function 0 2 0
+StaticGet1 2
+StaticSet2 443
+fPush_1.0
+StaticSet1 2
+Return 0 0
+//>
+
+//< Console
+//< Console Actions
+:ConsoleStuff_
+Function 0 2 0
+fPush 15
+StaticSet1 3
+Call @DrawBackground_
+Call @DisableControls_
+//Button B
+push_2
+Push1 178
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+push_1
+JumpEQ @ConsoleGoBackSubmenu_
+Jump @EndConsoleStuff_
+:ConsoleGoBackSubmenu_
+PushString "BACK"
+Call @PlayFrontendSound_
+StaticGet1 8
+StaticSet1 1
+StaticGet2 443
+StaticSet1 2
+:EndConsoleStuff_
+Return 0 0
+//>
+
+//< String Stuff
+:AddConsoleEntry_
+Function 2 2 0
+Call @StringBase_
+PushString "STRING"
+CallNative "UNK_3E35563E" 1 0
+getF1 1
+CallNative "UNK_27A244D8" 1 0
+fPush 0.06
+getF1 0
+fPush 0.03
+fMul
+fPush 0.13
+fAdd
+CallNative "UNK_6F8350CE" 2 0
+Return 2 0
+//>
+//>
+
+//< String Stuff
+:StringBase_
+Function 0 2 0
+push_0
+CallNative "SET_TEXT_FONT" 1 0
+fPush 0.4
+fPush 0.4
+CallNative "SET_TEXT_SCALE" 2 0
+Push 255
+Push 255
+Push 255
+Push 255
+CallNative "SET_TEXT_COLOUR" 4 0
+fPush_0.0
+fPush_1.0
+CallNative "SET_TEXT_WRAP" 2 0
+push_0
+CallNative "SET_TEXT_CENTRE" 1 0
+push_0
+push_0
+push_0
+push_0
+push_0
+CallNative "SET_TEXT_DROPSHADOW" 5 0
+push_0
+push_0
+push_0
+push_0
+push_0
+CallNative "SET_TEXT_EDGE" 5 0
+CallNative "SET_TEXT_OUTLINE" 0 0
+Return 0 0
+
+:AddOption_
+Function 2 2 0
+StaticGet1 2
+fPush 16
+JumpLE @AddOptionDoEasyMath_
+getF1 0
+StaticGet1 2
+fPush 15
+fSub
+JumpLT @EndAddOption_
+getF1 0
+StaticGet1 2
+JumpGT @EndAddOption_
+getF1 0
+StaticGet1 2
+fPush 16
+fSub
+fSub
+fPush 0.035
+fMul
+fPush 0.125
+fAdd
+StaticSet1 7
+Jump @AddOptionDrawText_
+:AddOptionDoEasyMath_
+getF1 0
+fPush 16
+JumpGT @EndAddOption_
+getF1 0
+fPush 0.035
+fMul
+fPush 0.125
+fAdd
+StaticSet1 7
+:AddOptionDrawText_
+Call @StringBase_
+PushString "STRING"
+CallNative "UNK_3E35563E" 1 0
+getF1 1
+CallNative "UNK_27A244D8" 1 0
+fPush 0.07
+StaticGet1 7
+CallNative "UNK_6F8350CE" 2 0
+:EndAddOption_
+Return 2 0
+
+:AddTitle_
+Function 1 2 0
+Call @StringBase_
+push_1
+CallNative "SET_TEXT_FONT" 1 0
+fPush 0.8
+fPush 0.8
+CallNative "SET_TEXT_SCALE" 2 0
+StaticGet2 437
+CallNative "SET_TEXT_CENTRE" 1 0
+//Native errors present
+PushString "STRING"
+CallNative "UNK_3E35563E" 1 0
+getF1 0
+CallNative "UNK_27A244D8" 1 0
+StaticGet2 438
+fPush 0.1
+CallNative "UNK_6F8350CE" 2 0
+Return 1 0
+//>
+
+//< Utilities
+:CheckAPressed_
+Function 0 2 0
+push_2
+Push1 193
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+Return 0 1
+
+:CheckXPressed_
+Function 0 2 0
+push_2
+Push1 179
+CallNative "IS_DISABLED_CONTROL_JUST_PRESSED" 2 1
+Return 0 1
+
+:PlayFrontendSound_
+Function 1 2 0
+push_-1
+getF1 0
+PushString "HUD_FRONTEND_DEFAULT_SOUNDSET"
+CallNative "PLAY_SOUND_FRONTEND" 3 0
+Return 1 0
+
+:GenerateOptionHighlighYCoord_
+Function 0 2 0
+StaticGet1 2
+fPush 16
+JumpGT @GenOpHiYCoordForce14_
+StaticGet1 2
+Jump @GenOpHiYCoord_
+:GenOpHiYCoordForce14_
+fPush 16
+:GenOpHiYCoord_
+fPush 0.035
+fMul
+fPush 0.1415
+fAdd
+StaticSet1 4
+Return 0 0
+
+//< Get Random RGB
+:GetRandomRGB_
+Function 0 2 0
+push_0
+Push1 255
+CallNative "GET_RANDOM_INT_IN_RANGE" 2 1
+Return 0 1
+//>
+
+//< Disable Controls
+:DisableControls_
+Function 0 2 0
+CallNative "HIDE_HELP_TEXT_THIS_FRAME" 0 0
+push_0
+CallNative "SET_CINEMATIC_BUTTON_ACTIVE" 1 0
+Push1 10
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_6
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_7
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 9
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+Push1 8
+CallNative "HIDE_HUD_COMPONENT_THIS_FRAME" 1 0
+push_0
+Push1 19
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 20
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 21
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 27
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 54
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 123
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 124
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 125
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 126
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 138
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 139
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 140
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_2
+Push1 177
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_2
+Push1 178
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_2
+Push1 179
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_0
+Push1 207
+CallNative "DISABLE_CONTROL_ACTION" 2 0
+push_2
+Push1 166
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+Push1 167
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+Push1 177
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+Push1 178
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+Push1 202
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+push_2
+Push1 203
+CallNative "SET_INPUT_EXCLUSIVE" 2 0
+Return 0 0
+//>
+//>
+
+//< Shader Stuff
+:DrawBackground_
+Function 0 2 0
+//< Options Background
+//Calculate Y coordinate
+StaticGet1 3
+fPush 16
+JumpGT @DrawBackgroundYCoordForce14_
+StaticGet1 3
+Jump @DrawBackgroundCalcYCoord_
+:DrawBackgroundYCoordForce14_
+fPush 16
+:DrawBackgroundCalcYCoord_
+fPush 0.035
+fMul
+fPush_2.0
+fDiv
+fPush 0.159
+fAdd
+StaticSet1 5
+//Calculate length
+StaticGet1 3
+fPush 16
+JumpGT @DrawBackgroundLengthForce14_
+StaticGet1 3
+Jump @DrawBackgroundCalcLength_
+:DrawBackgroundLengthForce14_
+fPush 16
+:DrawBackgroundCalcLength_
+fPush 0.035
+fMul
+StaticSet1 6
+fPush 0.145
+StaticGet1 5
+fPush 0.19
+StaticGet1 6
+Push3 16 16 16
+StaticGet2 442
+CallNative "DRAW_RECT" 8 0
+//>
+//< TitleBox
+fPush 0.145
+fPush 0.1175
+fPush 0.19
+fPush 0.083
+StaticGet2 434
+StaticGet2 435
+StaticGet2 436
+StaticGet2 440
+CallNative "DRAW_RECT" 8 0
+//>
+//< Scroller Indicators
+// Up Indicator
+StaticGet1 2
+fPush 16
+JumpLE @DrawBackgroundDownIndicator_
+fPush 0.145
+fPush 0.156
+fPush 0.19
+fPush 0.005
+Push3 255 255 255
+Push1 255
+CallNative "DRAW_RECT" 8 0
+Jump @EndDrawBackground_
+:DrawBackgroundDownIndicator_
+StaticGet1 3
+fPush 16
+JumpLE @EndDrawBackground_
+StaticGet1 2
+StaticGet1 3
+JumpEQ @EndDrawBackground_
+fPush 0.145
+fPush 0.72
+fPush 0.19
+fPush 0.005
+Push3 255 255 255
+Push1 255
+CallNative "DRAW_RECT" 8 0
+//>
+:EndDrawBackground_
+Return 0 0
+
+:AddInfoBox_
+Function 1 2 0
+//Calculate Y coordinate
+StaticGet1 3
+fPush_1.0
+fAdd
+fPush 0.035
+fMul
+fPush 0.1415
+fAdd
+StaticSet2 432
+fPush 0.145
+StaticGet2 432
+fPush 0.19
+fPush 0.035
+StaticGet2 434
+StaticGet2 435
+StaticGet2 436
+StaticGet2 440
+CallNative "DRAW_RECT" 8 0
+//Draw credits text
+StaticGet1 3
+fPush_1.0
+fAdd
+fPush 0.035
+fMul
+fPush 0.125
+fAdd
+StaticSet2 433
+Call @StringBase_
+fPush 0.35
+fPush 0.35
+CallNative "SET_TEXT_SCALE" 2 0
+StaticGet2 437
+CallNative "SET_TEXT_CENTRE" 1 0
+PushString "STRING"
+CallNative "UNK_3E35563E" 1 0
+getF1 0
+CallNative "UNK_27A244D8" 1 0
+StaticGet2 438
+StaticGet2 433
+CallNative "UNK_6F8350CE" 2 0
+Return 1 0
+
+:DrawNormalOptionHighlight_
+Function 0 2 0
+fPush 0.145
+StaticGet1 4
+fPush 0.19
+fPush 0.035
+Push3 255 255 255
+StaticGet2 460
+CallNative "DRAW_RECT" 8 0
+Call @DrawBar_
+Return 0 0
+
+:DrawColorfulOptionHighlight_
+Function 1 2 0
+getF1 0
+Switch [0=@RedHighlight_][1=@GreenHighlight_][2=@YellowHighlight_]
+:RedHighlight_
+fPush 0.145
+StaticGet1 4
+fPush 0.19
+fPush 0.035
+Push3 255 0 0
+StaticGet2 460
+CallNative "DRAW_RECT" 8 0
+Jump @EndColorHighlight_
+:GreenHighlight_
+fPush 0.145
+StaticGet1 4
+fPush 0.19
+fPush 0.035
+Push3 0 255 0
+StaticGet2 460
+CallNative "DRAW_RECT" 8 0
+Jump @EndColorHighlight_
+:YellowHighlight_
+fPush 0.145
+StaticGet1 4
+fPush 0.19
+fPush 0.035
+Push3 255 255 0
+StaticGet2 460
+CallNative "DRAW_RECT" 8 0
+Jump @EndColorHighlight_
+:EndColorHighlight_
+Call @DrawBar_
+Return 1 0
+
+:DrawBar_
+Function 0 2 0
+fPush 0.06
+StaticGet1 4
+fPush -0.005
+fPush 0.035
+StaticGet2 457
+StaticGet2 458
+StaticGet2 459
+StaticGet2 441
+CallNative "DRAW_RECT" 8 0
+Return 0 0
+//>
+//>
+
+//< Main Menu
+:MainMenu_
+Function 0 2 0
+//< Display
+fPush_3.0
+StaticSet1 3
+Call @DrawBackground_
+Call @DrawNormalOptionHighlight_
+PushString "Main Menu"
+Call @AddTitle_
+fPush_1.0
+PushString "Misc"
+Call @AddOption_
+fPush_2.0
+PushString "Settings"
+Call @AddOption_
+fPush_3.0
+PushString "Credits"
+Call @AddOption_
+//>
+//< Options
+Call @CheckAPressed_
+push_1
+JumpEQ @MainMenuOptionsController_
+Jump @EndMainMenu_
+:MainMenuOptionsController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@MainMenuWeather_][2=@MainMenuSettings_][3=@MainMenuCredits_]
+:MainMenuWeather_
+Push1 11
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndMainMenu_
+:MainMenuSettings_
+push_3
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndMainMenu_
+:MainMenuCredits_
+push_2
+StaticSet1 1
+Call @ChangeSubmenu_
+//>
+:EndMainMenu_
+Return 0 0
+//>
+
+//< Settings
+//< Main
+:Settings_
+//< Display
+Function 0 2 0
+fPush_2.0
+StaticSet1 3
+push_1
+StaticSet1 8
+Call @DrawBackground_
+PushString "Settings"
+Call @AddTitle_
+fPush_1.0
+PushString "Color Options"
+Call @AddOption_
+fPush_2.0
+PushString "Center Banner Text"
+Call @AddOption_
+//>
+//< Highlight
+StaticGet1 2
+FtoI
+Switch [1=@SettingsHighlightNormal_][2=@SettingsHighlightCenterSecondary_]
+:SettingsHighlightNormal_
+Call @DrawNormalOptionHighlight_
+Jump @SettingsOptions_
+:SettingsHighlightCenterSecondary_
+Call @SettingsCenterSecondaryTextHighlightChecker_
+Jump @SettingsOptions_
+:SettingsHighlightRed_
+push_0
+Call @DrawColorfulOptionHighlight_
+//>
+//< Options
+:SettingsOptions_
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsController_
+Jump @EndSettings_
+:SettingsController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@SettingsT&CColor_][2=@SettingsCenterSecondary_]
+:SettingsT&CColor_
+push_4
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettings_
+:SettingsCenterSecondary_
+Call @ToggleCenterSecondary_
+//>
+:EndSettings_
+Return 0 0
+//>
+
+//< Color Stuff
+:SettingsColorStuff_
+Function 0 2 0
+fPush_5.0
+StaticSet1 3
+push_3
+StaticSet1 8
+Call @DrawBackground_
+PushString "Color Options"
+Call @AddTitle_
+fPush_1.0
+PushString "Banner Colors"
+Call @AddOption_
+fPush_2.0
+PushString "Bar Colors"
+Call @AddOption_
+fPush_3.0
+PushString "Opaque Background"
+Call @AddOption_
+fPush_4.0
+PushString "Opaque Banners"
+Call @AddOption_
+fPush_5.0
+PushString "Opaque Highlight"
+Call @AddOption_
+//< Highlights
+StaticGet1 2
+FtoI
+Switch [3=@SettingsColorStuffOpaqueBackHi_][4=@SettingsColorStuffOpaqueBanHi_][5=@SettingsColorStuffOpaqueHi_]
+Call @DrawNormalOptionHighlight_
+Jump @SettingsColorStuffOptions_
+:SettingsColorStuffOpaqueBackHi_
+StaticGet2 442
+Push1 155
+JumpEQ @SettingsColorStuffHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @SettingsColorStuffOptions_
+:SettingsColorStuffOpaqueBanHi_
+StaticGet2 440
+Push1 155
+JumpEQ @SettingsColorStuffHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @SettingsColorStuffOptions_
+:SettingsColorStuffOpaqueHi_
+StaticGet2 460
+Push1 100
+JumpEQ @SettingsColorStuffHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @SettingsColorStuffOptions_
+:SettingsColorStuffHighlightRed_
+push_0
+Call @DrawColorfulOptionHighlight_
+//>
+//Option's functions
+:SettingsColorStuffOptions_
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsColorController_
+Jump @EndSettingsColorStuff_
+:SettingsColorController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@SettingsBaseColorsController_][2=@SettingsBarColorsController_][3=@OpaqueBackground_][4=@OpaqueBanners_][5=@OpaqueHighlight_]
+:SettingsBaseColorsController_
+push_5
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsColorStuff_
+:SettingsBarColorsController_
+Push1 8
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsColorStuff_
+:OpaqueBackground_
+StaticGet2 442
+Push1 155
+JumpEQ @TurnOnOpaqueBackground_
+Push1 155
+StaticSet2 442
+Jump @EndSettingsColorStuff_
+:TurnOnOpaqueBackground_
+Push1 255
+StaticSet2 442
+Jump @EndSettingsColorStuff_
+:OpaqueBanners_
+StaticGet2 440
+Push1 155
+JumpEQ @TurnOnOpaqueBanners_
+Push1 155
+StaticSet2 440
+Jump @EndSettingsColorStuff_
+:TurnOnOpaqueBanners_
+Push1 255
+StaticSet2 440
+Jump @EndSettingsColorStuff_
+:OpaqueHighlight_
+StaticGet2 460
+Push1 100
+JumpEQ @TurnOnOpaqueHighlight_
+Push1 100
+StaticSet2 460
+Jump @EndSettingsColorStuff_
+:TurnOnOpaqueHighlight_
+Push1 255
+StaticSet2 460
+:EndSettingsColorStuff_
+Return 0 0
+//>
+
+//< Color Stuff for Base
+:SettingsBaseColors_
+Function 0 2 0
+fPush_5.0
+StaticSet1 3
+push_4
+StaticSet1 8
+Call @DrawBackground_
+PushString "Base Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Vivid Colors"
+Call @AddOption_
+fPush_2.0
+PushString "Dark Colors"
+Call @AddOption_
+fPush_3.0
+PushString "Original Blue"
+Call @AddOption_
+fPush_4.0
+PushString "Random Color"
+Call @AddOption_
+fPush_5.0
+PushString "Rainbow Toggle"
+Call @AddOption_
+//Highlights
+StaticGet1 2
+FtoI
+Switch [5=@SettingsBaseColorsRainbowHi_]
+Call @DrawNormalOptionHighlight_
+Jump @SettingsBaseColorsOptions_
+:SettingsBaseColorsRainbowHi_
+StaticGet1 10
+Push1 9
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @SettingsBaseColorsHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @SettingsBaseColorsOptions_
+:SettingsBaseColorsHighlightRed_
+push_0
+Call @DrawColorfulOptionHighlight_
+//Option's functions
+:SettingsBaseColorsOptions_
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsBaseColorController_
+Jump @EndSettingsBaseColorController_
+:SettingsBaseColorController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@SettingsVividBaseColors1_][2=@SettingsDarkBaseColors1_][3=@SettingsBaseColorControllerOriginal_][4=@SettingsBaseColorControllerRandom_][5=@SettingsBaseColorControllerRainbow_]
+:SettingsVividBaseColors1_
+push_6
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsBaseColorController_
+:SettingsDarkBaseColors1_
+push_7
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsBaseColorController_
+:SettingsBaseColorControllerOriginal_
+push_0
+StaticSet2 434
+push_0
+StaticSet2 435
+Push1 130
+StaticSet2 436
+Jump @EndSettingsBaseColorController_
+:SettingsBaseColorControllerRandom_
+Call @GetRandomRGB_
+StaticSet2 434
+Call @GetRandomRGB_
+StaticSet2 435
+Call @GetRandomRGB_
+StaticSet2 436
+Jump @EndSettingsBaseColorController_
+:SettingsBaseColorControllerRainbow_
+StaticGet1 10
+Push1 9
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @TurnOnRainbowBanner_
+pStatic1 10
+Push1 9
+CallNative "CLEAR_BIT" 2 0
+Jump @EndSettingsBaseColorController_
+:TurnOnRainbowBanner_
+pStatic1 10
+Push1 9
+CallNative "SET_BIT" 2 0
+:EndSettingsBaseColorController_
+Return 0 0
+//>
+
+//< Color Stuff for Vivid Base Colors
+:SettingsVividBaseColors_
+Function 0 2 0
+fPush 9
+StaticSet1 3
+push_5
+StaticSet1 8
+Call @DrawBackground_
+Call @DrawNormalOptionHighlight_
+PushString "Vivid Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Red"
+Call @AddOption_
+fPush_2.0
+PushString "Pink"
+Call @AddOption_
+fPush_3.0
+PushString "Orange"
+Call @AddOption_
+fPush_4.0
+PushString "Yellow"
+Call @AddOption_
+fPush_5.0
+PushString "Lime Green"
+Call @AddOption_
+fPush_6.0
+PushString "Cyan"
+Call @AddOption_
+fPush_7.0
+PushString "Indigo"
+Call @AddOption_
+fPush 8
+PushString "Cream"
+Call @AddOption_
+fPush 9
+PushString "White"
+Call @AddOption_
+//Option's functions
+Call @CheckAPressed_
+push_1
+JumpEQ @VividBaseColorsController_
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseColorsController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@VividBaseRed_][2=@VividBasePink_][3=@VividBaseOrange_][4=@VividBaseYellow_][5=@VividBaseLimeGreen_][6=@VividBaseCyan_][7=@VividBaseIndigo_][8=@VividBaseCream_][9=@VividBaseWhite_]
+:VividBaseRed_
+Push1 225
+StaticSet2 434
+push_0
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBasePink_
+Push1 225
+StaticSet2 434
+push_0
+StaticSet2 435
+Push1 205
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseOrange_
+Push1 225
+StaticSet2 434
+Push1 135
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseYellow_
+Push1 225
+StaticSet2 434
+Push1 225
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseLimeGreen_
+Push_0
+StaticSet2 434
+Push1 225
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseCyan_
+Push_0
+StaticSet2 434
+Push1 225
+StaticSet2 435
+Push1 225
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseIndigo_
+Push1 165
+StaticSet2 434
+push_0
+StaticSet2 435
+Push1 165
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseCream_
+Push1 255
+StaticSet2 434
+Push1 252
+StaticSet2 435
+Push1 208
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:VividBaseWhite_
+Push1 240
+StaticSet2 434
+Push1 240
+StaticSet2 435
+Push1 240
+StaticSet2 436
+Jump @EndSettingsSecondaryVividBaseColors_
+:EndSettingsSecondaryVividBaseColors_
+Return 0 0
+//>
+
+//< Color Stuff for Dark Base Colors
+:SettingsDarkBaseColors_
+Function 0 2 0
+fPush 9
+StaticSet1 3
+push_5
+StaticSet1 8
+Call @DrawBackground_
+Call @DrawNormalOptionHighlight_
+PushString "Dark Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Red"
+Call @AddOption_
+fPush_2.0
+PushString "Tornato Red"
+Call @AddOption_
+fPush_3.0
+PushString "Green"
+Call @AddOption_
+fPush_4.0
+PushString "Blue"
+Call @AddOption_
+fPush_5.0
+PushString "Purple"
+Call @AddOption_
+fPush_6.0
+PushString "Teal"
+Call @AddOption_
+fPush_7.0
+PushString "Brown"
+Call @AddOption_
+fPush 8
+PushString "Grey"
+Call @AddOption_
+fPush 9
+PushString "Black"
+Call @AddOption_
+//Option's functions
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsSubControllerDarkBaseColors_
+Jump @EndSettingsSecondaryDarkBaseColors_
+:SettingsSubControllerDarkBaseColors_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@DarkBaseRed_][2=@DarkBaseTornatoRed_][3=@DarkBaseGreen_][4=@DarkBaseBlue_][5=@DarkBasePurple_][6=@DarkBaseTeal_][7=@DarkBaseBrown_][8=@DarkBaseGrey_][9=@DarkBaseBlack_]
+:DarkBaseRed_
+Push1 84
+StaticSet2 434
+push_0
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseTornatoRed_
+Push1 100
+StaticSet2 434
+Push1 38
+StaticSet2 435
+Push1 16
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseGreen_
+push_0
+StaticSet2 434
+Push1 84
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseBlue_
+push_0
+StaticSet2 434
+push_0
+StaticSet2 435
+Push1 84
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBasePurple_
+Push1 84
+StaticSet2 434
+push_0
+StaticSet2 435
+Push1 84
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseTeal_
+push_0
+StaticSet2 434
+Push1 84
+StaticSet2 435
+Push1 84
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseBrown_
+Push1 73
+StaticSet2 434
+Push1 41
+StaticSet2 435
+Push1 24
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseGrey_
+Push1 4
+StaticSet2 434
+Push1 4
+StaticSet2 435
+Push1 4
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:DarkBaseBlack_
+push_0
+StaticSet2 434
+push_0
+StaticSet2 435
+push_0
+StaticSet2 436
+Jump @EndSettingsSecondaryDarkBaseColors_
+:EndSettingsSecondaryDarkBaseColors_
+Return 0 0
+//>
+
+//< Color Stuff for Bar
+:SettingsBarColors_
+Function 0 2 0
+fPush_6.0
+StaticSet1 3
+push_4
+StaticSet1 8
+Call @DrawBackground_
+PushString "Bar Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Vivid Colors"
+Call @AddOption_
+fPush_2.0
+PushString "Dark Colors"
+Call @AddOption_
+fPush_3.0
+PushString "Original Red"
+Call @AddOption_
+fPush_4.0
+PushString "Random Color"
+Call @AddOption_
+fPush_5.0
+PushString "Rainbow Toggle"
+Call @AddOption_
+fPush_6.0
+PushString "No Color"
+Call @AddOption_
+//Highlight
+StaticGet1 2
+FtoI
+Switch [5=@SettingsBarColorRainbowHi_]
+Call @DrawNormalOptionHighlight_
+Jump @SettingsBarColorsOptions_
+:SettingsBarColorRainbowHi_
+StaticGet1 10
+Push1 10
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @SettingsBarColorsHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @SettingsBarColorsOptions_
+:SettingsBarColorsHighlightRed_
+push_0
+Call @DrawColorfulOptionHighlight_
+//Option's functions
+:SettingsBarColorsOptions_
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsBarColorController_
+Jump @EndSettingsBarColorController_
+:SettingsBarColorController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@SettingsVividBarColors1_][2=@SettingsDarkBarColors1_][3=@SettingsBarColorControllerOriginal_][4=@SettingsBarColorControllerRandom_][5=@SettingsBarColorControllerRainbow_][6=@SettingsBarColorControllerNone_]
+:SettingsVividBarColors1_
+Push1 9
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsBarColorController_
+:SettingsDarkBarColors1_
+Push1 10
+StaticSet1 1
+Call @ChangeSubmenu_
+Jump @EndSettingsBarColorController_
+:SettingsBarColorControllerOriginal_
+Push1 255
+StaticSet2 457
+push_0
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsBarColorController_
+:SettingsBarColorControllerRandom_
+Call @GetRandomRGB_
+StaticSet2 457
+Call @GetRandomRGB_
+StaticSet2 458
+Call @GetRandomRGB_
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsBarColorController_
+:SettingsBarColorControllerRainbow_
+StaticGet1 10
+Push1 10
+CallNative "IS_BIT_SET" 2 1
+JumpFalse @TurnOnRainbowBar_
+pStatic1 10
+Push1 10
+CallNative "CLEAR_BIT" 2 0
+Jump @EndSettingsBarColorController_
+:TurnOnRainbowBar_
+pStatic1 10
+Push1 10
+CallNative "SET_BIT" 2 0
+Jump @EndSettingsBarColorController_
+:SettingsBarColorControllerNone_
+push_0
+StaticSet2 441
+Jump @EndSettingsBarColorController_
+:EndSettingsBarColorController_
+Return 0 0
+//>
+
+//< Color Stuff for Vivid Bar Colors
+:SettingsVividBarColors_
+Function 0 2 0
+fPush 9
+StaticSet1 3
+Push1 8
+StaticSet1 8
+Call @DrawBackground_
+Call @DrawNormalOptionHighlight_
+PushString "Vivid Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Red"
+Call @AddOption_
+fPush_2.0
+PushString "Pink"
+Call @AddOption_
+fPush_3.0
+PushString "Orange"
+Call @AddOption_
+fPush_4.0
+PushString "Yellow"
+Call @AddOption_
+fPush_5.0
+PushString "Lime Green"
+Call @AddOption_
+fPush_6.0
+PushString "Cyan"
+Call @AddOption_
+fPush_7.0
+PushString "Indigo"
+Call @AddOption_
+fPush 8
+PushString "Cream"
+Call @AddOption_
+fPush 9
+PushString "White"
+Call @AddOption_
+//Option's functions
+Call @CheckAPressed_
+push_1
+JumpEQ @VividBarColorsController_
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarColorsController_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@VividBarRed_][2=@VividBarPink_][3=@VividBarOrange_][4=@VividBarYellow_][5=@VividBarLimeGreen_][6=@VividBarCyan_][7=@VividBarIndigo_][8=@VividBarCream_][9=@VividBarWhite_]
+:VividBarRed_
+Push1 225
+StaticSet2 457
+push_0
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarPink_
+Push1 225
+StaticSet2 457
+push_0
+StaticSet2 458
+Push1 205
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarOrange_
+Push1 225
+StaticSet2 457
+Push1 135
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarYellow_
+Push1 225
+StaticSet2 457
+Push1 225
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarLimeGreen_
+Push_0
+StaticSet2 457
+Push1 225
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarCyan_
+Push_0
+StaticSet2 457
+Push1 225
+StaticSet2 458
+Push1 225
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarIndigo_
+Push1 165
+StaticSet2 457
+push_0
+StaticSet2 458
+Push1 165
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarCream_
+Push1 255
+StaticSet2 457
+Push1 252
+StaticSet2 458
+Push1 208
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:VividBarWhite_
+Push1 240
+StaticSet2 457
+Push1 240
+StaticSet2 458
+Push1 240
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryVividBarColors_
+:EndSettingsSecondaryVividBarColors_
+Return 0 0
+//>
+
+//< Color Stuff for Dark Bar Colors
+:SettingsDarkBarColors_
+Function 0 2 0
+fPush 9
+StaticSet1 3
+Push1 8
+StaticSet1 8
+Call @DrawBackground_
+Call @DrawNormalOptionHighlight_
+PushString "Dark Colors"
+Call @AddTitle_
+fPush_1.0
+PushString "Red"
+Call @AddOption_
+fPush_2.0
+PushString "Tornato Red"
+Call @AddOption_
+fPush_3.0
+PushString "Green"
+Call @AddOption_
+fPush_4.0
+PushString "Blue"
+Call @AddOption_
+fPush_5.0
+PushString "Purple"
+Call @AddOption_
+fPush_6.0
+PushString "Teal"
+Call @AddOption_
+fPush_7.0
+PushString "Brown"
+Call @AddOption_
+fPush 8
+PushString "Grey"
+Call @AddOption_
+fPush 9
+PushString "Black"
+Call @AddOption_
+//Option's functions
+Call @CheckAPressed_
+push_1
+JumpEQ @SettingsSubControllerDarkBarColors_
+Jump @EndSettingsSecondaryDarkBarColors_
+:SettingsSubControllerDarkBarColors_
+PushString "SELECT"
+Call @PlayFrontendSound_
+StaticGet1 2
+FtoI
+Switch [1=@DarkBarRed_][2=@DarkBarTornatoRed_][3=@DarkBarGreen_][4=@DarkBarBlue_][5=@DarkBarPurple_][6=@DarkBarTeal_][7=@DarkBarBrown_][8=@DarkBarGrey_][9=@DarkBarBlack_]
+:DarkBarRed_
+Push1 84
+StaticSet2 457
+push_0
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarTornatoRed_
+Push1 100
+StaticSet2 457
+Push1 38
+StaticSet2 458
+Push1 16
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarGreen_
+push_0
+StaticSet2 457
+Push1 84
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarBlue_
+push_0
+StaticSet2 457
+push_0
+StaticSet2 458
+Push1 84
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarPurple_
+Push1 84
+StaticSet2 457
+push_0
+StaticSet2 458
+Push1 84
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarTeal_
+push_0
+StaticSet2 457
+Push1 84
+StaticSet2 458
+Push1 84
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarBrown_
+Push1 73
+StaticSet2 457
+Push1 41
+StaticSet2 458
+Push1 24
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarGrey_
+Push1 4
+StaticSet2 457
+Push1 4
+StaticSet2 458
+Push1 4
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:DarkBarBlack_
+push_0
+StaticSet2 457
+push_0
+StaticSet2 458
+push_0
+StaticSet2 459
+Push1 255
+StaticSet2 441
+Jump @EndSettingsSecondaryDarkBarColors_
+:EndSettingsSecondaryDarkBarColors_
+Return 0 0
+//>
+
+//< Utilities
+//< Center Secondary Text Highlighter
+:SettingsCenterSecondaryTextHighlightChecker_
+Function 0 2 0
+StaticGet2 437
+push_0
+JumpEQ @CenterSecondaryHighlightRed_
+push_1
+Call @DrawColorfulOptionHighlight_
+Jump @EndCenterSecondaryHighlighter_
+:CenterSecondaryHighlightRed_
+push_0
+Call @DrawColorfulOptionHighlight_
+:EndCenterSecondaryHighlighter_
+Return 0 0
+//>
+
+//< Toggle Center Secondary
+:ToggleCenterSecondary_
+Function 0 2 0
+StaticGet2 437
+push_0
+JumpEQ @CenterSecondary_
+push_0
+StaticSet2 437
+fPush 0.07
+StaticSet2 438
+Jump @EndToggleCenterSecondary_
+:CenterSecondary_
+push_1
+StaticSet2 437
+fPush 0.145
+StaticSet2 438
+:EndToggleCenterSecondary_
+Return 0 0
+//>
+
+//>
+//< Credits
+:Credits_
+Function 0 2 0
+push_1
+StaticSet1 8
+PushString "Credits"
+Call @AddTitle_
+fPush_1.0
+PushString "Menu base by 2much4u"
+Call @AddConsoleEntry_
+fPush_2.0
+PushString ""
+Call @AddConsoleEntry_
+fPush_3.0
+PushString "Design and color picker by"
+Call @AddConsoleEntry_
+fPush_4.0
+PushString "Awakening"
+Call @AddConsoleEntry_
+fPush_5.0
+PushString ""
+Call @AddConsoleEntry_
+fPush_6.0
+PushString "Misc. help from Buffeting"
+Call @AddConsoleEntry_
+fPush_7.0
+PushString ""
+Call @AddConsoleEntry_
+fPush 8
+PushString "Scripts made possible by"
+Call @AddConsoleEntry_
+fPush 9
+PushString "HairyMineFart"
+Call @AddConsoleEntry_
+Return 0 0
